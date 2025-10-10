@@ -1,0 +1,317 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >
+  DigiWorks Studio - Learner Lab friendly single-stack deployment (VPC, EC2, RDS, S3, IAM).
+  Designed to stay within AWS Academy Learner Lab limits (single EC2, single RDS, small sizes).
+
+Parameters:
+  KeyPairName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Description: Name of an existing EC2 KeyPair for SSH access (use lab keypair if available)
+  DBUsername:
+    Type: String
+    Default: digiworks_admin
+    MinLength: 1
+    MaxLength: 16
+    Description: RDS master username
+  DBPassword:
+    Type: String
+    NoEcho: true
+    MinLength: 8
+    MaxLength: 41
+    Description: RDS master password (NoEcho)
+  LatestAmi:
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
+    Description: SSM Parameter for latest Amazon Linux 2 AMI
+
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      - Label: { default: "Deployment Settings" }
+        Parameters: [ KeyPairName, DBUsername, DBPassword ]
+
+Resources:
+
+  ### NETWORKING ###
+  DigiVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: DigiWorks-VPC
+
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: DigiWorks-IGW
+
+  AttachIGW:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref DigiVPC
+      InternetGatewayId: !Ref InternetGateway
+
+  PublicSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref DigiVPC
+      CidrBlock: 10.0.1.0/24
+      MapPublicIpOnLaunch: true
+      AvailabilityZone: !Select [ 0, !GetAZs "" ]
+      Tags:
+        - Key: Name
+          Value: DigiWorks-Public-Subnet
+
+  PrivateSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref DigiVPC
+      CidrBlock: 10.0.2.0/24
+      AvailabilityZone: !Select [ 0, !GetAZs "" ]
+      Tags:
+        - Key: Name
+          Value: DigiWorks-Private-Subnet
+
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref DigiVPC
+      Tags:
+        - Key: Name
+          Value: DigiWorks-Public-RT
+
+  PublicRoute:
+    Type: AWS::EC2::Route
+    DependsOn: AttachIGW
+    Properties:
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGateway
+
+  PublicSubnetRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PublicSubnet
+      RouteTableId: !Ref PublicRouteTable
+
+  ### S3 BUCKETS ###
+  MediaBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub digiworks-media-${AWS::AccountId}-${AWS::Region}
+      VersioningConfiguration:
+        Status: Enabled
+      LifecycleConfiguration:
+        Rules:
+          - Id: "TransitionToIA"
+            Status: Enabled
+            Transitions:
+              - StorageClass: STANDARD_IA
+                TransitionInDays: 30
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      Tags:
+        - Key: Name
+          Value: DigiWorks-MediaBucket
+
+  BackupBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub digiworks-backup-${AWS::AccountId}-${AWS::Region}
+      VersioningConfiguration:
+        Status: Enabled
+      LifecycleConfiguration:
+        Rules:
+          - Id: "ExpireOldBackups"
+            Status: Enabled
+            ExpirationInDays: 365
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      Tags:
+        - Key: Name
+          Value: DigiWorks-BackupBucket
+
+  ### IAM FOR EC2 (S3 Access) ###
+  EC2Role:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action: sts:AssumeRole
+      Path: "/"
+      Policies:
+        - PolicyName: DigiWorksS3Access
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:PutObject
+                  - s3:GetObject
+                  - s3:DeleteObject
+                  - s3:ListBucket
+                Resource:
+                  - !Sub "${MediaBucket.Arn}/*"
+                  - !Sub "${BackupBucket.Arn}/*"
+                  - !GetAtt MediaBucket.Arn
+                  - !GetAtt BackupBucket.Arn
+
+  EC2InstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: "/"
+      Roles:
+        - !Ref EC2Role
+
+  ### SECURITY GROUPS ###
+  WebServerSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow HTTP and SSH to web server
+      VpcId: !Ref DigiVPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: DigiWorks-Web-SG
+
+  DatabaseSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow MySQL access from WebServerSG only
+      VpcId: !Ref DigiVPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 3306
+          ToPort: 3306
+          SourceSecurityGroupId: !Ref WebServerSG
+      Tags:
+        - Key: Name
+          Value: DigiWorks-DB-SG
+
+  ### RDS MYSQL ###
+  DBSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: Subnet group for DigiWorks RDS
+      SubnetIds:
+        - !Ref PrivateSubnet
+      Tags:
+        - Key: Name
+          Value: DigiWorks-DB-SubnetGroup
+
+  DigiRDS:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBName: digiworks_db
+      AllocatedStorage: 20
+      DBInstanceClass: db.t3.micro
+      Engine: mysql
+      EngineVersion: "8.0"
+      MasterUsername: !Ref DBUsername
+      MasterUserPassword: !Ref DBPassword
+      VPCSecurityGroups:
+        - !Ref DatabaseSG
+      DBSubnetGroupName: !Ref DBSubnetGroup
+      MultiAZ: false
+      PubliclyAccessible: false
+      StorageType: gp2
+      BackupRetentionPeriod: 7
+    DeletionPolicy: Snapshot
+
+  ### EC2 WEB SERVER ###
+  WebServerInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      KeyName: !Ref KeyPairName
+      ImageId: !Ref LatestAmi
+      IamInstanceProfile: !Ref EC2InstanceProfile
+      NetworkInterfaces:
+        - AssociatePublicIpAddress: true
+          DeviceIndex: 0
+          GroupSet:
+            - !Ref WebServerSG
+          SubnetId: !Ref PublicSubnet
+      Tags:
+        - Key: Name
+          Value: DigiWorks-WebServer
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash -xe
+          # Basic update and install web stack
+          yum update -y
+          yum install -y httpd php mysql
+          systemctl enable httpd
+          systemctl start httpd
+          # write simple index showing DB endpoint
+          cat > /var/www/html/index.html <<'HTML'
+          <!doctype html>
+          <html>
+            <head><meta charset="utf-8"><title>DigiWorks Studio</title></head>
+            <body>
+              <h1>DigiWorks Studio - Web Server</h1>
+              <p>RDS Endpoint: ${DBEndpoint}</p>
+            </body>
+          </html>
+          HTML
+          # install aws cli if needed (CloudShell may not require)
+          yum install -y aws-cli
+          # create a sample file and upload to S3 media bucket using instance role
+          echo "Sample media file from $(hostname -f) at $(date)" > /tmp/sample_media.txt
+          aws s3 cp /tmp/sample_media.txt s3://${MediaBucket}/sample_media_from_instance.txt
+
+    Metadata:
+      Comment: "UserData writes a page showing the DB endpoint and uploads a sample file to S3."
+
+  ### ALLOW REFERENCE OF RDS ENDPOINT INTO USERDATA ###
+  DBEndpoint:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: !Sub "/digiworks/rds-endpoint-${AWS::StackName}"
+      Type: String
+      Value: !GetAtt DigiRDS.Endpoint.Address
+
+Outputs:
+  WebServerPublicIP:
+    Description: Public IP of the web server
+    Value: !GetAtt WebServerInstance.PublicIp
+
+  WebServerPublicDNS:
+    Description: Public DNS of the web server
+    Value: !GetAtt WebServerInstance.PublicDnsName
+
+  DatabaseEndpoint:
+    Description: RDS endpoint address
+    Value: !GetAtt DigiRDS.Endpoint.Address
+
+  MediaBucketName:
+    Description: Media S3 bucket name
+    Value: !Ref MediaBucket
+
+  BackupBucketName:
+    Description: Backup S3 bucket name
+    Value: !Ref BackupBucket
