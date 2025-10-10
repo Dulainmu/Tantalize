@@ -177,43 +177,6 @@ export default function Home() {
     }
   };
 
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 60 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: "easeOut" }
-    }
-  };
-
-  const staggerContainer = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const titleReveal = {
-    hidden: { opacity: 0, y: 50, skewY: 6 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      skewY: 0,
-      transition: { duration: 0.7, ease: "easeOut" }
-    }
-  };
-
-  const subtleRise = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
-    }
-  };
-
   return (
     <div className="min-h-screen bg-primary-950 overflow-x-hidden">
       {/* Navigation */}
@@ -417,7 +380,7 @@ export default function Home() {
         {/* Hero Content */}
         <div className="relative z-20 text-center px-6 max-w-6xl mx-auto">
           <motion.div
-            variants={staggerContainer}
+            
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.35 }}
@@ -425,7 +388,8 @@ export default function Home() {
             {/* Main Title with 3D Tilt */}
             <motion.div
               className="mb-6 flex justify-center items-center perspective-1000"
-              variants={fadeInUp}
+              initial={{ opacity: 0, y: 60 }}
+              animate={{ opacity: 1, y: 0 }}
               whileHover={{
                 rotateY: 5,
                 rotateX: -5,
@@ -451,7 +415,7 @@ export default function Home() {
             {/* CTA Button */}
             <motion.div
               className="flex justify-center items-center mt-8 sm:mt-12"
-              variants={fadeInUp}
+              initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
             >
               <motion.a
                 href="https://bio.site/tantalizeofficial"
@@ -481,10 +445,10 @@ export default function Home() {
       <motion.section
         id="committee"
         className="relative overflow-hidden py-24 px-6 bg-gradient-to-b from-black via-primary-950 to-primary-900"
-        variants={subtleRise}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: false, amount: 0.2 }}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true, amount: 0.2 }}
       >
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-white/5 via-transparent to-transparent" />
@@ -494,25 +458,25 @@ export default function Home() {
         <div className="relative max-w-7xl mx-auto space-y-20">
           <motion.div
             className="text-center space-y-5"
-            variants={staggerContainer}
+            
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.35 }}
           >
             <motion.p
-              variants={subtleRise}
+              initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}
               className="text-xs uppercase tracking-[0.6em] text-gray-500"
             >
               Committee 2025
             </motion.p>
             <motion.h2
-              variants={titleReveal}
+              initial={{ opacity: 0, y: 50, skewY: 6 }} whileInView={{ opacity: 1, y: 0, skewY: 0 }} transition={{ duration: 0.7 }} viewport={{ once: true }}
               className="font-display text-4xl md:text-6xl font-semibold text-white/95 tracking-[0.08em] md:tracking-[0.12em] leading-tight drop-shadow-[0_12px_28px_rgba(10,14,39,0.45)]"
             >
               Meet the Team Behind the Stage
             </motion.h2>
             <motion.p
-              variants={subtleRise}
+              initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}
               className="text-lg text-gray-300 max-w-3xl mx-auto"
             >
               A collective of visionaries, planners, and creators orchestrating Sri Lanka&apos;s premier student show night.
@@ -523,27 +487,27 @@ export default function Home() {
           <div className="space-y-10">
             <motion.div
               className="flex flex-col md:flex-row md:items-end md:justify-between gap-6"
-              variants={staggerContainer}
+              
               initial="hidden"
               whileInView="visible"
               viewport={{ once: false, amount: 0.3 }}
             >
               <div>
                 <motion.p
-                  variants={subtleRise}
+                  initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}
                   className="text-xs uppercase tracking-[0.5em] text-gold-500"
                 >
                   Leadership
                 </motion.p>
                 <motion.h3
-                  variants={titleReveal}
+                  initial={{ opacity: 0, y: 50, skewY: 6 }} whileInView={{ opacity: 1, y: 0, skewY: 0 }} transition={{ duration: 0.7 }} viewport={{ once: true }}
                   className="font-display text-3xl md:text-4xl font-semibold text-white/95 tracking-[0.08em] mt-3 drop-shadow-[0_8px_20px_rgba(10,14,39,0.45)]"
                 >
                   Guiding the Experience
                 </motion.h3>
               </div>
               <motion.p
-                variants={subtleRise}
+                initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}
                 className="text-gray-400 max-w-xl"
               >
                 The command centre steering Tantalize with strategy, precision, and a flair for unforgettable moments.
@@ -596,25 +560,25 @@ export default function Home() {
           <div className="space-y-12">
             <motion.div
               className="text-center space-y-3"
-              variants={staggerContainer}
+              
               initial="hidden"
               whileInView="visible"
               viewport={{ once: false, amount: 0.3 }}
             >
               <motion.p
-                variants={subtleRise}
+                initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}
                 className="text-xs uppercase tracking-[0.5em] text-gold-500"
               >
                 Executive Committee
               </motion.p>
               <motion.h3
-                variants={titleReveal}
+                initial={{ opacity: 0, y: 50, skewY: 6 }} whileInView={{ opacity: 1, y: 0, skewY: 0 }} transition={{ duration: 0.7 }} viewport={{ once: true }}
                 className="font-display text-3xl md:text-4xl font-semibold text-white/95 tracking-[0.08em] drop-shadow-[0_8px_20px_rgba(10,14,39,0.45)]"
               >
                 The Operational Powerhouse
               </motion.h3>
               <motion.p
-                variants={subtleRise}
+                initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}
                 className="text-gray-400 max-w-2xl mx-auto"
               >
                 Strategic leads keeping every pillar synchronized, funded, and ready for showtime.
@@ -659,25 +623,25 @@ export default function Home() {
           <div className="space-y-12">
             <motion.div
               className="text-center space-y-3"
-              variants={staggerContainer}
+              
               initial="hidden"
               whileInView="visible"
               viewport={{ once: false, amount: 0.3 }}
             >
               <motion.p
-                variants={subtleRise}
+                initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}
                 className="text-xs uppercase tracking-[0.5em] text-gold-500"
               >
                 Teams
               </motion.p>
               <motion.h3
-                variants={titleReveal}
+                initial={{ opacity: 0, y: 50, skewY: 6 }} whileInView={{ opacity: 1, y: 0, skewY: 0 }} transition={{ duration: 0.7 }} viewport={{ once: true }}
                 className="font-display text-3xl md:text-4xl font-semibold text-white/95 tracking-[0.08em] drop-shadow-[0_8px_20px_rgba(10,14,39,0.45)]"
               >
                 Where the Magic Gets Crafted
               </motion.h3>
               <motion.p
-                variants={subtleRise}
+                initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}
                 className="text-gray-400 max-w-3xl mx-auto"
               >
                 Explore each crew and the talent driving Sri Lanka&apos;s most anticipated student night.
