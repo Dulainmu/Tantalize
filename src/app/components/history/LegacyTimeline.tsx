@@ -10,11 +10,6 @@ type YearCardProps = {
   onVisible: (year: number) => void;
 };
 
-const fadeIn = {
-  hidden: { opacity: 0, y: 36 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-};
-
 function YearCard({ data, index, active, onVisible }: YearCardProps) {
   const { ref } = useInView({
     threshold: 0.6,
@@ -35,10 +30,10 @@ function YearCard({ data, index, active, onVisible }: YearCardProps) {
     <motion.article
       ref={ref}
       className="group relative overflow-hidden rounded-[30px] border border-white/5 bg-primary-950/80 p-6 shadow-[0_40px_120px_-60px_rgba(255,215,0,0.45)] backdrop-blur-lg md:p-10"
-      initial="hidden"
-      whileInView="show"
+      initial={{ opacity: 0, y: 36 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: false, margin: "-15%" }}
-      variants={fadeIn}
+      transition={{ duration: 0.6 }}
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,215,0,0.07),_transparent_60%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
       <div className="relative flex flex-col gap-6">
