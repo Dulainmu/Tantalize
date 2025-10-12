@@ -1,20 +1,6 @@
 import { motion } from "framer-motion";
 import { missionStatement, visionStatement, missionPillars, visionHighlights } from "@/data/missionVision";
 
-const staggerChildren = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.08,
-    },
-  },
-};
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 32 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
-};
-
 export default function MissionVision() {
   return (
     <section id="mission" className="relative overflow-hidden border-y border-white/5 bg-gradient-to-b from-primary-950 via-primary-900/80 to-primary-950">
@@ -39,12 +25,18 @@ export default function MissionVision() {
       <div className="relative mx-auto flex max-w-6xl flex-col gap-16 px-6 py-20 md:py-24 lg:py-28">
         <motion.div
           className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between"
-          initial="hidden"
-          whileInView="show"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-80px" }}
-          variants={staggerChildren}
+          transition={{ staggerChildren: 0.08 }}
         >
-          <motion.div variants={fadeUp} className="max-w-xl">
+          <motion.div 
+            initial={{ opacity: 0, y: 32 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="max-w-xl"
+          >
             <p className="text-sm uppercase tracking-[0.45em] text-gold-500/80">Mission &amp; Vision 2025</p>
             <h2 className="mt-3 text-3xl font-bold md:text-4xl lg:text-5xl">
               Our legacy fuels{" "}
@@ -52,7 +44,13 @@ export default function MissionVision() {
             </h2>
           </motion.div>
 
-          <motion.div variants={fadeUp} className="relative flex items-center gap-3">
+          <motion.div 
+            initial={{ opacity: 0, y: 32 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="relative flex items-center gap-3"
+          >
             <span className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-gold-500/30 bg-primary-950/60 font-semibold text-gold-400 shadow-[0_0_28px_rgba(255,215,0,0.25)]">
               2025
             </span>
@@ -64,13 +62,16 @@ export default function MissionVision() {
 
         <motion.div
           className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,2.2fr)_minmax(0,1fr)]"
-          initial="hidden"
-          whileInView="show"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-120px" }}
-          variants={staggerChildren}
+          transition={{ staggerChildren: 0.08 }}
         >
           <motion.div
-            variants={fadeUp}
+            initial={{ opacity: 0, y: 32 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
             className="group relative overflow-hidden rounded-3xl border border-white/5 bg-white/5 px-8 py-10 shadow-[0_35px_120px_-35px_rgba(15,23,42,0.9)] backdrop-blur-xl md:px-10"
           >
             <motion.div
@@ -79,23 +80,32 @@ export default function MissionVision() {
               initial={{ opacity: 0, scale: 0.85 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
+              transition={{ duration: 0.7 }}
             />
             <motion.p
+              initial={{ opacity: 0, y: 32 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
               className="text-xs uppercase tracking-[0.4em] text-gold-500/80"
-              variants={fadeUp}
             >
               Mission
             </motion.p>
             <motion.h3
+              initial={{ opacity: 0, y: 32 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
               className="mt-2 text-2xl font-semibold text-white/95 md:text-3xl"
-              variants={fadeUp}
             >
               {missionStatement}
             </motion.h3>
             <motion.div
+              initial={{ opacity: 0, y: 32 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
               className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3"
-              variants={fadeUp}
             >
               {missionPillars.map((pillar) => (
                 <motion.div
@@ -111,7 +121,10 @@ export default function MissionVision() {
           </motion.div>
 
           <motion.div
-            variants={fadeUp}
+            initial={{ opacity: 0, y: 32 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
             className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-primary-900 via-primary-950 to-black px-8 py-10 shadow-[0_20px_60px_-20px_rgba(15,23,42,0.9)] backdrop-blur-xl md:px-10"
           >
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,215,0,0.18),_transparent_55%)]" />
