@@ -1099,3 +1099,50 @@ body {
 .stagger-delay-4 { animation-delay: 0.2s !important; }
 .stagger-delay-5 { animation-delay: 0.25s !important; }
 
+.text-gradient-gold {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.95), rgba(255, 179, 71, 0.9), rgba(255, 215, 0, 0.95));
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer-gold 4s ease-in-out infinite;
+}
+
+.mission-grid-mask {
+  position: absolute;
+  inset: 0;
+  background-size: 80px 80px;
+  background-image:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  opacity: 0.55;
+}
+
+.mission-card-halo {
+  position: absolute;
+  inset: -30%;
+  border-radius: 40px;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 215, 0, 0.25), transparent 55%);
+  filter: blur(35px);
+  pointer-events: none;
+}
+
+.legacy-starfield {
+  width: 100%;
+  height: 100%;
+  background-image:
+    radial-gradient(2px 2px at 20px 20px, rgba(255, 215, 0, 0.25) 50%, transparent),
+    radial-gradient(1px 1px at 60px 120px, rgba(255, 255, 255, 0.18) 50%, transparent),
+    radial-gradient(1.5px 1.5px at 160px 80px, rgba(255, 179, 71, 0.2) 50%, transparent);
+  background-size: 200px 200px;
+  animation: starfield-pan 30s linear infinite;
+  opacity: 0.45;
+}
+
+@keyframes starfield-pan {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-200px, -200px, 0);
+  }
+}

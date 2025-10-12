@@ -3,6 +3,8 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useRef } from 'react';
 import { QrCode, ArrowDown, Volume2, VolumeX } from 'lucide-react';
+import MissionVision from './components/vision/MissionVision';
+import LegacyTimeline from './components/history/LegacyTimeline';
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -440,6 +442,9 @@ export default function Home() {
           <ArrowDown className="w-6 h-6 text-gold-500" />
         </motion.div>
       </section>
+
+      <MissionVision />
+      <LegacyTimeline />
 
       {/* Committee Section */}
       <motion.section
