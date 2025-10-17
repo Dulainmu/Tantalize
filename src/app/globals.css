@@ -1,7 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
+
+/* The Seasons Font - Using Playfair Display as fallback until font file is added */
+@font-face {
+  font-family: 'The Seasons';
+  src: url('/fonts/TheSeasons.woff2') format('woff2'),
+       url('/fonts/TheSeasons.woff') format('woff'),
+       url('/fonts/TheSeasons.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   --background: #0A0E27;
@@ -22,11 +33,20 @@ html {
 }
 
 body {
-  background: var(--background);
+  background: var(--background) url('/bg-texture.svg');
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color: var(--foreground);
   font-family: 'Inter', system-ui, sans-serif;
   overflow-x: hidden;
   line-height: 1.6;
+}
+
+/* Background texture - applied globally to body now */
+.bg-texture {
+  position: relative;
 }
 
 /* Custom scrollbar */
@@ -51,6 +71,13 @@ body {
 ::selection {
   background: rgba(255, 215, 0, 0.3);
   color: #ffffff;
+}
+
+/* The Seasons Font Classes */
+h1, h2, h3, .heading, .hero-title, .section-title {
+  font-family: 'The Seasons', 'Playfair Display', 'Poppins', serif;
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 /* Smooth animations for all elements */
@@ -1145,4 +1172,22 @@ body {
   100% {
     transform: translate3d(-200px, -200px, 0);
   }
+}
+
+/* Enhanced texture background for specific sections */
+.section-with-texture {
+  position: relative;
+}
+
+.section-with-texture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/bg-texture.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.95;
+  pointer-events: none;
+  z-index: 0;
 }

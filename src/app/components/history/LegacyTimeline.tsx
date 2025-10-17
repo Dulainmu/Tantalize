@@ -109,12 +109,9 @@ export default function LegacyTimeline() {
   }, [activeYear]);
 
   return (
-    <section id="legacy" className="relative overflow-hidden bg-gradient-to-b from-primary-950 via-primary-900/70 to-primary-950 py-24">
+    <section id="legacy" className="relative overflow-hidden py-24">
       <div className="absolute inset-0">
         <div className="legacy-starfield pointer-events-none" />
-        <div className="absolute left-1/4 top-1/3 h-40 w-40 rounded-full bg-gold-500/10 blur-[110px]" />
-        <div className="absolute right-1/5 top-1/4 h-40 w-40 rounded-full bg-indigo-500/10 blur-[110px]" />
-        <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-primary-950 via-primary-950/40 to-transparent" />
       </div>
 
       <div className="relative mx-auto flex max-w-6xl flex-col gap-16 px-6">

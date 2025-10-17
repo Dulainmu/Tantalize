@@ -180,7 +180,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-primary-950 overflow-x-hidden">
+    <div className="min-h-screen overflow-x-hidden">
       {/* Navigation */}
       <motion.nav 
         className="fixed top-0 left-0 right-0 z-50 px-6 py-3"
@@ -449,17 +449,12 @@ export default function Home() {
       {/* Committee Section */}
       <motion.section
         id="committee"
-        className="relative overflow-hidden py-24 px-6 bg-gradient-to-b from-black via-primary-950 to-primary-900"
+        className="relative overflow-hidden py-24 px-6"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true, amount: 0.2 }}
       >
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-white/5 via-transparent to-transparent" />
-          <div className="absolute inset-x-12 bottom-0 h-40 rounded-full bg-gradient-to-t from-gold-500/12 via-transparent to-transparent blur-2xl" />
-        </div>
-
         <div className="relative max-w-7xl mx-auto space-y-20">
           <motion.div
             className="text-center space-y-5"
@@ -744,7 +739,7 @@ export default function Home() {
       </motion.section>
 
       {/* About Section */}
-      <section id="about" className="py-20 px-6 bg-gradient-to-b from-primary-950 to-primary-900">
+      <section id="about" className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
           <motion.div
             className="text-center mb-16"
@@ -794,7 +789,7 @@ export default function Home() {
       </section>
 
       {/* Lineup Section */}
-      <section id="lineup" className="py-20 px-6 bg-gradient-to-b from-primary-900 to-primary-950">
+      <section id="lineup" className="py-20 px-6">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="text-center mb-16"
@@ -844,7 +839,7 @@ export default function Home() {
       </section>
 
       {/* Schedule Section */}
-      <section id="schedule" className="py-20 px-6 bg-gradient-to-b from-primary-950 to-primary-900">
+      <section id="schedule" className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
           <motion.div
             className="text-center mb-16"
@@ -898,7 +893,7 @@ export default function Home() {
       </section>
 
       {/* Sponsors Section */}
-      <section id="sponsors" className="py-20 px-6 bg-gradient-to-b from-primary-900 to-primary-950">
+      <section id="sponsors" className="py-20 px-6">
         <div className="max-w-7xl mx-auto">
           <motion.div
             className="text-center mb-16"
@@ -948,7 +943,7 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-6 bg-gradient-to-b from-primary-950 to-primary-900">
+      <section id="contact" className="py-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -1009,7 +1004,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-primary-950 py-12 px-6 border-t border-gold-500/20">
+      <footer className="py-12 px-6 border-t border-gold-500/20">
         <div className="max-w-6xl mx-auto text-center">
           <div className="flex items-center justify-center space-x-4 mb-4">
             <img

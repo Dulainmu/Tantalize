@@ -45,6 +45,7 @@ const config = {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         display: ['Poppins', 'system-ui', 'sans-serif'],
+        heading: ['The Seasons', 'Playfair Display', 'Poppins', 'serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
       fontSize: {

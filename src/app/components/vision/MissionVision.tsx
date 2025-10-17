@@ -3,7 +3,7 @@ import { missionStatement, visionStatement, missionPillars, visionHighlights } f
 
 export default function MissionVision() {
   return (
-    <section id="mission" className="relative overflow-hidden border-y border-white/5 bg-gradient-to-b from-primary-950 via-primary-900/80 to-primary-950">
+    <section id="mission" className="relative overflow-hidden border-y border-white/5">
       <div className="absolute inset-0 pointer-events-none">
         <div className="mission-grid-mask" />
         <motion.div
