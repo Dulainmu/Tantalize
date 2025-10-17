@@ -1134,6 +1134,14 @@ h1, h2, h3, .heading, .hero-title, .section-title {
   animation: shimmer-gold 4s ease-in-out infinite;
 }
 
+.text-gradient-gold {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.95), rgba(255, 179, 71, 0.9), rgba(255, 215, 0, 0.95));
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer-gold 4s ease-in-out infinite;
+}
+
 .mission-grid-mask {
   position: absolute;
   inset: 0;
@@ -1172,6 +1180,137 @@ h1, h2, h3, .heading, .hero-title, .section-title {
   100% {
     transform: translate3d(-200px, -200px, 0);
   }
+}
+
+/* === Cinematic Mission/Vision helpers === */
+.gold-sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.gold-sheen::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: -30%;
+  width: 40%;
+  height: 140%;
+  transform: rotate(12deg);
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.28) 50%, transparent 100%);
+  filter: blur(6px);
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+.group:hover .gold-sheen::before {
+  animation: sheen-slide 1.8s linear forwards;
+  opacity: 1;
+}
+@keyframes sheen-slide {
+  0% { transform: translateX(0) rotate(12deg); }
+  100% { transform: translateX(320%) rotate(12deg); }
+}
+
+.corner-ornament {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  pointer-events: none;
+}
+.corner-ornament--tl { top: 0; left: 0; }
+.corner-ornament--br { bottom: 0; right: 0; }
+.corner-ornament::before,
+.corner-ornament::after {
+  content: '';
+  position: absolute;
+  background: linear-gradient(90deg, #FFD700, transparent);
+}
+.corner-ornament--tl::before { left: 10px; top: 10px; width: 30px; height: 1px; }
+.corner-ornament--tl::after  { left: 10px; top: 10px; width: 1px; height: 30px; background: linear-gradient(0deg, #FFD700, transparent); }
+.corner-ornament--br::before { right: 10px; bottom: 10px; width: 30px; height: 1px; background: linear-gradient(270deg, #FFD700, transparent); }
+.corner-ornament--br::after  { right: 10px; bottom: 10px; width: 1px; height: 30px; background: linear-gradient(180deg, #FFD700, transparent); }
+
+.aurora-orb {
+  border-radius: 9999px;
+  background: conic-gradient(from 0deg, rgba(255, 215, 0, 0.12), rgba(255, 215, 0, 0.04), rgba(99, 102, 241, 0.12), rgba(10, 14, 39, 0));
+  filter: blur(20px);
+  animation: aurora-rot 30s linear infinite;
+}
+@keyframes aurora-rot {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gold-sheen::before,
+  .aurora-orb,
+  .legacy-starfield,
+  .text-gradient-gold {
+    animation: none !important;
+  }
+}
+
+/* Grain overlay */
+.grain-overlay {
+  background-image: url('/bg-texture.svg');
+  background-repeat: repeat;
+  background-size: 600px 600px;
+  opacity: 0.06;
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+  animation: grain-pan 18s linear infinite;
+}
+@keyframes grain-pan {
+  0% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(10px, -12px, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+/* Spotlight following cursor */
+.spotlight-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(350px 220px at var(--px) var(--py), rgba(255, 215, 0, 0.12), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.25s ease-out;
+}
+.group:hover .spotlight-glow {
+  opacity: 1;
+}
+
+/* Pulsing ring accent */
+.gold-ring {
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 220px;
+  height: 220px;
+  border-radius: 9999px;
+  background: radial-gradient(closest-side, rgba(255, 215, 0, 0.22), transparent 65%);
+  filter: blur(18px);
+  animation: gold-pulse 3.6s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes gold-pulse {
+  0%, 100% { transform: scale(0.95); opacity: 0.6; }
+  50% { transform: scale(1.05); opacity: 0.9; }
+}
+
+/* Spark moving along unity line */
+.spark-runner {
+  position: absolute;
+  left: -2px;
+  top: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: #FFD700;
+  box-shadow: 0 0 16px rgba(255, 215, 0, 0.75);
+  animation: spark-move 2.2s ease-in-out infinite;
+}
+@keyframes spark-move {
+  0% { transform: translateY(0); opacity: 0.4; }
+  50% { transform: translateY(140%); opacity: 1; }
+  100% { transform: translateY(280%); opacity: 0.4; }
 }
 
 /* Enhanced texture background for specific sections */

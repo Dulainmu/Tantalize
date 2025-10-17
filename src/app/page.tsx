@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useRef } from 'react';
 import { QrCode, ArrowDown, Volume2, VolumeX } from 'lucide-react';
-import MissionVision from './components/vision/MissionVision';
+import MissionVisionSection from './components/vision/MissionVisionSection';
 import LegacyTimeline from './components/history/LegacyTimeline';
 
 export default function Home() {
@@ -443,7 +443,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      <MissionVision />
+      <MissionVisionSection />
       <LegacyTimeline />
 
       {/* Committee Section */}
