@@ -59,11 +59,6 @@ const legacyEvents = [
   },
 ];
 
-const fadeIn = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeInOut" } },
-};
-
 export default function LegacyTimeline() {
   const [selectedYear, setSelectedYear] = useState(legacyEvents[legacyEvents.length - 1].year);
 
@@ -98,10 +93,10 @@ export default function LegacyTimeline() {
         {/* Section header */}
         <motion.header
           className="mx-auto mb-12 max-w-3xl text-center md:mb-16"
-          initial="hidden"
-          whileInView="show"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          variants={fadeIn}
+          transition={{ duration: 0.6 }}
         >
           <p className="text-xs uppercase tracking-[0.5em] text-[#FFD700]/80">OUR LEGACY</p>
           <h2 className={`${playfair.className} mt-3 text-3xl font-semibold text-white md:text-4xl`}>
