@@ -118,7 +118,7 @@ export default function LegacyTimeline() {
             aria-label="Tantalize Legacy Years"
             className="no-scrollbar relative flex items-center gap-3 overflow-x-auto pb-2 md:justify-center md:gap-4"
           >
-            {years.map((y, idx) => {
+            {years.map((y) => {
               const active = y === selectedYear;
               return (
                 <div key={y} className="relative flex items-center">

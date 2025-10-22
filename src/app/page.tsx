@@ -880,58 +880,60 @@ export default function Home() {
             {/* Spine */}
             <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-gold-500/40 via-gold-500/20 to-transparent" />
 
-            {([
-              {
-                icon: '🎶',
-                title: 'Acoustic Night',
-                lines: [
-                  'Purpose: Opening event of the Tantalize 2025 series.',
-                  'Focus: Calm, soulful performances highlighting vocal and acoustic talent.',
-                  'Participants: Musicians from APIIT and guest artists.',
-                  'Vibe: Intimate, low-key setting to introduce the season.',
-                ],
-              },
-              {
-                icon: '💫',
-                title: 'Auditions',
-                lines: [
-                  'Description: The beginning of the competition.',
-                  'Participants: University students from across Sri Lanka.',
-                  'Categories: Singing, Dancing, Band Performances, and more.',
-                  'Outcome: Selection of finalists for the main event.',
-                ],
-              },
-              {
-                icon: '🎭',
-                title: 'Workshops',
-                lines: [
-                  'Purpose: Skill-building sessions for selected finalists.',
-                  'Trainers: Industry professionals (vocal coaches, choreographers, etc.).',
-                  'Focus Areas: Stage presence, confidence, performance refinement.',
-                ],
-              },
-              {
-                icon: '📰',
-                title: 'Press Conference',
-                lines: [
-                  'Timing: Held before the Grand Finale.',
-                  'Purpose: Media engagement and event publicity.',
-                  'Participants: Organizers, sponsors, judges, and finalists.',
-                  'Outcome: Builds hype and sponsor visibility before the main night.',
-                ],
-              },
-              {
-                icon: '🌟',
-                title: 'Grand Finale',
-                lines: [
-                  'Venue: Nelum Pokuna Outdoor Arena',
-                  'Audience: Over 2,000 attendees expected.',
-                  'Highlights: Top finalists, guest performances, celebrity judges.',
-                  'Experience: The biggest and most anticipated youth cultural event of 2025.',
-                ],
-                cta: 'Get Tickets',
-              },
-            ] as const).map((step, index) => (
+            {(
+              [
+                {
+                  icon: '🎶',
+                  title: 'Acoustic Night',
+                  lines: [
+                    'Purpose: Opening event of the Tantalize 2025 series.',
+                    'Focus: Calm, soulful performances highlighting vocal and acoustic talent.',
+                    'Participants: Musicians from APIIT and guest artists.',
+                    'Vibe: Intimate, low-key setting to introduce the season.',
+                  ],
+                },
+                {
+                  icon: '💫',
+                  title: 'Auditions',
+                  lines: [
+                    'Description: The beginning of the competition.',
+                    'Participants: University students from across Sri Lanka.',
+                    'Categories: Singing, Dancing, Band Performances, and more.',
+                    'Outcome: Selection of finalists for the main event.',
+                  ],
+                },
+                {
+                  icon: '🎭',
+                  title: 'Workshops',
+                  lines: [
+                    'Purpose: Skill-building sessions for selected finalists.',
+                    'Trainers: Industry professionals (vocal coaches, choreographers, etc.).',
+                    'Focus Areas: Stage presence, confidence, performance refinement.',
+                  ],
+                },
+                {
+                  icon: '📰',
+                  title: 'Press Conference',
+                  lines: [
+                    'Timing: Held before the Grand Finale.',
+                    'Purpose: Media engagement and event publicity.',
+                    'Participants: Organizers, sponsors, judges, and finalists.',
+                    'Outcome: Builds hype and sponsor visibility before the main night.',
+                  ],
+                },
+                {
+                  icon: '🌟',
+                  title: 'Grand Finale',
+                  lines: [
+                    'Venue: Nelum Pokuna Outdoor Arena',
+                    'Audience: Over 2,000 attendees expected.',
+                    'Highlights: Top finalists, guest performances, celebrity judges.',
+                    'Experience: The biggest and most anticipated youth cultural event of 2025.',
+                  ],
+                  cta: 'Get Tickets',
+                },
+              ] as Array<{ icon: string; title: string; lines: string[]; cta?: string }>
+            ).map((step, index) => (
               <motion.div
                 key={step.title}
                 className={`relative mb-10 flex items-center ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}
