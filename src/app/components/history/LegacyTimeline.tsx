@@ -108,7 +108,7 @@ export default function LegacyTimeline() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
         />
-        <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col items-center justify-center px-6 text-center">
+        <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col items-center justify-end pb-24 px-6 text-center">
           <motion.p
             className="text-xs uppercase tracking-[0.5em] text-[#FFD700]/85"
             initial={{ opacity: 0, y: 20 }}
