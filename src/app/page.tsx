@@ -446,6 +446,8 @@ export default function Home() {
         </motion.div>
       </section>
 
+      {/* Legacy hero merged into LegacyTimeline */}
+
       <section id="purpose-legacy" className="relative isolate">
         <div className="section-bg-cinematic" />
         <div className="section-blend-gold" aria-hidden />

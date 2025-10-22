@@ -89,27 +89,26 @@ export default function LegacyTimeline() {
         ))}
       </div>
 
-      <div className={`relative mx-auto max-w-6xl px-6 py-20 md:py-24 ${poppins.className}`}>
-        {/* Section header */}
-        <motion.header
-          className="mx-auto mb-12 max-w-3xl text-center md:mb-16"
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
-        >
-          <p className="text-xs uppercase tracking-[0.5em] text-[#FFD700]/80">OUR LEGACY</p>
-          <h2 className={`${playfair.className} mt-3 text-3xl font-semibold text-white md:text-4xl`}>
-            “Relive the Years that Made Tantalize Legendary”
+      {/* Hero header (banner) */}
+      <div className="relative w-full h-[70vh] min-h-[420px] overflow-hidden">
+        <img
+          src="/2024_Crowd.JPG"
+          alt="Crowd celebrating during the 2024 Tantalize edition"
+          className="absolute inset-0 h-full w-full object-cover"
+          loading="lazy"
+          decoding="async"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/35 to-black/60" />
+        <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col items-center justify-center px-6 text-center">
+          <p className="text-xs uppercase tracking-[0.5em] text-[#FFD700]/85">OUR LEGACY</p>
+          <h2 className={`${playfair.className} mt-3 text-3xl font-semibold text-white md:text-5xl`}>
+            Relive the Years that Made Tantalize Legendary
           </h2>
-          <motion.div
-            className="mx-auto mt-6 h-px w-48 bg-gradient-to-r from-transparent via-[#FFD700] to-transparent"
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: "easeInOut" }}
-          />
-        </motion.header>
+          <div className="mx-auto mt-6 h-px w-48 bg-gradient-to-r from-transparent via-[#FFD700] to-transparent" />
+        </div>
+      </div>
+
+      <div className={`relative mx-auto max-w-6xl px-6 py-16 md:py-20 ${poppins.className}`}>
 
         {/* Horizontal timeline */}
         <div className="relative mb-10 md:mb-12">
