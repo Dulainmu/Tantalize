@@ -546,6 +546,12 @@ h1, h2, h3, .heading, .hero-title, .section-title {
 }
 
 
+/* Legacy section justify-end override */
+.justify-end {
+  justify-content: flex-end;
+  padding-top: 200px;
+}
+
 /* Parallax container */
 .parallax-container {
   height: 100vh;
