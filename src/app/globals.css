@@ -1405,6 +1405,24 @@ h1, h2, h3, .heading, .hero-title, .section-title {
   100% { transform: translateY(280%); opacity: 0.4; }
 }
 
+/* Subtle moving beams for Legacy hero */
+.legacy-hero-beams {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(1200px 400px at 50% 15%, rgba(255, 215, 0, 0.08), transparent 60%),
+    conic-gradient(from 0deg at 50% 10%, rgba(255,255,255,0.08), rgba(255,215,0,0.06), rgba(255,255,255,0.08), transparent 65%);
+  mix-blend-mode: screen;
+  animation: legacy-beams-pan 18s linear infinite;
+  opacity: 0.4;
+}
+@keyframes legacy-beams-pan {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(4px) rotate(1deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
 /* Unified cinematic section background for Purpose + Legacy */
 .section-bg-cinematic {
   position: absolute;
@@ -1451,4 +1469,22 @@ h1, h2, h3, .heading, .hero-title, .section-title {
   opacity: 0.95;
   pointer-events: none;
   z-index: 0;
+}
+
+/* Legacy shimmering underline */
+.legacy-underline {
+  position: relative;
+  overflow: hidden;
+}
+.legacy-underline::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.6), transparent);
+  transform: translateX(-100%);
+  animation: underline-sheen 2.6s linear infinite;
+}
+@keyframes underline-sheen {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }

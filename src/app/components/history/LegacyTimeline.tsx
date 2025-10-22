@@ -108,12 +108,14 @@ export default function LegacyTimeline() {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
         />
-        <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col items-center justify-end pb-24 px-6 text-center">
+        {/* Animated light beams overlay */}
+        <div className="legacy-hero-beams" aria-hidden />
+        <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col items-center justify-end pb-24 padding-top: 200px; px-6 text-center">
           <motion.p
             className="text-xs uppercase tracking-[0.5em] text-[#FFD700]/85"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-20%' }}
+            viewport={{ once: false, amount: 0.35, margin: '-20%' }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
           >
             OUR LEGACY
@@ -122,16 +124,16 @@ export default function LegacyTimeline() {
             className={`${playfair.className} mt-3 text-3xl font-semibold text-white md:text-5xl`}
             initial={{ opacity: 0, y: 28 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-20%' }}
+            viewport={{ once: false, amount: 0.35, margin: '-20%' }}
             transition={{ duration: 0.7, ease: 'easeOut', delay: 0.05 }}
           >
             Relive the Years that Made Tantalize Legendary
           </motion.h2>
           <motion.div
-            className="mx-auto mt-6 h-px w-48 bg-gradient-to-r from-transparent via-[#FFD700] to-transparent"
+            className="legacy-underline mx-auto mt-6 h-px w-48 bg-gradient-to-r from-transparent via-[#FFD700] to-transparent"
             initial={{ scaleX: 0, opacity: 0 }}
             whileInView={{ scaleX: 1, opacity: 1 }}
-            viewport={{ once: true, margin: '-20%' }}
+            viewport={{ once: false, amount: 0.35, margin: '-20%' }}
             transition={{ duration: 0.8, ease: 'easeInOut' }}
           />
 
@@ -142,7 +144,7 @@ export default function LegacyTimeline() {
             className="no-scrollbar mt-6 flex w-full items-center justify-center gap-3 overflow-x-auto pb-2 md:gap-4"
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: '-20%' }}
+            viewport={{ once: false, amount: 0.35, margin: '-20%' }}
             variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.06 } } }}
           >
             {years.map((y) => {
@@ -162,6 +164,8 @@ export default function LegacyTimeline() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, ease: 'easeOut' }}
+                  animate={active ? { y: [0, -2, 0] } : undefined}
+                  whileHover={{ y: -3, scale: 1.02 }}
                 >
                   {y}
                 </motion.button>
@@ -170,40 +174,50 @@ export default function LegacyTimeline() {
           </motion.div>
 
           {/* Condensed current year info over the banner */}
-          <motion.div
-            className="mt-8 mx-auto w-[min(92%,_1100px)] rounded-3xl border border-white/10 bg-white/10 p-7 backdrop-blur-xl md:p-8 lg:p-10"
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-15%' }}
-            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
-          >
-            <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-[minmax(0,1.4fr)_minmax(260px,1fr)]">
-              <div className="w-full">
-                <h3 className="text-center text-2xl font-semibold text-white md:text-left md:text-3xl">{current.title}</h3>
-                <p className="mt-3 text-center text-base leading-relaxed text-white/85 md:text-left md:text-lg">
-                  {current.description}
-                </p>
-                <div className="mt-4 flex justify-center md:justify-start">
-                  <button className="inline-flex items-center justify-center rounded-full border border-[#FFD700]/50 bg-[#FFD700]/10 px-6 py-2.5 text-sm font-semibold text-[#FFD700] transition-colors hover:bg-[#FFD700]/20">
-                    Watch Recap
-                  </button>
+          {/* Summary card crossfades on year change */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={current.year}
+              className="group relative mt-8 mx-auto w-[min(92%,_1100px)] overflow-hidden rounded-3xl border border-white/10 bg-white/10 p-7 backdrop-blur-xl md:p-8 lg:p-10"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -16 }}
+              transition={{ duration: 0.45, ease: 'easeOut' }}
+            >
+              {/* sheen + corner ornaments for premium feel */}
+              <span className="gold-sheen" aria-hidden />
+              <span className="corner-ornament corner-ornament--tl" aria-hidden />
+              <span className="corner-ornament corner-ornament--br" aria-hidden />
+              <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-[minmax(0,1.4fr)_minmax(260px,1fr)]">
+                <div className="w-full">
+                  <h3 className="text-center text-2xl font-semibold text-white md:text-left md:text-3xl">{current.title}</h3>
+                  <p className="mt-3 text-center text-base leading-relaxed text-white/85 md:text-left md:text-lg">
+                    {current.description}
+                  </p>
+                  <div className="mt-4 flex justify-center md:justify-start">
+                    <button className="inline-flex items-center justify-center rounded-full border border-[#FFD700]/50 bg-[#FFD700]/10 px-6 py-2.5 text-sm font-semibold text-[#FFD700] transition-colors hover:bg-[#FFD700]/20">
+                      Watch Recap
+                    </button>
+                  </div>
+                </div>
+                <div className="grid w-full grid-cols-2 gap-3 md:w-auto md:min-w-[260px] md:justify-self-end">
+                  {["Image 1", "Image 2"].map((label) => (
+                    <motion.div
+                      key={label}
+                      className="relative h-20 md:h-24 overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-[#0A0E27] to-[#111536]"
+                      whileHover={{ y: -4, scale: 1.03 }}
+                      transition={{ type: 'spring', stiffness: 260, damping: 18 }}
+                    >
+                      <div className="absolute inset-0 grid place-items-center text-center">
+                        <span className="text-[11px] text-white/70">{label}</span>
+                      </div>
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,215,0,0.08),_transparent_65%)]" />
+                    </motion.div>
+                  ))}
                 </div>
               </div>
-              <div className="grid w-full grid-cols-2 gap-3 md:w-auto md:min-w-[260px] md:justify-self-end">
-                {["Image 1", "Image 2"].map((label) => (
-                  <div
-                    key={label}
-                    className="relative h-20 md:h-24 overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-[#0A0E27] to-[#111536]"
-                  >
-                    <div className="absolute inset-0 grid place-items-center text-center">
-                      <span className="text-[11px] text-white/70">{label}</span>
-                    </div>
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,215,0,0.08),_transparent_65%)]" />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
 
