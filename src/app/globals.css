@@ -678,6 +678,91 @@ h1, h2, h3, .heading, .hero-title, .section-title {
   height: 8px;
 }
 
+/* Reactive hero sparks */
+.spark {
+  position: absolute;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 215, 0, 0.95), rgba(255, 215, 0, 0.45) 55%, transparent 75%);
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.35), 0 0 20px rgba(255, 215, 0, 0.2);
+  filter: saturate(120%);
+  will-change: transform, opacity;
+}
+
+/* 3D Glowing CTA Button */
+.btn-3d {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0.9rem 1.8rem;
+  border-radius: 9999px;
+  color: #0A0E27;
+  font-weight: 800;
+  background: linear-gradient(145deg, #ffd700, #ffed4e 25%, #d4af37 50%, #ffed4e 75%, #ffd700);
+  background-size: 200% 200%;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  box-shadow:
+    0 12px 28px rgba(212, 175, 55, 0.35),
+    inset 0 2px 4px rgba(255, 255, 255, 0.6),
+    inset 0 -2px 6px rgba(184, 134, 11, 0.35);
+  transform-style: preserve-3d;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-position 0.6s ease;
+  overflow: hidden;
+}
+.btn-3d:hover {
+  transform: translateY(-2px) perspective(800px) rotateX(4deg) rotateY(-4deg) scale(1.02);
+  background-position: 100% 0;
+  box-shadow:
+    0 18px 38px rgba(212, 175, 55, 0.45),
+    inset 0 2px 4px rgba(255, 255, 255, 0.7),
+    inset 0 -2px 6px rgba(184, 134, 11, 0.45);
+}
+.btn-3d:active {
+  transform: translateY(0) scale(0.99);
+}
+.btn-3d .btn-glow {
+  content: '';
+  position: absolute;
+  inset: -15%;
+  background: radial-gradient(800px 400px at 50% 50%, rgba(255, 215, 0, 0.18), transparent 70%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+.btn-3d .btn-shine {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.45), transparent 60%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  left: var(--mx, 50%);
+  top: var(--my, 50%);
+  opacity: 0.0;
+  transition: opacity 0.2s ease;
+}
+.btn-3d:hover .btn-shine { opacity: 0.35; }
+.btn-3d .btn-ripple {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 9999px;
+  background: rgba(255, 215, 0, 0.35);
+  transform: translate(-50%, -50%) scale(0);
+  left: var(--mx, 50%);
+  top: var(--my, 50%);
+  pointer-events: none;
+}
+.btn-3d:hover .btn-ripple {
+  animation: rippleOut 900ms ease-out forwards;
+}
+@keyframes rippleOut {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 0.35; }
+  70% { opacity: 0.2; }
+  100% { transform: translate(-50%, -50%) scale(8); opacity: 0; }
+}
+
 /* Responsive design helpers */
 @media (max-width: 768px) {
   .text-responsive {
@@ -1281,7 +1366,6 @@ h1, h2, h3, .heading, .hero-title, .section-title {
 .gold-ring {
   position: absolute;
   top: -60px;
-  right: -60px;
   width: 220px;
   height: 220px;
   border-radius: 9999px;
@@ -1290,6 +1374,8 @@ h1, h2, h3, .heading, .hero-title, .section-title {
   animation: gold-pulse 3.6s ease-in-out infinite;
   pointer-events: none;
 }
+.gold-ring--left { left: -60px; right: auto; }
+.gold-ring--right { right: -60px; left: auto; }
 @keyframes gold-pulse {
   0%, 100% { transform: scale(0.95); opacity: 0.6; }
   50% { transform: scale(1.05); opacity: 0.9; }
@@ -1311,6 +1397,36 @@ h1, h2, h3, .heading, .hero-title, .section-title {
   0% { transform: translateY(0); opacity: 0.4; }
   50% { transform: translateY(140%); opacity: 1; }
   100% { transform: translateY(280%); opacity: 0.4; }
+}
+
+/* Unified cinematic section background for Purpose + Legacy */
+.section-bg-cinematic {
+  position: absolute;
+  inset: 0;
+  background: #0A0E27; /* solid brand base */
+  z-index: -2;
+}
+
+/* Soft radial gold glow to blend Purpose → Legacy */
+.section-blend-gold {
+  position: absolute;
+  inset: 0; /* cover entire wrapper to avoid visible edges */
+  pointer-events: none;
+  z-index: -1;
+  background: radial-gradient(1200px 520px at 50% 55%, rgba(255, 215, 0, 0.08) 0%, rgba(255, 215, 0, 0.04) 35%, transparent 70%);
+  mix-blend-mode: soft-light;
+  filter: blur(14px);
+}
+
+/* Thin top accent line for card balance */
+.card-accent {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  top: 10px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.7), transparent);
+  opacity: 0.75;
 }
 
 /* Enhanced texture background for specific sections */

@@ -1,202 +1,194 @@
-import { useEffect, useMemo, useState } from "react";
-import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
-import { legacyYears, LegacyYear } from "@/data/history";
+"use client";
 
-type YearCardProps = {
-  data: LegacyYear;
-  index: number;
-  active: boolean;
-  onVisible: (year: number) => void;
+// Legacy Timeline – Cinematic showcase of past Tantalize years
+// - Dark gradient background with subtle gold particles
+// - Interactive horizontal timeline (2017 → 2024 per provided data)
+// - Dynamic content card fades/slides when switching years
+// - Fully responsive with scrollable timeline on mobile
+
+import { useMemo, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Playfair_Display, Poppins } from "next/font/google";
+
+const playfair = Playfair_Display({ subsets: ["latin"], weight: ["600"], variable: "--font-playfair" });
+const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-poppins-local" });
+
+// Event data (2017–2024 per requirements)
+const legacyEvents = [
+  {
+    year: 2017,
+    title: "Tantalize 2017",
+    description:
+      "With over 300 applicants and 20 finalists competing across 7 different categories, Tantalize 2017 was a show of brilliance held at the D.S. Senanayake Auditorium. With more than 1,200 people in attendance, the event showcased some of the best youth talent in the country — a truly unforgettable night.",
+    images: ["/legacy/2017_1.jpg", "/legacy/2017_2.jpg"],
+  },
+  {
+    year: 2018,
+    title: "Tantalize 2018",
+    description:
+      "The 10th edition of Tantalize brought together over 1,300 attendees and featured iconic performances from some of Sri Lanka’s best-loved music artists. It was an emotional and powerful evening, marking a decade of creative excellence.",
+    images: ["/legacy/2018_1.jpg", "/legacy/2018_2.jpg"],
+  },
+  {
+    year: 2019,
+    title: "Tantalize 2019",
+    description:
+      "The 11th edition gave audiences something new — a special ‘Rewind’ concept, where past winners took the stage once again. It was a nostalgic celebration of talent, bringing back champions to relive their best moments and connect with a fresh audience.",
+    images: ["/legacy/2019_1.jpg", "/legacy/2019_2.jpg"],
+  },
+  {
+    year: 2022,
+    title: "Tantalize 2022",
+    description:
+      "After a break, Tantalize returned stronger than ever. Held at the iconic Nelum Pokuna Theatre, the 12th edition featured powerful band performances and a vibrant crowd. The energy was unforgettable, making it one of the most talked-about editions yet.",
+    images: ["/legacy/2022_1.jpg", "/legacy/2022_2.jpg"],
+  },
+  {
+    year: 2023,
+    title: "Tantalize 2023",
+    description:
+      "The 13th edition, also held at Nelum Pokuna, continued the legacy with electrifying performances from top artists and university stars. The bands lit up the night with unmatched energy, leaving the audience in awe.",
+    images: ["/legacy/2023_1.jpg", "/legacy/2023_2.jpg"],
+  },
+  {
+    year: 2024,
+    title: "Tantalize 2024",
+    description:
+      "Tantalize 2024 featured a star-studded lineup including Hana Shafa, Bathiya & Santhush, Yaka Crew, Gayya, Wasthi, Chanuka, and Dilo. It was a celebration of youth talent alongside Sri Lanka’s top icons — a night that solidified Tantalize’s place in the nation’s cultural calendar.",
+    images: ["/legacy/2024_1.jpg", "/legacy/2024_2.jpg"],
+  },
+];
+
+const fadeIn = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeInOut" } },
 };
 
-function YearCard({ data, index, active, onVisible }: YearCardProps) {
-  const { ref } = useInView({
-    threshold: 0.6,
-    triggerOnce: false,
-    onChange: (inView) => {
-      if (inView) onVisible(data.year);
-    },
-  });
-
-  const galleryLayout = useMemo(() => {
-    if (data.gallery.length <= 3) {
-      return "grid-cols-1 sm:grid-cols-3";
-    }
-    return "grid-cols-2 md:grid-cols-3";
-  }, [data.gallery.length]);
-
-  return (
-    <motion.article
-      ref={ref}
-      className="group relative overflow-hidden rounded-[30px] border border-white/5 bg-primary-950/80 p-6 shadow-[0_40px_120px_-60px_rgba(255,215,0,0.45)] backdrop-blur-lg md:p-10"
-      initial={{ opacity: 0, y: 36 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, margin: "-15%" }}
-      transition={{ duration: 0.6 }}
-    >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,215,0,0.07),_transparent_60%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-      <div className="relative flex flex-col gap-6">
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div className="flex items-center gap-5">
-            <span className="text-4xl font-bold text-gold-400 md:text-5xl">{data.year}</span>
-            <div>
-              <p className="text-xs uppercase tracking-[0.36em] text-gold-500/70">Edition #{index + 1}</p>
-              <p className="text-lg font-semibold text-white/90 md:text-2xl">{data.theme}</p>
-            </div>
-          </div>
-          <motion.span
-            className="inline-flex items-center gap-2 rounded-full border border-gold-500/30 bg-gold-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-gold-100"
-            animate={{
-              boxShadow: active
-                ? "0 0 35px rgba(255,215,0,0.35)"
-                : "0 0 0 rgba(255,215,0,0)",
-            }}
-          >
-            {data.location}
-          </motion.span>
-        </div>
-
-        <p className="text-xl font-medium text-white/90 md:text-2xl">{data.headline}</p>
-        <p className="max-w-3xl text-sm leading-relaxed text-white/70">{data.highlight}</p>
-
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
-          {data.stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="rounded-2xl border border-white/10 bg-white/5 px-4 py-5 text-center shadow-[0_12px_30px_rgba(10,14,39,0.45)]"
-            >
-              <p className="text-xs uppercase tracking-[0.32em] text-gold-500/60">{stat.label}</p>
-              <p className="mt-2 text-lg font-semibold text-white/90">{stat.value}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="legacy-gallery grid gap-3 md:gap-4">
-          <div className={`grid ${galleryLayout} gap-3 md:gap-4`}>
-            {data.gallery.map((item, idx) => (
-              <motion.div
-                key={item.id}
-                className={`relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br ${item.palette} p-4 text-white shadow-[0_25px_60px_-35px_rgba(255,215,0,0.35)] ${item.orientation === "portrait" ? "md:row-span-2" : ""}`}
-                whileHover={{ y: -8 }}
-                transition={{ type: "spring", stiffness: 260, damping: 20 }}
-              >
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.15),_transparent_65%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                <div className="relative flex h-32 flex-col justify-end space-y-1 md:h-40">
-                  <span className="text-xs uppercase tracking-[0.3em] text-white/70">
-                    Shot {idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
-                  </span>
-                  <p className="text-sm font-medium leading-snug">
-                    {item.caption}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </motion.article>
-  );
-}
-
 export default function LegacyTimeline() {
-  const [activeYear, setActiveYear] = useState<number>(legacyYears[0]?.year ?? new Date().getFullYear());
+  const [selectedYear, setSelectedYear] = useState(legacyEvents[legacyEvents.length - 1].year);
 
-  useEffect(() => {
-    if (!legacyYears.some((year) => year.year === activeYear) && legacyYears.length > 0) {
-      setActiveYear(legacyYears[0].year);
-    }
-  }, [activeYear]);
+  const current = useMemo(() => legacyEvents.find((e) => e.year === selectedYear) || legacyEvents[legacyEvents.length - 1], [selectedYear]);
+  const years = useMemo(() => legacyEvents.map((e) => e.year), []);
 
   return (
-    <section id="legacy" className="relative overflow-hidden py-24">
-      <div className="absolute inset-0">
-        <div className="legacy-starfield pointer-events-none" />
+    <section id="legacy" className="relative overflow-hidden">
+      {/* Background layers with subtle particles and shimmer lines */}
+      <div className="pointer-events-none absolute inset-0">
+        {/* Gold particles */}
+        {[...Array(18)].map((_, i) => (
+          <motion.span
+            key={i}
+            className="absolute rounded-full bg-[#FFD700]/30"
+            style={{
+              width: 2 + (i % 2),
+              height: 2 + (i % 2),
+              left: `${(i * 97) % 100}%`,
+              top: `${(i * 53) % 100}%`,
+              boxShadow: "0 0 12px rgba(255,215,0,0.5)",
+            }}
+            initial={{ opacity: 0.2, y: 0 }}
+            animate={{ opacity: [0.2, 0.7, 0.2], y: [-6, 6, -6] }}
+            transition={{ duration: 6 + i * 0.15, repeat: Infinity, ease: "easeInOut", delay: i * 0.05 }}
+            aria-hidden
+          />
+        ))}
       </div>
 
-      <div className="relative mx-auto flex max-w-6xl flex-col gap-16 px-6">
-        <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-          <div>
-            <p className="text-sm uppercase tracking-[0.45em] text-gold-500/80">Tantalize Legacy</p>
-            <h2 className="mt-3 text-3xl font-bold md:text-4xl lg:text-5xl">
-              Past editions that{" "}
-              <span className="text-gradient-gold">kept the island buzzing</span>
-            </h2>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="hidden h-12 w-[2px] bg-gradient-to-b from-transparent via-gold-500/60 to-transparent md:block" />
-            <p className="max-w-xs text-sm text-white/70">
-              Scroll through year by year. Each milestone reimagined the Tantalize experience and set the stage for 2025.
-            </p>
-          </div>
-        </div>
+      <div className={`relative mx-auto max-w-6xl px-6 py-20 md:py-24 ${poppins.className}`}>
+        {/* Section header */}
+        <motion.header
+          className="mx-auto mb-12 max-w-3xl text-center md:mb-16"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={fadeIn}
+        >
+          <p className="text-xs uppercase tracking-[0.5em] text-[#FFD700]/80">OUR LEGACY</p>
+          <h2 className={`${playfair.className} mt-3 text-3xl font-semibold text-white md:text-4xl`}>
+            “Relive the Years that Made Tantalize Legendary”
+          </h2>
+          <motion.div
+            className="mx-auto mt-6 h-px w-48 bg-gradient-to-r from-transparent via-[#FFD700] to-transparent"
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+          />
+        </motion.header>
 
-        <div className="grid gap-10 lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-16">
-          <div className="hidden lg:block">
-            <div className="sticky top-28 flex flex-col items-start gap-6">
-              <div className="relative w-full pl-6">
-                <div className="absolute left-[11px] top-1 bottom-1 w-[2px] bg-gradient-to-b from-gold-500/20 via-gold-500/60 to-transparent" />
-                {legacyYears.map((event) => {
-                  const isActive = event.year === activeYear;
-                  return (
-                    <button
-                      key={event.year}
-                      type="button"
-                      onClick={() => setActiveYear(event.year)}
-                      className={`relative mb-2 flex w-full items-center gap-4 rounded-2xl border border-transparent px-4 py-3 text-left transition-all duration-300 ${
-                        isActive
-                          ? "border-gold-500/60 bg-gold-500/10 text-white shadow-[0_15px_35px_-20px_rgba(255,215,0,0.6)]"
-                          : "text-white/50 hover:text-white/80"
-                      }`}
-                    >
-                      <span
-                        className={`absolute left-[-15px] h-5 w-5 rounded-full border border-gold-300/60 transition-all duration-300 ${
-                          isActive ? "bg-gold-400 shadow-[0_0_20px_rgba(255,215,0,0.6)]" : "bg-primary-900"
-                        }`}
-                      />
-                      <div>
-                        <p className="text-xs uppercase tracking-[0.32em] text-white/50">Year</p>
-                        <p className="text-lg font-semibold">{event.year}</p>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-col gap-12">
-            <div className="flex w-full items-center gap-4 overflow-x-auto pb-4 lg:hidden">
-              {legacyYears.map((event) => {
-                const isActive = event.year === activeYear;
-                return (
+        {/* Horizontal timeline */}
+        <div className="relative mb-10 md:mb-12">
+          <div
+            role="tablist"
+            aria-label="Tantalize Legacy Years"
+            className="no-scrollbar relative flex items-center gap-3 overflow-x-auto pb-2 md:justify-center md:gap-4"
+          >
+            {years.map((y, idx) => {
+              const active = y === selectedYear;
+              return (
+                <div key={y} className="relative flex items-center">
                   <button
-                    key={event.year}
-                    type="button"
-                    onClick={() => setActiveYear(event.year)}
-                    className={`relative inline-flex min-w-[160px] flex-col items-start gap-2 rounded-2xl border px-4 py-3 transition-all duration-300 ${
-                      isActive ? "border-gold-500/60 bg-gold-500/10 text-white" : "border-white/10 text-white/60"
+                    role="tab"
+                    aria-selected={active}
+                    onClick={() => setSelectedYear(y)}
+                    className={`inline-flex shrink-0 items-center justify-center rounded-full border px-4 py-2 text-sm font-semibold transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD700]/70 md:px-5 md:py-2.5 ${
+                      active
+                        ? "border-[#FFD700]/70 bg-[#FFD700] text-[#0A0E27] shadow-[0_0_22px_rgba(255,215,0,0.5)]"
+                        : "border-white/15 bg-white/5 text-white/80 hover:border-[#FFD700]/50 hover:bg-[#FFD700]/10 hover:text-white"
                     }`}
                   >
-                    <span className="text-xs uppercase tracking-[0.32em] text-white/50">Year</span>
-                    <span className="text-lg font-semibold">{event.year}</span>
-                    <span className="text-xs text-white/50">{event.theme}</span>
+                    {y}
                   </button>
-                );
-              })}
-            </div>
-
-            {legacyYears.map((event, index) => (
-              <YearCard
-                key={event.year}
-                data={event}
-                index={index}
-                active={event.year === activeYear}
-                onVisible={setActiveYear}
-              />
-            ))}
+                </div>
+              );
+            })}
           </div>
         </div>
+
+        {/* Dynamic content card */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={current.year}
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -24 }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+            className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_35px_120px_-35px_rgba(255,215,0,0.25)] backdrop-blur-xl md:p-10"
+          >
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,215,0,0.08),_transparent_60%)]" />
+            <div className="relative grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
+              <div>
+                <h3 className={`${playfair.className} text-2xl font-semibold text-white md:text-3xl`}>
+                  {current.title}
+                </h3>
+                <p className="mt-3 max-w-2xl text-base leading-relaxed text-white/80">{current.description}</p>
+                <div className="mt-6 flex flex-wrap items-center gap-3">
+                  <button
+                    className="inline-flex items-center justify-center rounded-full border border-[#FFD700]/50 bg-[#FFD700]/10 px-5 py-2 text-sm font-semibold text-[#FFD700] transition-colors hover:bg-[#FFD700]/20"
+                  >
+                    Watch Recap
+                  </button>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3 md:gap-4">
+                {current.images.slice(0, 3).map((src, i) => (
+                  <motion.div
+                    key={src}
+                    className="relative h-32 overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#0A0E27] to-[#111536] md:h-40"
+                    whileHover={{ y: -4 }}
+                    transition={{ type: "spring", stiffness: 240, damping: 20 }}
+                  >
+                    {/* Mock image placeholder; replace with next/image if assets exist */}
+                    <div className="absolute inset-0 grid place-items-center text-center">
+                      <span className="text-xs text-white/60">Image {i + 1}</span>
+                    </div>
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,215,0,0.08),_transparent_65%)]" />
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </section>
   );

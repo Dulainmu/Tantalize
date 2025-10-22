@@ -5,6 +5,9 @@ import { useState, useEffect, useRef } from 'react';
 import { QrCode, ArrowDown, Volume2, VolumeX } from 'lucide-react';
 import MissionVisionSection from './components/vision/MissionVisionSection';
 import LegacyTimeline from './components/history/LegacyTimeline';
+import ScrollMarkers from './components/common/ScrollMarkers';
+import ParallaxSection from './components/common/ParallaxSection';
+import HeroParticles from './components/common/HeroParticles';
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,63 +19,63 @@ export default function Home() {
 
   const leadershipMembers = [
     {
-      name: "Amaya Jayasinghe",
+      name: "Lenucy Ranasinghe",
       role: "Chairperson",
-      initials: "AJ",
-      quote: "Setting the energy for the island's biggest student stage.",
+      initials: "LR",
+      quote: "",
       accent: "from-yellow-300 via-amber-400 to-orange-500",
-      highlight: "Vision Architect",
+      highlight: "Executive Lead",
     },
     {
-      name: "Ishan Perera",
+      name: "Thisal Piumka",
       role: "Co-Chairperson",
-      initials: "IP",
-      quote: "Translating bold ideas into a seamless show-night experience.",
+      initials: "TP",
+      quote: "",
       accent: "from-gold-400 via-yellow-300 to-amber-500",
-      highlight: "Experience Designer",
+      highlight: "Executive Co-Lead",
     },
     {
-      name: "Nisha Fernando",
+      name: "Methuli Perera",
       role: "Project Coordinator",
-      initials: "NF",
-      quote: "Aligning teams, partners, and timelines without missing a beat.",
+      initials: "MP",
+      quote: "",
       accent: "from-sky-400 via-blue-500 to-indigo-500",
-      highlight: "Master Planner",
+      highlight: "Coordination",
     },
     {
-      name: "Ravindu Jayasena",
+      name: "Azeem Fazeel",
       role: "Project Coordinator",
-      initials: "RJ",
-      quote: "Bringing structure and calm to every backstage moment.",
+      initials: "AF",
+      quote: "",
       accent: "from-teal-400 via-emerald-400 to-cyan-500",
-      highlight: "Operations Lead",
+      highlight: "Coordination",
     },
   ];
 
   const executiveMembers = [
     {
-      name: "Dilini Samarasinghe",
+      name: "Senilka Wickramathilake",
       role: "Secretary",
       icon: "📜",
       description: "Keeps every decision documented, every deadline visible, and every meeting purposeful.",
       focus: "Process Excellence",
     },
     {
-      name: "Malith Weerasinghe",
+      name: "Thirosh Varatharajan",
       role: "Assistant Secretary",
       icon: "🗂️",
       description: "Co-pilots committee communication and ensures information flows to the right teams.",
       focus: "Communication Flow",
     },
     {
-      name: "Heshani Gunasekara",
+      name: "Muaadh Mazloom",
       role: "Treasurer",
       icon: "💰",
       description: "Manages sponsorships, budgets, and the golden numbers that keep Tantalize premium.",
       focus: "Financial Strategy",
     },
     {
-      name: "Akeel Nawar",
+      name: "Rifkhan Faris",
       role: "Assistant Treasurer",
       icon: "📊",
       description: "Tracks spend, reconciles vendors, and keeps the finance desk audit-ready.",
@@ -90,12 +93,14 @@ export default function Home() {
       headline: 'Crafting unforgettable performances and immersive audience moments.',
       description: 'From auditions to encore planning, this crew curates the show flow and keeps the stage electrifying.',
       members: [
-        { name: 'Tharushi Silva', role: 'Stage Director', initials: 'TS' },
-        { name: 'Kevin Dias', role: 'Act Coordinator', initials: 'KD' },
-        { name: 'Nethmi Fernando', role: 'Artist Liaison', initials: 'NF' },
-        { name: 'Imran Noor', role: 'Performance Coach', initials: 'IN' },
-        { name: 'Sashini Dissanayake', role: 'Choreography Lead', initials: 'SD' },
-        { name: 'Pasan Fernando', role: 'Backstage Manager', initials: 'PF' },
+        { name: 'Raqiub Isfan', role: 'Head of Entertainment', initials: 'RI' },
+        { name: 'Imad Nazar', role: 'Deputy Head of Entertainment', initials: 'IN' },
+        { name: 'Ashok Ainkaran', role: 'Committee Member', initials: 'AA' },
+        { name: 'Malisha Jayasuriya', role: 'Committee Member', initials: 'MJ' },
+        { name: 'Uthkarsha Premaratne', role: 'Committee Member', initials: 'UP' },
+        { name: 'Avithran Sridharan', role: 'Committee Member', initials: 'AS' },
+        { name: 'Ranidi Dahamya', role: 'Committee Member', initials: 'RD' },
+        { name: 'Thimansa Tennakoon', role: 'Committee Member', initials: 'TT' },
       ],
     },
     {
@@ -107,12 +112,15 @@ export default function Home() {
       headline: 'Masterminding the behind-the-scenes flow from setup to pack-down.',
       description: 'They coordinate venue layouts, vendor timelines, and the heartbeat of every moving part.',
       members: [
-        { name: 'Dilanka Perera', role: 'Logistics Lead', initials: 'DP' },
-        { name: 'Ruvini Amarasinghe', role: 'Vendor Manager', initials: 'RA' },
-        { name: 'Lahiru Silva', role: 'Crew Captain', initials: 'LS' },
-        { name: 'Shamila Ranathunga', role: 'Transport Lead', initials: 'SR' },
-        { name: 'Mevan Senanayake', role: 'Inventory Coordinator', initials: 'MS' },
-        { name: 'Anupa Jayawardena', role: 'Safety Officer', initials: 'AJ' },
+        { name: 'Nishen Anthony', role: 'Head of Logistics', initials: 'NA' },
+        { name: 'Hifaz Hizni', role: 'Deputy Head of Logistics', initials: 'HH' },
+        { name: 'Himansa Indusara', role: 'Committee Member', initials: 'HI' },
+        { name: 'Aadhil Shiraz', role: 'Committee Member', initials: 'AS' },
+        { name: 'Dulain Munasinghe', role: 'Committee Member', initials: 'DM' },
+        { name: 'Haroon Shamil', role: 'Committee Member', initials: 'HS' },
+        { name: 'Rizwan Aaquib', role: 'Committee Member', initials: 'RA' },
+        { name: 'Steve Austin', role: 'Committee Member', initials: 'SA' },
+        { name: 'Mandil Nanayakkara', role: 'Committee Member', initials: 'MN' },
       ],
     },
     {
@@ -124,12 +132,13 @@ export default function Home() {
       headline: 'Capturing and amplifying the Tantalize story across every channel.',
       description: 'Content planners, shooters, and editors who keep the buzz alive before, during, and after the show.',
       members: [
-        { name: 'Shanel Rodrigo', role: 'Media Lead', initials: 'SR' },
-        { name: 'Dinal Senewirathne', role: 'Photographer', initials: 'DS' },
-        { name: 'Mithila Gunaratne', role: 'Videographer', initials: 'MG' },
-        { name: 'Ovini Perera', role: 'Content Writer', initials: 'OP' },
-        { name: 'Kasun Fonseka', role: 'Social Media Producer', initials: 'KF' },
-        { name: 'Tehani Peiris', role: 'Graphics Designer', initials: 'TP' },
+        { name: 'Gajaanie Nandakumar', role: 'Head of Media', initials: 'GN' },
+        { name: 'Azeezah Sheriff', role: 'Deputy Head of Media', initials: 'AS' },
+        { name: 'Sanaya Gamage', role: 'Committee Member', initials: 'SG' },
+        { name: 'Apsari Udawatte', role: 'Committee Member', initials: 'AU' },
+        { name: 'Diandra Perera', role: 'Committee Member', initials: 'DP' },
+        { name: 'Hesalni Danthanarayana', role: 'Committee Member', initials: 'HD' },
+        { name: 'Savishkar Thiruchelvam', role: 'Committee Member', initials: 'ST' },
       ],
     },
     {
@@ -141,12 +150,18 @@ export default function Home() {
       headline: 'Building partnerships, hype, and the premium aura of Tantalize.',
       description: 'They nurture sponsors, craft campaigns, and turn audiences into fans who keep coming back.',
       members: [
-        { name: 'Chanudi Wijesinghe', role: 'Marketing Lead', initials: 'CW' },
-        { name: 'Jayden Mendis', role: 'Sponsorship Manager', initials: 'JM' },
-        { name: 'Anodya Fonseka', role: 'PR Strategist', initials: 'AF' },
-        { name: 'Rehan Fernando', role: 'Campaign Producer', initials: 'RF' },
-        { name: 'Ayanna Jayasuriya', role: 'Digital Ads Specialist', initials: 'AJ' },
-        { name: 'Savindu Dias', role: 'Community Manager', initials: 'SD' },
+        { name: 'Ayodya Perera', role: 'Head of Marketing', initials: 'AP' },
+        { name: 'Ishra Ammon', role: 'Deputy Head of Marketing', initials: 'IA' },
+        { name: 'Suhanya Peiris', role: 'Committee Member', initials: 'SP' },
+        { name: 'Thanumi Bandara', role: 'Committee Member', initials: 'TB' },
+        { name: 'Snegha Chandraseghar', role: 'Committee Member', initials: 'SC' },
+        { name: 'Yazid Niyas', role: 'Committee Member', initials: 'YN' },
+        { name: 'Thevnaka De Silva', role: 'Committee Member', initials: 'TDS' },
+        { name: 'Tharushika Gamage', role: 'Committee Member', initials: 'TG' },
+        { name: 'Diseni Dharmadasa', role: 'Committee Member', initials: 'DD' },
+        { name: 'Kithmi Mallikarachchi', role: 'Committee Member', initials: 'KM' },
+        { name: 'Denam Pathmanathan', role: 'Committee Member', initials: 'DP' },
+        { name: 'Sachini Samarawickrama', role: 'Committee Member', initials: 'SS' },
       ],
     },
   ];
@@ -353,31 +368,8 @@ export default function Home() {
           )}
         </motion.button>
         
-        {/* Floating Particles */}
-        {mounted && (
-          <div className="particle-container">
-            {[...Array(30)].map((_, i) => {
-              const size = ['particle-small', 'particle-medium', 'particle-large'][Math.floor(Math.random() * 3)];
-              const left = Math.random() * 100;
-              const duration = 8 + Math.random() * 12; // 8-20 seconds
-              const delay = Math.random() * 10; // 0-10 seconds delay
-              const drift = (Math.random() - 0.5) * 200; // -100px to +100px horizontal drift
-
-              return (
-                <div
-                  key={i}
-                  className={`particle ${size}`}
-                  style={{
-                    left: `${left}%`,
-                    animationDuration: `${duration}s`,
-                    animationDelay: `${delay}s`,
-                    '--drift': `${drift}px`,
-                  } as React.CSSProperties}
-                />
-              );
-            })}
-          </div>
-        )}
+        {/* Reactive hero particles */}
+        {mounted && (<HeroParticles offset={mousePosition} />)}
 
         {/* Hero Content */}
         <div className="relative z-20 text-center px-6 max-w-6xl mx-auto">
@@ -414,7 +406,7 @@ export default function Home() {
               />
             </motion.div>
 
-            {/* CTA Button */}
+            {/* CTA Button (3D glow + ripple) */}
             <motion.div
               className="flex justify-center items-center mt-8 sm:mt-12"
               initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
@@ -423,11 +415,22 @@ export default function Home() {
                 href="https://bio.site/tantalizeofficial"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-premium text-base sm:text-lg md:text-xl px-6 py-3 sm:px-8 sm:py-4 group"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="btn-3d text-base sm:text-lg md:text-xl"
+                whileHover={{ scale: 1.06 }}
+                whileTap={{ scale: 0.98 }}
+                onMouseMove={(e) => {
+                  const el = e.currentTarget as HTMLElement;
+                  const rect = el.getBoundingClientRect();
+                  const mx = e.clientX - rect.left;
+                  const my = e.clientY - rect.top;
+                  el.style.setProperty('--mx', `${mx}px`);
+                  el.style.setProperty('--my', `${my}px`);
+                }}
               >
-                <span>Register Now</span>
+                <span className="btn-glow" aria-hidden />
+                <span className="btn-shine" aria-hidden />
+                <span className="btn-ripple" aria-hidden />
+                Register Now
               </motion.a>
             </motion.div>
           </motion.div>
@@ -443,8 +446,16 @@ export default function Home() {
         </motion.div>
       </section>
 
-      <MissionVisionSection />
-      <LegacyTimeline />
+      <section id="purpose-legacy" className="relative isolate">
+        <div className="section-bg-cinematic" />
+        <div className="section-blend-gold" aria-hidden />
+        <ParallaxSection strength={12} className="relative z-10">
+          <MissionVisionSection />
+        </ParallaxSection>
+        <ParallaxSection strength={8} className="relative z-10">
+          <LegacyTimeline />
+        </ParallaxSection>
+      </section>
 
       {/* Committee Section */}
       <motion.section
@@ -798,40 +809,47 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl md:text-6xl font-bold text-gold-500 mb-6">
-              Artist Lineup
+            <p className="text-sm uppercase tracking-[0.45em] text-gold-500/80 mb-4">🎤 The Stage is Set</p>
+            <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
+              TANTALIZE 2025 <span className="text-gold-500">Artist Lineup</span>
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Featuring the finest artists and performers from across Sri Lanka and beyond
+              The island's finest artists bringing the heat to stage
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
-              { name: "Headliner Artist", genre: "Electronic", time: "10:00 PM" },
-              { name: "Cultural Performers", genre: "Traditional", time: "8:30 PM" },
-              { name: "DJ Set", genre: "House", time: "11:30 PM" },
-              { name: "Live Band", genre: "Rock", time: "9:00 PM" },
-              { name: "Dance Group", genre: "Contemporary", time: "8:00 PM" },
-              { name: "Special Guest", genre: "Surprise", time: "12:00 AM" }
+              { name: "Bathiya & Santhush", genre: "Legends", icon: "🎸" },
+              { name: "Wasthi", genre: "Vocals", icon: "🎤" },
+              { name: "Hana", genre: "Rhythms", icon: "🎵" },
+              { name: "Iraj", genre: "Hip-Hop", icon: "🎧" },
+              { name: "Dhanith Sri", genre: "Melodies", icon: "🎹" },
+              { name: "Raveen", genre: "Beats", icon: "🥁" },
+              { name: "Dinesh & Kaizer", genre: "Duo Power", icon: "⚡" },
+              { name: "KK", genre: "Energy", icon: "🔥" },
+              { name: "Daddy", genre: "Vibes", icon: "🎺" },
+              { name: "Infinity", genre: "Limitless", icon: "♾️" }
             ].map((artist, index) => (
               <motion.div
                 key={index}
-                className="glass rounded-2xl p-8 text-center group hover:scale-105 transition-all duration-300"
+                className="group relative overflow-hidden rounded-3xl border border-white/10 bg-primary-950/60 p-8 text-center backdrop-blur-lg transition-all duration-500 hover:-translate-y-2 hover:border-gold-500/40 hover:shadow-[0_20px_60px_-15px_rgba(255,215,0,0.4)]"
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                transition={{ duration: 0.6, delay: index * 0.08 }}
                 viewport={{ once: true }}
-                whileHover={{ y: -10 }}
               >
-                <div className="w-20 h-20 bg-gradient-to-r from-gold-500 to-gold-400 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <span className="text-primary-950 font-bold text-2xl">
-                    {artist.name.charAt(0)}
-                  </span>
+                <div className="absolute inset-0 bg-gradient-to-br from-gold-500/5 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                <div className="relative">
+                  <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full border-2 border-gold-500/30 bg-gradient-to-br from-gold-500/20 to-gold-600/10 text-5xl shadow-[0_0_30px_rgba(255,215,0,0.2)] transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_50px_rgba(255,215,0,0.4)]">
+                    {artist.icon}
+                  </div>
+                  <h3 className="mb-3 text-2xl font-bold text-white">{artist.name}</h3>
+                  <div className="inline-flex items-center gap-2 rounded-full border border-gold-500/30 bg-gold-500/10 px-4 py-2">
+                    <span className="h-2 w-2 rounded-full bg-gold-400 animate-pulse"></span>
+                    <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold-300">{artist.genre}</p>
+                  </div>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">{artist.name}</h3>
-                <p className="text-gold-500 font-semibold mb-2">{artist.genre}</p>
-                <p className="text-gray-400">{artist.time}</p>
               </motion.div>
             ))}
           </div>
@@ -842,50 +860,124 @@ export default function Home() {
       <section id="schedule" className="py-20 px-6">
         <div className="max-w-6xl mx-auto">
           <motion.div
-            className="text-center mb-16"
+            className="text-center mb-14 md:mb-16"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl md:text-6xl font-bold text-gold-500 mb-6">
-              Event Schedule
-            </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              A carefully curated timeline of performances and activities
+            <p className="text-xs uppercase tracking-[0.5em] text-gold-500/90">
+              TANTALIZE 2025 – Official Event Schedule
             </p>
+            <h2 className="mt-3 text-3xl md:text-5xl font-bold text-white">
+              A Journey From First Note To Finale
+            </h2>
+            <div className="mx-auto mt-6 h-px w-40 bg-gradient-to-r from-transparent via-gold-500 to-transparent" />
           </motion.div>
 
+          {/* Premium vertical stepper timeline */}
           <div className="relative">
-            {/* Timeline Line */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-gold-500 to-gold-600"></div>
-            
-            {[
-              { time: "7:00 PM", event: "Doors Open", description: "Welcome to Tantalize 2025" },
-              { time: "8:00 PM", event: "Opening Ceremony", description: "Traditional cultural performances" },
-              { time: "8:30 PM", event: "Live Music", description: "Featuring top Sri Lankan artists" },
-              { time: "10:00 PM", event: "Main Performance", description: "Headliner artist takes the stage" },
-              { time: "11:30 PM", event: "DJ Set", description: "Electronic music and dancing" },
-              { time: "12:30 AM", event: "Special Guest", description: "Surprise performance" },
-              { time: "2:00 AM", event: "Closing", description: "Final moments of Tantalize 2025" }
-            ].map((item, index) => (
+            {/* Spine */}
+            <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-gold-500/40 via-gold-500/20 to-transparent" />
+
+            {([
+              {
+                icon: '🎶',
+                title: 'Acoustic Night',
+                lines: [
+                  'Purpose: Opening event of the Tantalize 2025 series.',
+                  'Focus: Calm, soulful performances highlighting vocal and acoustic talent.',
+                  'Participants: Musicians from APIIT and guest artists.',
+                  'Vibe: Intimate, low-key setting to introduce the season.',
+                ],
+              },
+              {
+                icon: '💫',
+                title: 'Auditions',
+                lines: [
+                  'Description: The beginning of the competition.',
+                  'Participants: University students from across Sri Lanka.',
+                  'Categories: Singing, Dancing, Band Performances, and more.',
+                  'Outcome: Selection of finalists for the main event.',
+                ],
+              },
+              {
+                icon: '🎭',
+                title: 'Workshops',
+                lines: [
+                  'Purpose: Skill-building sessions for selected finalists.',
+                  'Trainers: Industry professionals (vocal coaches, choreographers, etc.).',
+                  'Focus Areas: Stage presence, confidence, performance refinement.',
+                ],
+              },
+              {
+                icon: '📰',
+                title: 'Press Conference',
+                lines: [
+                  'Timing: Held before the Grand Finale.',
+                  'Purpose: Media engagement and event publicity.',
+                  'Participants: Organizers, sponsors, judges, and finalists.',
+                  'Outcome: Builds hype and sponsor visibility before the main night.',
+                ],
+              },
+              {
+                icon: '🌟',
+                title: 'Grand Finale',
+                lines: [
+                  'Venue: Nelum Pokuna Outdoor Arena',
+                  'Audience: Over 2,000 attendees expected.',
+                  'Highlights: Top finalists, guest performances, celebrity judges.',
+                  'Experience: The biggest and most anticipated youth cultural event of 2025.',
+                ],
+                cta: 'Get Tickets',
+              },
+            ] as const).map((step, index) => (
               <motion.div
-                key={index}
-                className={`relative flex items-center mb-12 ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}
+                key={step.title}
+                className={`relative mb-10 flex items-center ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}
                 initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+                transition={{ duration: 0.6, delay: index * 0.06 }}
                 viewport={{ once: true }}
               >
-                <div className={`w-1/2 ${index % 2 === 0 ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
-                  <div className="glass rounded-2xl p-6">
-                    <h3 className="text-xl font-bold text-gold-500 mb-2">{item.time}</h3>
-                    <h4 className="text-lg font-semibold text-white mb-2">{item.event}</h4>
-                    <p className="text-gray-300">{item.description}</p>
+                {/* Card */}
+                <div className={`w-full md:w-1/2 ${index % 2 === 0 ? 'pr-6 md:pr-10' : 'pl-6 md:pl-10'}`}>
+                  <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:border-gold-500/40">
+                    {/* Accent line */}
+                    <span className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+                    <div className="flex items-start gap-4">
+                      <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-white/15 bg-white/10 text-xl">
+                        <span>{step.icon}</span>
+                      </div>
+                      <div>
+                        <h3 className="text-xl md:text-2xl font-semibold text-white">{step.title}</h3>
+                        <ul className="mt-3 space-y-1.5 text-gray-300 text-sm leading-relaxed">
+                          {step.lines.map((l) => (
+                            <li key={l}>{l}</li>
+                          ))}
+                        </ul>
+                        {step.cta && (
+                          <div className="mt-5">
+                            <a
+                              href="#tickets"
+                              className="inline-flex items-center justify-center rounded-full border border-gold-500/50 bg-gold-500/10 px-5 py-2 text-sm font-semibold text-gold-400 transition-colors hover:bg-gold-500/20"
+                            >
+                              {step.cta}
+                            </a>
+                          </div>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gold-500 rounded-full border-4 border-primary-950"></div>
-                <div className="w-1/2"></div>
+
+                {/* Node */}
+                <div className="absolute left-1/2 -translate-x-1/2 grid place-items-center">
+                  <div className="h-4 w-4 rounded-full bg-gold-500 ring-4 ring-[#0A0E27]" />
+                </div>
+
+                {/* Spacer */}
+                <div className="hidden md:block md:w-1/2" />
               </motion.div>
             ))}
           </div>
@@ -941,6 +1033,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Scroll Markers (progress dots) */}
+      <ScrollMarkers />
 
       {/* Contact Section */}
       <section id="contact" className="py-20 px-6">

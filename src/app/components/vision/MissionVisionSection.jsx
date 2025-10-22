@@ -36,7 +36,12 @@ const particles = [
   { top: "86%", left: "48%", size: 3 },
 ];
 
-export default function MissionVisionSection() {
+export default function MissionVisionSection({
+  eyebrow = "OUR PURPOSE",
+  heading = "Where Talent Meets Purpose",
+  missionTitle = "Our Mission",
+  visionTitle = "Our Vision",
+} = {}) {
   // spotlight coords for interactive glow
   const [spotMission, setSpotMission] = useState({ x: 140, y: 100 });
   const [spotVision, setSpotVision] = useState({ x: 140, y: 100 });
@@ -55,9 +60,7 @@ export default function MissionVisionSection() {
       aria-labelledby="mission-vision-heading"
       className="relative overflow-hidden"
     >
-      {/* Cinematic gradient background */}
-      <div className="absolute inset-0 bg-[radial-gradient(1200px_600px_at_80%_10%,rgba(255,215,0,0.08),transparent),radial-gradient(1000px_600px_at_10%_90%,rgba(99,102,241,0.08),transparent)]" />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0A0E27] via-[#0D1130] to-[#14173A]" />
+      {/* Cinematic background overlays (no background gradient to keep solid base) */}
       {/* Aurora orbs for depth */}
       <motion.div
         aria-hidden
@@ -104,9 +107,9 @@ export default function MissionVisionSection() {
           viewport={{ once: true, margin: "-80px" }}
           variants={fadeIn}
         >
-          <p className="text-xs uppercase tracking-[0.5em] text-[#FFD700]/80">OUR PURPOSE</p>
+          <p className="text-xs uppercase tracking-[0.5em] text-[#FFD700]/80">{eyebrow}</p>
           <h2 id="mission-vision-heading" className={`${playfair.className} mt-3 text-3xl font-semibold text-white md:text-4xl`}>
-            <span className="text-gradient-gold">“What Drives Tantalize 2025”</span>
+            <span className="text-gradient-gold">{heading}</span>
           </h2>
           {/* Animated divider */}
           <motion.div
@@ -137,7 +140,7 @@ export default function MissionVisionSection() {
           </div>
 
           {/* Cards grid */}
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
+          <div className="grid grid-cols-1 items-stretch gap-6 md:grid-cols-2 md:gap-8">
             {/* Mission Card */}
             <motion.article
               className="relative rounded-3xl p-[1px]"
@@ -149,26 +152,28 @@ export default function MissionVisionSection() {
               {/* Gold gradient border */}
               <div className="absolute inset-0 -z-10 rounded-3xl bg-gradient-to-br from-[#FFD700]/55 via-[#FFD700]/25 to-transparent blur-[2px]" aria-hidden />
               <div
-                className="group relative overflow-hidden rounded-[22px] border border-white/10 bg-white/10 p-7 backdrop-blur-xl transition-transform duration-500 ease-in-out hover:-translate-y-1 hover:border-[#FFD700]/40 hover:shadow-[0_35px_120px_-35px_rgba(255,215,0,0.35)] md:p-8"
+                className="group relative flex h-full min-h-[280px] flex-col overflow-hidden rounded-[22px] border border-white/10 bg-white/10 p-7 backdrop-blur-xl transition-transform duration-500 ease-in-out hover:-translate-y-1 hover:border-[#FFD700]/40 hover:shadow-[0_35px_120px_-35px_rgba(255,215,0,0.35)] md:p-8"
                 onMouseMove={(e) => onMove(e, setSpotMission)}
               >
+                {/* Top accent line */}
+                <span className="card-accent" aria-hidden />
                 {/* Sheen */}
                 <span className="gold-sheen" aria-hidden />
                 {/* Corner ornaments */}
                 <span className="corner-ornament corner-ornament--tl" aria-hidden />
                 <span className="corner-ornament corner-ornament--br" aria-hidden />
                 {/* Pulsing gold ring */}
-                <span className="gold-ring" aria-hidden />
+                <span className="gold-ring gold-ring--left" aria-hidden />
                 {/* Interactive spotlight */}
                 <span
                   className="spotlight-glow"
                   style={{ ["--px"]: `${spotMission.x}px`, ["--py"]: `${spotMission.y}px` }}
                   aria-hidden
                 />
-                <header className="mb-3">
-                  <h3 className={`${playfair.className} text-2xl font-semibold text-white md:text-3xl`}>Mission</h3>
+                <header className="mb-3 text-center">
+                  <h3 className={`${playfair.className} text-2xl font-semibold text-white md:text-3xl`}>{missionTitle}</h3>
                 </header>
-                <p className="text-base leading-relaxed text-white/80">
+                <p className="mx-auto max-w-prose text-center text-base leading-relaxed text-white/80">
                   “To celebrate and empower Sri Lankan youth by showcasing their talent on a national platform while giving back to society through education and community-driven causes.”
                 </p>
               </div>
@@ -185,26 +190,28 @@ export default function MissionVisionSection() {
               {/* Gold gradient border */}
               <div className="absolute inset-0 -z-10 rounded-3xl bg-gradient-to-br from-[#FFD700]/55 via-[#FFD700]/25 to-transparent blur-[2px]" aria-hidden />
               <div
-                className="group relative overflow-hidden rounded-[22px] border border-white/10 bg-white/10 p-7 backdrop-blur-xl transition-transform duration-500 ease-in-out hover:-translate-y-1 hover:border-[#FFD700]/40 hover:shadow-[0_35px_120px_-35px_rgba(255,215,0,0.35)] md:p-8"
+                className="group relative flex h-full min-h-[280px] flex-col overflow-hidden rounded-[22px] border border-white/10 bg-white/10 p-7 backdrop-blur-xl transition-transform duration-500 ease-in-out hover:-translate-y-1 hover:border-[#FFD700]/40 hover:shadow-[0_35px_120px_-35px_rgba(255,215,0,0.35)] md:p-8"
                 onMouseMove={(e) => onMove(e, setSpotVision)}
               >
+                {/* Top accent line */}
+                <span className="card-accent" aria-hidden />
                 {/* Sheen */}
                 <span className="gold-sheen" aria-hidden />
                 {/* Corner ornaments */}
                 <span className="corner-ornament corner-ornament--tl" aria-hidden />
                 <span className="corner-ornament corner-ornament--br" aria-hidden />
                 {/* Pulsing gold ring */}
-                <span className="gold-ring" aria-hidden />
+                <span className="gold-ring gold-ring--right" aria-hidden />
                 {/* Interactive spotlight */}
                 <span
                   className="spotlight-glow"
                   style={{ ["--px"]: `${spotVision.x}px`, ["--py"]: `${spotVision.y}px` }}
                   aria-hidden
                 />
-                <header className="mb-3">
-                  <h3 className={`${playfair.className} text-2xl font-semibold text-white md:text-3xl`}>Vision</h3>
+                <header className="mb-3 text-center">
+                  <h3 className={`${playfair.className} text-2xl font-semibold text-white md:text-3xl`}>{visionTitle}</h3>
                 </header>
-                <p className="text-base leading-relaxed text-white/80">
+                <p className="mx-auto max-w-prose text-center text-base leading-relaxed text-white/80">
                   “To create a legacy that unites creativity, culture, and compassion — building a future where every stage inspires change.”
                 </p>
               </div>
