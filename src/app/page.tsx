@@ -814,7 +814,7 @@ export default function Home() {
               TANTALIZE 2025 <span className="text-gold-500">Artist Lineup</span>
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              The island's finest artists bringing the heat to stage
+              The island&apos;s finest artists bringing the heat to stage
             </p>
           </motion.div>
 
