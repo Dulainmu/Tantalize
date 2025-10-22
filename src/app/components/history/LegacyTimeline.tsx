@@ -90,100 +90,124 @@ export default function LegacyTimeline() {
       </div>
 
       {/* Hero header (banner) */}
-      <div className="relative w-full h-[70vh] min-h-[420px] overflow-hidden">
-        <img
+      <div className="relative w-full min-h-screen overflow-hidden">
+        <motion.img
           src="/2024_Crowd.JPG"
           alt="Crowd celebrating during the 2024 Tantalize edition"
           className="absolute inset-0 h-full w-full object-cover"
           loading="lazy"
           decoding="async"
+          initial={{ scale: 1.08, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1.2, ease: 'easeOut' }}
+          style={{ willChange: 'transform' }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/35 to-black/60" />
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/35 to-black/60"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+        />
         <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col items-center justify-center px-6 text-center">
-          <p className="text-xs uppercase tracking-[0.5em] text-[#FFD700]/85">OUR LEGACY</p>
-          <h2 className={`${playfair.className} mt-3 text-3xl font-semibold text-white md:text-5xl`}>
+          <motion.p
+            className="text-xs uppercase tracking-[0.5em] text-[#FFD700]/85"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-20%' }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+          >
+            OUR LEGACY
+          </motion.p>
+          <motion.h2
+            className={`${playfair.className} mt-3 text-3xl font-semibold text-white md:text-5xl`}
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-20%' }}
+            transition={{ duration: 0.7, ease: 'easeOut', delay: 0.05 }}
+          >
             Relive the Years that Made Tantalize Legendary
-          </h2>
-          <div className="mx-auto mt-6 h-px w-48 bg-gradient-to-r from-transparent via-[#FFD700] to-transparent" />
-        </div>
-      </div>
+          </motion.h2>
+          <motion.div
+            className="mx-auto mt-6 h-px w-48 bg-gradient-to-r from-transparent via-[#FFD700] to-transparent"
+            initial={{ scaleX: 0, opacity: 0 }}
+            whileInView={{ scaleX: 1, opacity: 1 }}
+            viewport={{ once: true, margin: '-20%' }}
+            transition={{ duration: 0.8, ease: 'easeInOut' }}
+          />
 
-      <div className={`relative mx-auto max-w-6xl px-6 py-16 md:py-20 ${poppins.className}`}>
-
-        {/* Horizontal timeline */}
-        <div className="relative mb-10 md:mb-12">
-          <div
+          {/* Year selector over the banner */}
+          <motion.div
             role="tablist"
             aria-label="Tantalize Legacy Years"
-            className="no-scrollbar relative flex items-center gap-3 overflow-x-auto pb-2 md:justify-center md:gap-4"
+            className="no-scrollbar mt-6 flex w-full items-center justify-center gap-3 overflow-x-auto pb-2 md:gap-4"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-20%' }}
+            variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.06 } } }}
           >
             {years.map((y) => {
               const active = y === selectedYear;
               return (
-                <div key={y} className="relative flex items-center">
-                  <button
-                    role="tab"
-                    aria-selected={active}
-                    onClick={() => setSelectedYear(y)}
-                    className={`inline-flex shrink-0 items-center justify-center rounded-full border px-4 py-2 text-sm font-semibold transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD700]/70 md:px-5 md:py-2.5 ${
-                      active
-                        ? "border-[#FFD700]/70 bg-[#FFD700] text-[#0A0E27] shadow-[0_0_22px_rgba(255,215,0,0.5)]"
-                        : "border-white/15 bg-white/5 text-white/80 hover:border-[#FFD700]/50 hover:bg-[#FFD700]/10 hover:text-white"
-                    }`}
-                  >
-                    {y}
-                  </button>
-                </div>
+                <motion.button
+                  key={y}
+                  role="tab"
+                  aria-selected={active}
+                  onClick={() => setSelectedYear(y)}
+                  className={`inline-flex shrink-0 items-center justify-center rounded-full border px-4 py-2 text-sm font-semibold transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD700]/70 md:px-5 md:py-2.5 ${
+                    active
+                      ? "border-[#FFD700]/70 bg-[#FFD700] text-[#0A0E27] shadow-[0_0_22px_rgba(255,215,0,0.5)]"
+                      : "border-white/20 bg-white/10 text-white/85 hover:border-[#FFD700]/50 hover:bg-[#FFD700]/15 hover:text-white"
+                  }`}
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, ease: 'easeOut' }}
+                >
+                  {y}
+                </motion.button>
               );
             })}
-          </div>
-        </div>
+          </motion.div>
 
-        {/* Dynamic content card */}
-        <AnimatePresence mode="wait">
+          {/* Condensed current year info over the banner */}
           <motion.div
-            key={current.year}
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -24 }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_35px_120px_-35px_rgba(255,215,0,0.25)] backdrop-blur-xl md:p-10"
+            className="mt-8 mx-auto w-[min(92%,_1100px)] rounded-3xl border border-white/10 bg-white/10 p-7 backdrop-blur-xl md:p-8 lg:p-10"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-15%' }}
+            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
           >
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,215,0,0.08),_transparent_60%)]" />
-            <div className="relative grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
-              <div>
-                <h3 className={`${playfair.className} text-2xl font-semibold text-white md:text-3xl`}>
-                  {current.title}
-                </h3>
-                <p className="mt-3 max-w-2xl text-base leading-relaxed text-white/80">{current.description}</p>
-                <div className="mt-6 flex flex-wrap items-center gap-3">
-                  <button
-                    className="inline-flex items-center justify-center rounded-full border border-[#FFD700]/50 bg-[#FFD700]/10 px-5 py-2 text-sm font-semibold text-[#FFD700] transition-colors hover:bg-[#FFD700]/20"
-                  >
+            <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-[minmax(0,1.4fr)_minmax(260px,1fr)]">
+              <div className="w-full">
+                <h3 className="text-center text-2xl font-semibold text-white md:text-left md:text-3xl">{current.title}</h3>
+                <p className="mt-3 text-center text-base leading-relaxed text-white/85 md:text-left md:text-lg">
+                  {current.description}
+                </p>
+                <div className="mt-4 flex justify-center md:justify-start">
+                  <button className="inline-flex items-center justify-center rounded-full border border-[#FFD700]/50 bg-[#FFD700]/10 px-6 py-2.5 text-sm font-semibold text-[#FFD700] transition-colors hover:bg-[#FFD700]/20">
                     Watch Recap
                   </button>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-3 md:gap-4">
-                {current.images.slice(0, 3).map((src, i) => (
-                  <motion.div
-                    key={src}
-                    className="relative h-32 overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#0A0E27] to-[#111536] md:h-40"
-                    whileHover={{ y: -4 }}
-                    transition={{ type: "spring", stiffness: 240, damping: 20 }}
+              <div className="grid w-full grid-cols-2 gap-3 md:w-auto md:min-w-[260px] md:justify-self-end">
+                {["Image 1", "Image 2"].map((label) => (
+                  <div
+                    key={label}
+                    className="relative h-20 md:h-24 overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-[#0A0E27] to-[#111536]"
                   >
-                    {/* Mock image placeholder; replace with next/image if assets exist */}
                     <div className="absolute inset-0 grid place-items-center text-center">
-                      <span className="text-xs text-white/60">Image {i + 1}</span>
+                      <span className="text-[11px] text-white/70">{label}</span>
                     </div>
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,215,0,0.08),_transparent_65%)]" />
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
           </motion.div>
-        </AnimatePresence>
+        </div>
       </div>
+
+      {/* Detail card removed to avoid duplication; summary lives on banner */}
     </section>
   );
 }
