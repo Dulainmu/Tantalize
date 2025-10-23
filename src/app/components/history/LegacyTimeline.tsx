@@ -7,7 +7,7 @@
 // - Fully responsive with scrollable timeline on mobile
 
 import { useMemo, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Playfair_Display, Poppins } from "next/font/google";
 
 const playfair = Playfair_Display({ subsets: ["latin"], weight: ["600"], variable: "--font-playfair" });
@@ -110,7 +110,7 @@ export default function LegacyTimeline() {
         />
         {/* Animated light beams overlay */}
         <div className="legacy-hero-beams" aria-hidden />
-        <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col items-center justify-end pb-24 padding-top: 200px; px-6 text-center">
+        <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col items-center justify-center px-6 text-center">
           <motion.p
             className="text-xs uppercase tracking-[0.5em] text-[#FFD700]/85"
             initial={{ opacity: 0, y: 20 }}
@@ -138,19 +138,15 @@ export default function LegacyTimeline() {
           />
 
           {/* Year selector over the banner */}
-          <motion.div
+          <div
             role="tablist"
             aria-label="Tantalize Legacy Years"
             className="no-scrollbar mt-6 flex w-full items-center justify-center gap-3 overflow-x-auto pb-2 md:gap-4"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: false, amount: 0.35, margin: '-20%' }}
-            variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.06 } } }}
           >
             {years.map((y) => {
               const active = y === selectedYear;
               return (
-                <motion.button
+                <button
                   key={y}
                   role="tab"
                   aria-selected={active}
@@ -160,30 +156,18 @@ export default function LegacyTimeline() {
                       ? "border-[#FFD700]/70 bg-[#FFD700] text-[#0A0E27] shadow-[0_0_22px_rgba(255,215,0,0.5)]"
                       : "border-white/20 bg-white/10 text-white/85 hover:border-[#FFD700]/50 hover:bg-[#FFD700]/15 hover:text-white"
                   }`}
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, ease: 'easeOut' }}
-                  animate={active ? { y: [0, -2, 0] } : undefined}
-                  whileHover={{ y: -3, scale: 1.02 }}
                 >
                   {y}
-                </motion.button>
+                </button>
               );
             })}
-          </motion.div>
+          </div>
 
           {/* Condensed current year info over the banner */}
-          {/* Summary card crossfades on year change */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={current.year}
-              className="group relative mt-8 mx-auto w-[min(92%,_1100px)] overflow-hidden rounded-3xl border border-white/10 bg-white/10 p-7 backdrop-blur-xl md:p-8 lg:p-10"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -16 }}
-              transition={{ duration: 0.45, ease: 'easeOut' }}
-            >
+          {/* Static summary card (no crossfade/hover lift) */}
+          <div
+            className="group relative mt-8 mx-auto w-[min(92%,_1100px)] overflow-hidden rounded-3xl border border-white/10 bg-white/10 p-7 backdrop-blur-xl md:p-8 lg:p-10"
+          >
               {/* sheen + corner ornaments for premium feel */}
               <span className="gold-sheen" aria-hidden />
               <span className="corner-ornament corner-ornament--tl" aria-hidden />
@@ -202,22 +186,19 @@ export default function LegacyTimeline() {
                 </div>
                 <div className="grid w-full grid-cols-2 gap-3 md:w-auto md:min-w-[260px] md:justify-self-end">
                   {["Image 1", "Image 2"].map((label) => (
-                    <motion.div
+                    <div
                       key={label}
                       className="relative h-20 md:h-24 overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-[#0A0E27] to-[#111536]"
-                      whileHover={{ y: -4, scale: 1.03 }}
-                      transition={{ type: 'spring', stiffness: 260, damping: 18 }}
                     >
                       <div className="absolute inset-0 grid place-items-center text-center">
                         <span className="text-[11px] text-white/70">{label}</span>
                       </div>
                       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,215,0,0.08),_transparent_65%)]" />
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
               </div>
-            </motion.div>
-          </AnimatePresence>
+          </div>
         </div>
       </div>
 
