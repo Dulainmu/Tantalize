@@ -4,10 +4,15 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useRef, type ReactNode } from 'react';
 import { QrCode, ArrowDown, Volume2, VolumeX, Play, Pause } from 'lucide-react';
-import LegacyTimeline from './components/history/LegacyTimeline';
-import ScrollMarkers from './components/common/ScrollMarkers';
-import ParallaxSection from './components/common/ParallaxSection';
-import HeroParticles from './components/common/HeroParticles';
+import dynamic from 'next/dynamic';
+
+// Lazy load heavy components
+const LegacyTimeline = dynamic(() => import('./components/history/LegacyTimeline'), {
+  loading: () => <div className="text-center text-gold-400">Loading...</div>
+});
+const ScrollMarkers = dynamic(() => import('./components/common/ScrollMarkers'));
+const ParallaxSection = dynamic(() => import('./components/common/ParallaxSection'));
+const HeroParticles = dynamic(() => import('./components/common/HeroParticles'));
 
 const getAvatarUrl = (name: string) =>
   `https://api.dicebear.com/7.x/adventurer-neutral/svg?radius=50&backgroundColor=0a0e27,1a1f3a&seed=${encodeURIComponent(
@@ -512,6 +517,7 @@ export default function Home() {
             muted
             loop
             playsInline
+            preload="metadata"
             onError={(e) => {
               // Fallback to gradient background if video fails to load
               e.currentTarget.style.display = 'none';
@@ -1038,14 +1044,15 @@ export default function Home() {
             {[
               { name: "Bathiya & Santhush", genre: "Legends", icon: "🎸", color: "from-amber-500 to-orange-600", image: "/BnS.jpg", audio: "/BnS.mp3" },
               { name: "Wasthi", genre: "Vocals", icon: "🎤", color: "from-pink-500 to-rose-600", image: "/wasthi.jpg", audio: "/wasthi.mp3" },
-              { name: "Hana", genre: "Rhythms", icon: "🎵", color: "from-blue-500 to-cyan-600" },
-              { name: "Iraj", genre: "Hip-Hop", icon: "🎧", color: "from-purple-500 to-indigo-600" },
-              { name: "Dhanith Sri", genre: "Melodies", icon: "🎹", color: "from-green-500 to-emerald-600" },
-              { name: "Raveen", genre: "Beats", icon: "🥁", color: "from-red-500 to-pink-600" },
-              { name: "Dinesh & Kaizer", genre: "Duo Power", icon: "⚡", color: "from-yellow-500 to-amber-600" },
-              { name: "KK", genre: "Energy", icon: "🔥", color: "from-orange-500 to-red-600" },
-              { name: "Daddy", genre: "Vibes", icon: "🎺", color: "from-teal-500 to-cyan-600" },
-              { name: "Infinity", genre: "Limitless", icon: "♾️", color: "from-violet-500 to-purple-600" }
+              { name: "Hana", genre: "Rhythms", icon: "🎵", color: "from-blue-500 to-cyan-600", image: "/Hana.jpg", audio: "/Hana.mp3" },
+              { name: "Iraj", genre: "Hip-Hop", icon: "🎧", color: "from-purple-500 to-indigo-600", image: "/Iraj.jpg", audio: "/Iraj.mp3" },
+              { name: "Dhanith Sri", genre: "Melodies", icon: "🎹", color: "from-green-500 to-emerald-600", image: "/Dhanith Sri.jpeg", audio: "/Dhanith Sri.mp3" },
+              { name: "Raveen", genre: "Beats", icon: "🥁", color: "from-red-500 to-pink-600", image: "/Raveen.jpeg", audio: "/Raveen.mp3" },
+              { name: "Yaka Crew", genre: "Collective", icon: "👥", color: "from-slate-500 to-zinc-600", image: "/Yaka Crew.jpg", audio: "/Yaka Crew.mp3" },
+              { name: "KK", genre: "Energy", icon: "🔥", color: "from-orange-500 to-red-600", image: "/KK.jpg", audio: "/KK.mp3" },
+              { name: "Dilo", genre: "Vibes", icon: "🎺", color: "from-teal-500 to-cyan-600", image: "/Dilo.jpg", audio: "/Dilo.mp3" },
+              { name: "Chanuka Mora", genre: "Soul", icon: "✨", color: "from-indigo-500 to-violet-600", image: "/Chanuka Mora.jpg", audio: "/Chanuka Mora.mp3" },
+              { name: "Infinity", genre: "Limitless", icon: "♾️", color: "from-violet-500 to-purple-600", image: "/Infinity.jpg", audio: "/Infinity.mp3" }
             ].map((artist, index) => (
               <motion.div
                 key={index}
@@ -1072,7 +1079,7 @@ export default function Home() {
                       }
                     }}
                     src={artist.audio}
-                    preload="auto"
+                    preload="none"
                     playsInline
                   />
                 )}
@@ -1108,7 +1115,9 @@ export default function Home() {
                         alt={artist.name}
                         fill
                         className="object-cover"
-                        quality={95}
+                        quality={75}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        loading="lazy"
                       />
                       {/* Gradient overlay for text readability */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
@@ -1252,7 +1261,9 @@ export default function Home() {
                             alt={artist.name}
                             fill
                             className="object-cover"
-                            quality={95}
+                            quality={75}
+                            sizes="(max-width: 768px) 128px, 128px"
+                            loading="lazy"
                           />
                         ) : (
                           artist.icon
