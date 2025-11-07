@@ -110,7 +110,7 @@ export default function LegacyTimeline() {
         />
         {/* Animated light beams overlay */}
         <div className="legacy-hero-beams" aria-hidden />
-        <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col items-center justify-center px-4 sm:px-6 text-center pt-16 sm:pt-20 md:pt-0">
+        <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col items-center justify-center px-4 sm:px-6 text-center pt-20 sm:pt-24 md:pt-0 pb-8 sm:pb-12 md:pb-0">
           <motion.p
             className="text-xs uppercase tracking-[0.5em] text-[#FFD700]/85"
             initial={{ opacity: 0, y: 20 }}
@@ -166,29 +166,29 @@ export default function LegacyTimeline() {
           {/* Condensed current year info over the banner */}
           {/* Static summary card (no crossfade/hover lift) */}
           <div
-            className="group relative mt-6 sm:mt-8 md:mt-10 mb-8 sm:mb-12 mx-auto w-[min(95%,_1100px)] overflow-visible rounded-2xl sm:rounded-3xl border border-white/10 bg-white/10 p-5 sm:p-6 md:p-8 lg:p-10 backdrop-blur-xl"
+            className="group relative mt-6 sm:mt-8 md:mt-10 mb-12 sm:mb-16 md:mb-20 mx-auto w-[min(90%,_900px)] overflow-visible rounded-2xl sm:rounded-3xl border border-white/10 bg-white/10 p-4 sm:p-5 md:p-6 lg:p-8 backdrop-blur-xl"
           >
               {/* sheen + corner ornaments for premium feel */}
               <span className="gold-sheen" aria-hidden />
               <span className="corner-ornament corner-ornament--tl" aria-hidden />
               <span className="corner-ornament corner-ornament--br" aria-hidden />
-              <div className="grid grid-cols-1 items-start gap-5 sm:gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(260px,1fr)]">
+              <div className="grid grid-cols-1 items-start gap-4 sm:gap-5 lg:grid-cols-[minmax(0,1.4fr)_minmax(220px,1fr)]">
                 <div className="w-full">
-                  <h3 className="text-center text-xl sm:text-2xl md:text-3xl font-semibold text-white lg:text-left">{current.title}</h3>
-                  <p className="mt-3 text-center text-sm sm:text-base md:text-lg leading-relaxed text-white/85 lg:text-left">
+                  <h3 className="text-center text-lg sm:text-xl md:text-2xl font-semibold text-white lg:text-left">{current.title}</h3>
+                  <p className="mt-2 sm:mt-3 text-center text-xs sm:text-sm md:text-base leading-relaxed text-white/85 lg:text-left">
                     {current.description}
                   </p>
-                  <div className="mt-4 sm:mt-5 flex justify-center lg:justify-start">
-                    <button className="inline-flex items-center justify-center rounded-full border border-[#FFD700]/50 bg-[#FFD700]/10 px-5 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-[#FFD700] transition-colors hover:bg-[#FFD700]/20">
+                  <div className="mt-3 sm:mt-4 flex justify-center lg:justify-start">
+                    <button className="inline-flex items-center justify-center rounded-full border border-[#FFD700]/50 bg-[#FFD700]/10 px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-[#FFD700] transition-colors hover:bg-[#FFD700]/20">
                       Watch Recap
                     </button>
                   </div>
                 </div>
-                <div className="grid w-full grid-cols-2 gap-3 sm:gap-4 lg:w-auto lg:min-w-[260px] lg:justify-self-end">
+                <div className="grid w-full grid-cols-2 gap-2 sm:gap-3 lg:w-auto lg:min-w-[220px] lg:justify-self-end">
                   {["Image 1", "Image 2"].map((label) => (
                     <div
                       key={label}
-                      className="relative h-24 sm:h-28 md:h-32 overflow-hidden rounded-lg sm:rounded-xl border border-white/10 bg-gradient-to-br from-[#0A0E27] to-[#111536]"
+                      className="relative h-20 sm:h-24 md:h-28 overflow-hidden rounded-lg sm:rounded-xl border border-white/10 bg-gradient-to-br from-[#0A0E27] to-[#111536]"
                     >
                       <div className="absolute inset-0 grid place-items-center text-center">
                         <span className="text-xs sm:text-sm text-white/70">{label}</span>
