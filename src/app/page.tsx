@@ -642,7 +642,7 @@ export default function Home() {
 
             {/* CTA Button (3D glow + ripple) */}
             <motion.div
-              className="flex justify-center items-center mt-6 sm:mt-8 md:mt-12 mb-20 sm:mb-8 md:mb-0"
+              className="flex justify-center items-center mt-6 sm:mt-8 md:mt-12 mb-24 sm:mb-12 md:mb-0"
               initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
             >
               <motion.a
