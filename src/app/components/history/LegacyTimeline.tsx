@@ -90,7 +90,7 @@ export default function LegacyTimeline() {
       </div>
 
       {/* Hero header (banner) */}
-      <div className="relative w-full min-h-screen overflow-hidden">
+      <div className="relative w-full min-h-[85vh] sm:min-h-[90vh] md:min-h-screen overflow-hidden">
         <motion.img
           src="/2024_Crowd.JPG"
           alt="Crowd celebrating during the 2024 Tantalize edition"
@@ -110,7 +110,7 @@ export default function LegacyTimeline() {
         />
         {/* Animated light beams overlay */}
         <div className="legacy-hero-beams" aria-hidden />
-        <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col items-center justify-center px-6 text-center">
+        <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col items-center justify-center px-4 sm:px-6 text-center pt-16 sm:pt-20 md:pt-0">
           <motion.p
             className="text-xs uppercase tracking-[0.5em] text-[#FFD700]/85"
             initial={{ opacity: 0, y: 20 }}
@@ -141,7 +141,7 @@ export default function LegacyTimeline() {
           <div
             role="tablist"
             aria-label="Tantalize Legacy Years"
-            className="no-scrollbar mt-8 sm:mt-10 md:mt-12 flex w-full items-center justify-start sm:justify-center gap-2 sm:gap-3 md:gap-4 overflow-x-auto px-4 pb-2 scroll-smooth"
+            className="no-scrollbar mt-6 sm:mt-8 md:mt-10 flex w-full max-w-4xl items-center justify-start sm:justify-center gap-2 sm:gap-3 md:gap-4 overflow-x-auto px-4 pb-3 scroll-smooth"
           >
             {years.map((y) => {
               const active = y === selectedYear;
@@ -151,7 +151,7 @@ export default function LegacyTimeline() {
                   role="tab"
                   aria-selected={active}
                   onClick={() => setSelectedYear(y)}
-                  className={`inline-flex shrink-0 items-center justify-center rounded-full border px-5 py-2 sm:px-6 sm:py-2.5 md:px-7 md:py-3 text-sm sm:text-base font-semibold transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD700]/70 ${
+                  className={`inline-flex shrink-0 items-center justify-center rounded-full border px-4 py-1.5 sm:px-5 sm:py-2 md:px-6 md:py-2.5 text-xs sm:text-sm md:text-base font-semibold transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD700]/70 whitespace-nowrap ${
                     active
                       ? "border-[#FFD700]/70 bg-[#FFD700] text-[#0A0E27] shadow-[0_0_22px_rgba(255,215,0,0.5)] scale-105"
                       : "border-white/20 bg-white/10 text-white/85 hover:border-[#FFD700]/50 hover:bg-[#FFD700]/15 hover:text-white"
@@ -166,7 +166,7 @@ export default function LegacyTimeline() {
           {/* Condensed current year info over the banner */}
           {/* Static summary card (no crossfade/hover lift) */}
           <div
-            className="group relative mt-6 sm:mt-8 md:mt-10 mx-auto w-[min(95%,_1100px)] overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-white/10 p-5 sm:p-6 md:p-8 lg:p-10 backdrop-blur-xl"
+            className="group relative mt-6 sm:mt-8 md:mt-10 mb-8 sm:mb-12 mx-auto w-[min(95%,_1100px)] overflow-visible rounded-2xl sm:rounded-3xl border border-white/10 bg-white/10 p-5 sm:p-6 md:p-8 lg:p-10 backdrop-blur-xl"
           >
               {/* sheen + corner ornaments for premium feel */}
               <span className="gold-sheen" aria-hidden />

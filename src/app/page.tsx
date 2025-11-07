@@ -642,7 +642,7 @@ export default function Home() {
 
             {/* CTA Button (3D glow + ripple) */}
             <motion.div
-              className="flex justify-center items-center mt-6 sm:mt-8 md:mt-12 mb-16 sm:mb-0"
+              className="flex justify-center items-center mt-6 sm:mt-8 md:mt-12 mb-20 sm:mb-8 md:mb-0"
               initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
             >
               <motion.a
@@ -915,14 +915,14 @@ export default function Home() {
                 exit={{ opacity: 0, y: -30 }}
                 transition={{ duration: 0.5, ease: 'easeOut' }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.3 }}
+                viewport={{ once: false, amount: 0.05 }}
               >
                 <motion.div
-                  className="relative rounded-3xl border border-white/8 bg-primary-950/60 p-8 md:p-12"
+                  className="relative rounded-3xl border border-white/8 bg-primary-950/60 p-6 sm:p-8 md:p-12"
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.55 }}
-                  viewport={{ once: false, amount: 0.35 }}
+                  viewport={{ once: false, amount: 0.05 }}
                 >
                   <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
                     <div className="space-y-6">
