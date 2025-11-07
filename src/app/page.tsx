@@ -21,59 +21,91 @@ const getAvatarUrl = (name: string) =>
 
 type CommitteePortraitProps = {
   name: string;
-  accentClass?: string;
-  sizeClass?: string;
-  roundedClass?: string;
-  badge?: ReactNode;
+  role: string;
+  image?: string;
   imageSizes?: string;
   wrapperClassName?: string;
-  fallbackLabel?: string;
-  fallbackClassName?: string;
+  isLarge?: boolean;
 };
 
 const CommitteePortrait = ({
   name,
-  accentClass,
-  sizeClass = 'h-16 w-16',
-  roundedClass = 'rounded-2xl',
-  badge,
-  imageSizes = '64px',
+  role,
+  image,
+  imageSizes = '400px',
   wrapperClassName = '',
-  fallbackLabel,
-  fallbackClassName = '',
-}: CommitteePortraitProps) => (
-  <div className={`relative shrink-0 overflow-hidden ${roundedClass} ${sizeClass} ${wrapperClassName}`}>
-    {accentClass && (
-      <div
-        className={`absolute inset-0 -z-10 ${accentClass} opacity-30 blur-xl transition duration-500 ease-out group-hover:opacity-60`}
-        aria-hidden
-      />
-    )}
-    <Image
-      src={getAvatarUrl(name)}
-      alt={`${name} portrait`}
-      fill
-      sizes={imageSizes}
-      className="pointer-events-none absolute inset-0 h-full w-full scale-105 object-cover opacity-0 transition-all duration-500 ease-out group-hover:scale-100 group-hover:opacity-100 will-change-transform"
-    />
-    <div
-      className="pointer-events-none absolute inset-0 bg-primary-950/85 transition-opacity duration-500 ease-out group-hover:bg-primary-950/15"
-      aria-hidden
-    />
-    {fallbackLabel && (
-      <span
-        className={`pointer-events-none relative z-10 flex h-full w-full items-center justify-center text-[0.6rem] font-semibold uppercase tracking-[0.35em] text-white/80 transition-opacity duration-400 ease-out group-hover:opacity-0 ${fallbackClassName}`}
-      >
-        {fallbackLabel}
-      </span>
-    )}
-    {badge && (
-      <div className="absolute -bottom-2 -right-2 z-10">
-        {badge}
+  isLarge = false,
+}: CommitteePortraitProps) => {
+  const [isHovered, setIsHovered] = useState(false);
+  
+  return (
+    <motion.div 
+      className={`relative aspect-square overflow-hidden rounded-2xl border border-white/10 bg-gray-900 ${wrapperClassName}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      whileHover={{ scale: 1.03, y: -8 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+    >
+      {/* Member Image */}
+      <div className="absolute inset-0">
+        <Image
+          src={image || getAvatarUrl(name)}
+          alt={name}
+          fill
+          sizes={imageSizes}
+          className="object-cover transition-all duration-500 ease-out"
+          style={{
+            filter: isHovered ? 'brightness(0.4)' : 'brightness(1)',
+          }}
+          loading="lazy"
+          quality={90}
+        />
       </div>
-    )}
-  </div>
-);
+
+      {/* Dark Overlay on Hover */}
+      <div 
+        className="absolute inset-0 bg-black/60 transition-opacity duration-500"
+        style={{ opacity: isHovered ? 1 : 0 }}
+      />
+
+      {/* Hover Overlay - Name & Role */}
+      <motion.div
+        className={`absolute inset-0 flex flex-col items-center justify-center ${isLarge ? 'p-8' : 'p-6'} text-center`}
+        initial={{ opacity: 0 }}
+        animate={{ 
+          opacity: isHovered ? 1 : 0 
+        }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+      >
+        {/* Member Name */}
+        <motion.h4 
+          className={`font-bold text-white mb-3 ${isLarge ? 'text-2xl md:text-3xl' : 'text-xl md:text-2xl'}`}
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ 
+            y: isHovered ? 0 : 20, 
+            opacity: isHovered ? 1 : 0 
+          }}
+          transition={{ duration: 0.3, delay: 0.1 }}
+        >
+          {name}
+        </motion.h4>
+
+        {/* Role/Position */}
+        <motion.p
+          className={`uppercase tracking-[0.2em] text-gray-300 font-medium ${isLarge ? 'text-sm' : 'text-xs'}`}
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ 
+            y: isHovered ? 0 : 20, 
+            opacity: isHovered ? 1 : 0 
+          }}
+          transition={{ duration: 0.3, delay: 0.2 }}
+        >
+          {role}
+        </motion.p>
+      </motion.div>
+    </motion.div>
+  );
+};
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -270,18 +302,35 @@ export default function Home() {
           }}
           aria-hidden
         />
-        <CommitteePortrait
-          name={member.name}
-          accentClass={`bg-gradient-to-br ${member.accent ?? 'from-gold-500/50 via-amber-400/20 to-transparent'}`}
-          sizeClass={isPrimary ? 'h-28 w-28' : 'h-24 w-24'}
-          imageSizes={isPrimary ? '160px' : '128px'}
-          fallbackLabel={member.initials}
-          wrapperClassName={
-            isPrimary
-              ? "pointer-events-none absolute top-6 right-6 opacity-70 transition-all duration-500 ease-out group-hover:scale-105 group-hover:opacity-100"
-              : "pointer-events-none absolute top-5 right-5 opacity-60 transition-all duration-500 ease-out group-hover:scale-105 group-hover:opacity-100"
-          }
-        />
+        {/* Executive member portrait - kept simple for this section */}
+        <div className={`relative shrink-0 overflow-hidden rounded-2xl ${isPrimary ? 'h-28 w-28' : 'h-24 w-24'} ${isPrimary ? "pointer-events-none absolute top-6 right-6 opacity-70 transition-all duration-500 ease-out group-hover:scale-105 group-hover:opacity-100" : "pointer-events-none absolute top-5 right-5 opacity-60 transition-all duration-500 ease-out group-hover:scale-105 group-hover:opacity-100"}`}>
+          {member.accent && (
+            <div
+              className={`absolute inset-0 -z-10 bg-gradient-to-br ${member.accent ?? 'from-gold-500/50 via-amber-400/20 to-transparent'} opacity-30 blur-xl transition duration-500 ease-out group-hover:opacity-60`}
+              aria-hidden
+            />
+          )}
+          <Image
+            src={getAvatarUrl(member.name)}
+            alt={`${member.name} portrait`}
+            fill
+            sizes={isPrimary ? '160px' : '128px'}
+            className="pointer-events-none absolute inset-0 h-full w-full scale-105 object-cover opacity-0 transition-all duration-500 ease-out group-hover:scale-100 group-hover:opacity-100 will-change-transform"
+            loading="lazy"
+            quality={75}
+          />
+          <div
+            className="pointer-events-none absolute inset-0 bg-primary-950/85 transition-opacity duration-500 ease-out group-hover:bg-primary-950/15"
+            aria-hidden
+          />
+          {member.initials && (
+            <span
+              className={`pointer-events-none relative z-10 flex h-full w-full items-center justify-center text-[0.6rem] font-semibold uppercase tracking-[0.35em] text-white/80 transition-opacity duration-400 ease-out group-hover:opacity-0`}
+            >
+              {member.initials}
+            </span>
+          )}
+        </div>
         <div className={`relative z-10 flex h-full flex-col gap-6 ${isPrimary ? 'pr-6 md:pr-14' : 'pr-4 md:pr-10'}`}>
           <div className="space-y-3">
             <p
@@ -709,15 +758,45 @@ export default function Home() {
               transition={{ duration: 0.6 }}
               viewport={{ once: false, amount: 0.3 }}
             >
-              <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-                {leadershipPrimary.map((member, index) =>
-                  renderLeadershipCard(member, index, 'primary'),
-                )}
+              {/* Primary Leadership - Larger cards */}
+              <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-2 max-w-4xl mx-auto">
+                {leadershipPrimary.map((member, index) => (
+                  <motion.div
+                    key={member.name}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                    viewport={{ once: false, amount: 0.3 }}
+                  >
+                    <CommitteePortrait
+                      name={member.name}
+                      role={member.role}
+                      imageSizes="600px"
+                      isLarge={true}
+                    />
+                  </motion.div>
+                ))}
               </div>
-              <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:max-w-3xl md:mx-auto">
-                {leadershipCoordinators.map((member, index) =>
-                  renderLeadershipCard(member, index + leadershipPrimary.length, 'secondary'),
-                )}
+              {/* Coordinators - Regular size */}
+              <div className="flex justify-center">
+                <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 max-w-2xl">
+                  {leadershipCoordinators.map((member, index) => (
+                    <motion.div
+                      key={member.name}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.4, delay: index * 0.05 }}
+                      viewport={{ once: false, amount: 0.3 }}
+                    >
+                      <CommitteePortrait
+                        name={member.name}
+                        role={member.role}
+                        imageSizes="400px"
+                        isLarge={false}
+                      />
+                    </motion.div>
+                  ))}
+                </div>
               </div>
             </motion.div>
           </div>
@@ -750,41 +829,23 @@ export default function Home() {
                 Strategic leads keeping every pillar synchronized, funded, and ready for showtime.
               </motion.p>
             </motion.div>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+            <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
               {executiveMembers.map((member, index) => (
                 <motion.div
                   key={member.name}
-                  className="group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-white/8 bg-primary-950/50 p-5 transition-all duration-400 ease-out hover:-translate-y-1 hover:border-gold-500/30 sm:p-6"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.45, delay: index * 0.08 }}
-                  viewport={{ once: false, amount: 0.25 }}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                  viewport={{ once: false, amount: 0.3 }}
                 >
-                  <div className="pointer-events-none absolute inset-0 opacity-10 transition-opacity duration-400 ease-out group-hover:opacity-35" aria-hidden />
-                  <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
-                    <div className="absolute inset-0 bg-gradient-to-br from-gold-500/25 via-transparent to-transparent opacity-0 transition-opacity duration-400 ease-out group-hover:opacity-70" aria-hidden />
-                    <Image
-                      src={getAvatarUrl(member.name)}
-                      alt={`${member.name} portrait`}
-                      fill
-                      sizes="220px"
-                      className="h-full w-full object-cover opacity-0 transition-opacity duration-400 ease-out group-hover:opacity-100"
-                    />
-                  </div>
-                  <div className="relative z-10 flex flex-col gap-3">
-                    <div className="space-y-1.5">
-                      <p className="text-[0.48rem] uppercase tracking-[0.4em] text-gold-200/70">{member.role}</p>
-                      <h4 className="text-base font-semibold text-white md:text-lg">{member.name}</h4>
-                    </div>
-                    <p className="text-xs leading-relaxed text-gray-300/90">{member.description}</p>
-                  </div>
-                  <div className="relative z-10 mt-3 flex items-center justify-between gap-3 text-[0.48rem] uppercase tracking-[0.3em] text-gray-500">
-                    <span>{member.focus}</span>
-                    <span className="h-px flex-1 bg-gradient-to-r from-gold-500/40 via-transparent to-transparent" />
-                    <span className="inline-flex h-2 w-2 rounded-full bg-gold-500/80" />
-                  </div>
+                  <CommitteePortrait
+                    name={member.name}
+                    role={member.role}
+                    imageSizes="400px"
+                    isLarge={false}
+                  />
                 </motion.div>
-             ))}
+              ))}
             </div>
           </div>
 
@@ -880,33 +941,20 @@ export default function Home() {
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
                       {activeTeamData.members.map((member, index) => (
                         <motion.div
                           key={member.name}
-                          className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-5 transition-all duration-300 ease-out hover:-translate-y-1 hover:border-gold-500/30 hover:bg-white/8"
-                          initial={{ opacity: 0, y: 30 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.45, delay: index * 0.08 }}
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          transition={{ duration: 0.4, delay: index * 0.05 }}
                           viewport={{ once: false, amount: 0.3 }}
                         >
                           <CommitteePortrait
                             name={member.name}
-                            accentClass="bg-gradient-to-br from-gold-500/35 via-transparent to-transparent"
-                            sizeClass="h-20 w-20"
-                            imageSizes="96px"
-                            fallbackLabel={member.initials}
-                            wrapperClassName="pointer-events-none absolute top-5 right-5 opacity-60 transition-all duration-500 ease-out group-hover:scale-105 group-hover:opacity-100"
-                            fallbackClassName="text-sm"
+                            role={member.role}
+                            imageSizes="400px"
                           />
-                          <div className="relative z-10 space-y-3 pr-4">
-                            <p className="text-[0.55rem] uppercase tracking-[0.4em] text-gray-500">{member.role}</p>
-                            <p className="text-lg font-semibold text-white">{member.name}</p>
-                          </div>
-                          <div className="relative z-10 mt-4 inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-gray-500">
-                            <span className="block h-[2px] w-5 rounded-full bg-gold-500/60" />
-                            {member.initials}
-                          </div>
                         </motion.div>
                       ))}
                     </div>
