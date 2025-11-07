@@ -40,7 +40,7 @@ const CommitteePortrait = ({
   
   return (
     <motion.div 
-      className={`relative aspect-square overflow-hidden rounded-2xl border border-white/10 bg-gray-900 ${wrapperClassName}`}
+      className={`relative aspect-square overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-gray-900 ${wrapperClassName}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       whileHover={{ scale: 1.03, y: -8 }}
@@ -70,7 +70,7 @@ const CommitteePortrait = ({
 
       {/* Hover Overlay - Name & Role */}
       <motion.div
-        className={`absolute inset-0 flex flex-col items-center justify-center ${isLarge ? 'p-8' : 'p-6'} text-center`}
+        className={`absolute inset-0 flex flex-col items-center justify-center ${isLarge ? 'p-4 sm:p-6 md:p-8' : 'p-3 sm:p-4 md:p-6'} text-center`}
         initial={{ opacity: 0 }}
         animate={{ 
           opacity: isHovered ? 1 : 0 
@@ -79,7 +79,7 @@ const CommitteePortrait = ({
       >
         {/* Member Name */}
         <motion.h4 
-          className={`font-bold text-white mb-3 ${isLarge ? 'text-2xl md:text-3xl' : 'text-xl md:text-2xl'}`}
+          className={`font-bold text-white mb-2 sm:mb-3 ${isLarge ? 'text-xl sm:text-2xl md:text-3xl' : 'text-base sm:text-lg md:text-xl lg:text-2xl'}`}
           initial={{ y: 20, opacity: 0 }}
           animate={{ 
             y: isHovered ? 0 : 20, 
@@ -92,7 +92,7 @@ const CommitteePortrait = ({
 
         {/* Role/Position */}
         <motion.p
-          className={`uppercase tracking-[0.2em] text-gray-300 font-medium ${isLarge ? 'text-sm' : 'text-xs'}`}
+          className={`uppercase tracking-[0.15em] sm:tracking-[0.2em] text-gray-300 font-medium ${isLarge ? 'text-xs sm:text-sm' : 'text-[0.65rem] sm:text-xs'}`}
           initial={{ y: 20, opacity: 0 }}
           animate={{ 
             y: isHovered ? 0 : 20, 
@@ -424,38 +424,37 @@ export default function Home() {
     <div className="min-h-screen overflow-x-hidden">
       {/* Navigation */}
       <motion.nav 
-        className="fixed top-0 left-0 right-0 z-50 px-6 py-3"
+        className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 py-2 sm:py-3"
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.8, delay: 0.5 }}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <motion.div 
-            className="flex items-center space-x-3"
+            className="flex items-center space-x-2 sm:space-x-3"
             whileHover={{ scale: 1.05 }}
           >
             <img
               src="/Tanata Logo.png"
               alt="Tantalize logo"
-              className="w-20 h-20 object-contain"
+              className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 object-contain"
             />
-            <span className="text-gold-500 text-xl font-light">/</span>
+            <span className="text-gold-500 text-base sm:text-xl font-light">/</span>
             <img
               src="/APIIT-Logo-White.png"
               alt="APIIT logo"
-              className="object-contain"
-              style={{ height: '154px' }}
+              className="object-contain h-16 sm:h-24 md:h-32"
             />
           </motion.div>
 
           {/* Hamburger Menu Button */}
           <motion.button
-            className="relative w-10 h-10 flex items-center justify-center group"
+            className="relative w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center group"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
           >
-            <div className="relative w-6 h-5 flex flex-col justify-between">
+            <div className="relative w-6 h-5 sm:w-7 sm:h-6 flex flex-col justify-between">
               <motion.span
                 className="w-full h-0.5 bg-gold-500 rounded-full origin-center"
                 animate={isMenuOpen ? { rotate: 45, y: 9 } : { rotate: 0, y: 0 }}
@@ -485,7 +484,7 @@ export default function Home() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4 }}
         >
-          <div className="flex items-center justify-center min-h-screen px-6">
+          <div className="flex items-center justify-center min-h-screen px-4 sm:px-6">
             <motion.div
               className="w-full max-w-2xl"
               initial={{ scale: 0.8, opacity: 0 }}
@@ -493,12 +492,12 @@ export default function Home() {
               transition={{ duration: 0.5, delay: 0.1 }}
             >
               {/* Menu Items */}
-              <nav className="space-y-6">
+              <nav className="space-y-4 sm:space-y-6">
                 {['About', 'Lineup', 'Schedule', 'Committee', 'Sponsors', 'Contact'].map((item, index) => (
                   <motion.a
                     key={item}
                     href={`#${item.toLowerCase()}`}
-                    className="block text-4xl md:text-6xl font-bold text-white hover:text-gold-500 transition-all duration-300 text-center group"
+                    className="block text-3xl sm:text-4xl md:text-6xl font-bold text-white hover:text-gold-500 transition-all duration-300 text-center group"
                     initial={{ x: -50, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ duration: 0.4, delay: 0.1 + index * 0.1 }}
@@ -514,7 +513,7 @@ export default function Home() {
 
               {/* Register CTA in Menu */}
               <motion.div
-                className="mt-12 text-center"
+                className="mt-8 sm:mt-12 text-center"
                 initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.5, delay: 0.7 }}
@@ -523,7 +522,7 @@ export default function Home() {
                   href="https://bio.site/tantalizeofficial"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-premium text-lg px-10 py-4 inline-block"
+                  className="btn-premium text-base sm:text-lg px-8 sm:px-10 py-3 sm:py-4 inline-block"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setIsMenuOpen(false)}
@@ -580,7 +579,7 @@ export default function Home() {
 
         {/* Video Sound Toggle */}
         <motion.button
-          className="fixed bottom-8 right-8 z-30 glass p-4 rounded-full border border-gold-500/30 hover:border-gold-500 transition-all duration-300"
+          className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-30 glass p-3 sm:p-4 rounded-full border border-gold-500/30 hover:border-gold-500 transition-all duration-300"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={toggleMute}
@@ -589,9 +588,9 @@ export default function Home() {
           transition={{ delay: 1 }}
         >
           {isMuted ? (
-            <VolumeX className="w-6 h-6 text-gold-500" />
+            <VolumeX className="w-5 h-5 sm:w-6 sm:h-6 text-gold-500" />
           ) : (
-            <Volume2 className="w-6 h-6 text-gold-500" />
+            <Volume2 className="w-5 h-5 sm:w-6 sm:h-6 text-gold-500" />
           )}
         </motion.button>
         
@@ -599,7 +598,7 @@ export default function Home() {
         {mounted && (<HeroParticles offset={mousePosition} />)}
 
         {/* Hero Content */}
-        <div className="relative z-20 text-center px-6 max-w-6xl mx-auto">
+        <div className="relative z-20 text-center px-4 sm:px-6 max-w-6xl mx-auto">
           <motion.div
             
             initial="hidden"
@@ -608,7 +607,7 @@ export default function Home() {
           >
             {/* Main Title with 3D Tilt */}
             <motion.div
-              className="mb-6 flex justify-center items-center perspective-1000"
+              className="mb-4 sm:mb-6 flex justify-center items-center perspective-1000"
               initial={{ opacity: 0, y: 60 }}
               animate={{ opacity: 1, y: 0 }}
               whileHover={{
@@ -625,7 +624,7 @@ export default function Home() {
               <img
                 src="/TantaText.png"
                 alt="TANTALIZE 15"
-                className="w-full max-w-4xl h-auto object-contain mx-auto"
+                className="w-full max-w-xs sm:max-w-2xl md:max-w-4xl h-auto object-contain mx-auto"
                 style={{
                   filter: 'drop-shadow(0 10px 30px rgba(255, 215, 0, 0.3))',
                   transform: `translate(${mousePosition.x * 0.3}px, ${mousePosition.y * 0.3}px)`
@@ -635,14 +634,14 @@ export default function Home() {
 
             {/* CTA Button (3D glow + ripple) */}
             <motion.div
-              className="flex justify-center items-center mt-8 sm:mt-12"
+              className="flex justify-center items-center mt-6 sm:mt-8 md:mt-12"
               initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
             >
               <motion.a
                 href="https://bio.site/tantalizeofficial"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-3d text-base sm:text-lg md:text-xl"
+                className="btn-3d text-sm sm:text-base md:text-lg lg:text-xl px-6 sm:px-8 md:px-10"
                 whileHover={{ scale: 1.06 }}
                 whileTap={{ scale: 0.98 }}
                 onMouseMove={(e) => {
@@ -708,13 +707,13 @@ export default function Home() {
             </motion.p>
             <motion.h2
               initial={{ opacity: 0, y: 50, skewY: 6 }} whileInView={{ opacity: 1, y: 0, skewY: 0 }} transition={{ duration: 0.7 }} viewport={{ once: true }}
-              className="font-display text-4xl md:text-6xl font-semibold text-white/95 tracking-[0.08em] md:tracking-[0.12em] leading-tight drop-shadow-[0_12px_28px_rgba(10,14,39,0.45)]"
+              className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-white/95 tracking-[0.08em] md:tracking-[0.12em] leading-tight drop-shadow-[0_12px_28px_rgba(10,14,39,0.45)] px-4"
             >
               Meet the Team Behind the Stage
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}
-              className="text-lg text-gray-300 max-w-3xl mx-auto"
+              className="text-base sm:text-lg text-gray-300 max-w-3xl mx-auto px-4"
             >
               A collective of visionaries, planners, and creators orchestrating Sri Lanka&apos;s premier student show night.
             </motion.p>
@@ -738,14 +737,14 @@ export default function Home() {
                 </motion.p>
                 <motion.h3
                   initial={{ opacity: 0, y: 50, skewY: 6 }} whileInView={{ opacity: 1, y: 0, skewY: 0 }} transition={{ duration: 0.7 }} viewport={{ once: true }}
-                  className="font-display text-3xl md:text-4xl font-semibold text-white/95 tracking-[0.08em] mt-3 drop-shadow-[0_8px_20px_rgba(10,14,39,0.45)]"
+                  className="font-display text-2xl sm:text-3xl md:text-4xl font-semibold text-white/95 tracking-[0.08em] mt-3 drop-shadow-[0_8px_20px_rgba(10,14,39,0.45)]"
                 >
                   Guiding the Experience
                 </motion.h3>
               </div>
               <motion.p
                 initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}
-                className="text-gray-400 max-w-xl"
+                className="text-sm sm:text-base text-gray-400 max-w-xl"
               >
                 The command centre steering Tantalize with strategy, precision, and a flair for unforgettable moments.
               </motion.p>
@@ -759,7 +758,7 @@ export default function Home() {
               viewport={{ once: false, amount: 0.3 }}
             >
               {/* Primary Leadership - Larger cards */}
-              <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-2 max-w-4xl mx-auto">
+              <div className="grid grid-cols-1 gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-2 max-w-4xl mx-auto px-4">
                 {leadershipPrimary.map((member, index) => (
                   <motion.div
                     key={member.name}
@@ -771,15 +770,15 @@ export default function Home() {
                     <CommitteePortrait
                       name={member.name}
                       role={member.role}
-                      imageSizes="600px"
+                      imageSizes="(max-width: 640px) 100vw, 600px"
                       isLarge={true}
                     />
                   </motion.div>
                 ))}
               </div>
               {/* Coordinators - Regular size */}
-              <div className="flex justify-center">
-                <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 max-w-2xl w-full">
+              <div className="flex justify-center px-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl w-full">
                   {leadershipCoordinators.map((member, index) => (
                     <motion.div
                       key={member.name}
@@ -791,7 +790,7 @@ export default function Home() {
                       <CommitteePortrait
                         name={member.name}
                         role={member.role}
-                        imageSizes="400px"
+                        imageSizes="(max-width: 640px) 100vw, 400px"
                         isLarge={false}
                       />
                     </motion.div>
@@ -818,18 +817,18 @@ export default function Home() {
               </motion.p>
               <motion.h3
                 initial={{ opacity: 0, y: 50, skewY: 6 }} whileInView={{ opacity: 1, y: 0, skewY: 0 }} transition={{ duration: 0.7 }} viewport={{ once: true }}
-                className="font-display text-3xl md:text-4xl font-semibold text-white/95 tracking-[0.08em] drop-shadow-[0_8px_20px_rgba(10,14,39,0.45)]"
+                className="font-display text-2xl sm:text-3xl md:text-4xl font-semibold text-white/95 tracking-[0.08em] drop-shadow-[0_8px_20px_rgba(10,14,39,0.45)] px-4"
               >
                 The Operational Powerhouse
               </motion.h3>
               <motion.p
                 initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}
-                className="text-gray-400 max-w-2xl mx-auto"
+                className="text-sm sm:text-base text-gray-400 max-w-2xl mx-auto px-4"
               >
                 Strategic leads keeping every pillar synchronized, funded, and ready for showtime.
               </motion.p>
             </motion.div>
-            <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4">
               {executiveMembers.map((member, index) => (
                 <motion.div
                   key={member.name}
@@ -866,19 +865,19 @@ export default function Home() {
               </motion.p>
               <motion.h3
                 initial={{ opacity: 0, y: 50, skewY: 6 }} whileInView={{ opacity: 1, y: 0, skewY: 0 }} transition={{ duration: 0.7 }} viewport={{ once: true }}
-                className="font-display text-3xl md:text-4xl font-semibold text-white/95 tracking-[0.08em] drop-shadow-[0_8px_20px_rgba(10,14,39,0.45)]"
+                className="font-display text-2xl sm:text-3xl md:text-4xl font-semibold text-white/95 tracking-[0.08em] drop-shadow-[0_8px_20px_rgba(10,14,39,0.45)] px-4"
               >
                 Where the Magic Gets Crafted
               </motion.h3>
               <motion.p
                 initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}
-                className="text-gray-400 max-w-3xl mx-auto"
+                className="text-sm sm:text-base text-gray-400 max-w-3xl mx-auto px-4"
               >
                 Explore each crew and the talent driving Sri Lanka&apos;s most anticipated student night.
               </motion.p>
             </motion.div>
 
-            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 relative">
+            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 md:gap-6 relative px-4">
               {teamTabs.map((team) => {
                 const isActive = team.id === activeTeam;
                 return (
@@ -941,7 +940,7 @@ export default function Home() {
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4">
                       {activeTeamData.members.map((member, index) => (
                         <motion.div
                           key={member.name}
@@ -953,7 +952,7 @@ export default function Home() {
                           <CommitteePortrait
                             name={member.name}
                             role={member.role}
-                            imageSizes="400px"
+                            imageSizes="(max-width: 640px) 100vw, 400px"
                           />
                         </motion.div>
                       ))}
@@ -967,19 +966,19 @@ export default function Home() {
       </motion.section>
 
       {/* About Section */}
-      <section id="about" className="py-20 px-6">
+      <section id="about" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <motion.div
-            className="text-center mb-16"
+            className="text-center mb-12 sm:mb-16"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl md:text-6xl font-bold text-gold-500 mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gold-500 mb-4 sm:mb-6">
               About Tantalize
             </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4">
               Tantalize has established itself as one of Sri Lanka&apos;s premier cultural and music events, 
               attracting thousands of attendees and prominent sponsors. Experience the pinnacle of 
               entertainment in 2025.
@@ -1057,7 +1056,7 @@ export default function Home() {
             </motion.p>
             
             <motion.h2 
-              className="text-5xl md:text-7xl font-bold text-white mb-6 relative"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 relative"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -1065,7 +1064,7 @@ export default function Home() {
               <span className="relative inline-block">
                 TANTALIZE 2025
                 <motion.span
-                  className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-gold-500 via-gold-400 to-gold-500"
+                  className="absolute -bottom-1 sm:-bottom-2 left-0 right-0 h-0.5 sm:h-1 bg-gradient-to-r from-gold-500 via-gold-400 to-gold-500"
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
                   transition={{ duration: 0.8, delay: 0.5 }}
@@ -1078,7 +1077,7 @@ export default function Home() {
             </motion.h2>
             
             <motion.p 
-              className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
+              className="text-base sm:text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.4 }}
@@ -1088,7 +1087,7 @@ export default function Home() {
           </motion.div>
 
           {/* Premium 3D Artist Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 lg:gap-10">
             {[
               { name: "Bathiya & Santhush", genre: "Legends", icon: "🎸", color: "from-amber-500 to-orange-600", image: "/BnS.jpg", audio: "/BnS.mp3" },
               { name: "Wasthi", genre: "Vocals", icon: "🎤", color: "from-pink-500 to-rose-600", image: "/wasthi.jpg", audio: "/wasthi.mp3" },
@@ -1133,7 +1132,7 @@ export default function Home() {
                 )}
                 
                 <motion.div
-                  className="group relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#1a1f3a]/80 via-[#0f1229]/90 to-[#1a1232]/80 p-8 text-center backdrop-blur-xl"
+                  className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-gradient-to-br from-[#1a1f3a]/80 via-[#0f1229]/90 to-[#1a1232]/80 p-6 sm:p-8 text-center backdrop-blur-xl"
                   whileHover={{ 
                     scale: 1.05,
                     rotateY: 5,
@@ -1406,22 +1405,22 @@ export default function Home() {
       </section>
 
       {/* Schedule Section */}
-      <section id="schedule" className="py-20 px-6">
+      <section id="schedule" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <motion.div
-            className="text-center mb-14 md:mb-16"
+            className="text-center mb-10 sm:mb-14 md:mb-16"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <p className="text-xs uppercase tracking-[0.5em] text-gold-500/90">
+            <p className="text-xs uppercase tracking-[0.3em] sm:tracking-[0.5em] text-gold-500/90 px-4">
               TANTALIZE 2025 – Official Event Schedule
             </p>
-            <h2 className="mt-3 text-3xl md:text-5xl font-bold text-white">
+            <h2 className="mt-3 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white px-4">
               A Journey From First Note To Finale
             </h2>
-            <div className="mx-auto mt-6 h-px w-40 bg-gradient-to-r from-transparent via-gold-500 to-transparent" />
+            <div className="mx-auto mt-4 sm:mt-6 h-px w-32 sm:w-40 bg-gradient-to-r from-transparent via-gold-500 to-transparent" />
           </motion.div>
 
           {/* Premium vertical stepper timeline */}
@@ -1536,24 +1535,24 @@ export default function Home() {
       </section>
 
       {/* Sponsors Section */}
-      <section id="sponsors" className="py-20 px-6">
+      <section id="sponsors" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto">
           <motion.div
-            className="text-center mb-16"
+            className="text-center mb-12 sm:mb-16"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl md:text-6xl font-bold text-gold-500 mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gold-500 mb-4 sm:mb-6">
               Our Sponsors
             </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4">
               Proudly supported by leading brands and organizations
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
             {[
               "APIIT Colombo",
               "Pickme Events",
@@ -1589,7 +1588,7 @@ export default function Home() {
       <ScrollMarkers />
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-6">
+      <section id="contact" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
