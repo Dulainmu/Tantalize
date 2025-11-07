@@ -141,7 +141,7 @@ export default function LegacyTimeline() {
           <div
             role="tablist"
             aria-label="Tantalize Legacy Years"
-            className="no-scrollbar mt-6 flex w-full items-center justify-center gap-3 overflow-x-auto pb-2 md:gap-4"
+            className="no-scrollbar mt-8 sm:mt-10 md:mt-12 flex w-full items-center justify-start sm:justify-center gap-2 sm:gap-3 md:gap-4 overflow-x-auto px-4 pb-2 scroll-smooth"
           >
             {years.map((y) => {
               const active = y === selectedYear;
@@ -151,9 +151,9 @@ export default function LegacyTimeline() {
                   role="tab"
                   aria-selected={active}
                   onClick={() => setSelectedYear(y)}
-                  className={`inline-flex shrink-0 items-center justify-center rounded-full border px-4 py-2 text-sm font-semibold transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD700]/70 md:px-5 md:py-2.5 ${
+                  className={`inline-flex shrink-0 items-center justify-center rounded-full border px-5 py-2 sm:px-6 sm:py-2.5 md:px-7 md:py-3 text-sm sm:text-base font-semibold transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD700]/70 ${
                     active
-                      ? "border-[#FFD700]/70 bg-[#FFD700] text-[#0A0E27] shadow-[0_0_22px_rgba(255,215,0,0.5)]"
+                      ? "border-[#FFD700]/70 bg-[#FFD700] text-[#0A0E27] shadow-[0_0_22px_rgba(255,215,0,0.5)] scale-105"
                       : "border-white/20 bg-white/10 text-white/85 hover:border-[#FFD700]/50 hover:bg-[#FFD700]/15 hover:text-white"
                   }`}
                 >
@@ -166,32 +166,32 @@ export default function LegacyTimeline() {
           {/* Condensed current year info over the banner */}
           {/* Static summary card (no crossfade/hover lift) */}
           <div
-            className="group relative mt-8 mx-auto w-[min(92%,_1100px)] overflow-hidden rounded-3xl border border-white/10 bg-white/10 p-7 backdrop-blur-xl md:p-8 lg:p-10"
+            className="group relative mt-6 sm:mt-8 md:mt-10 mx-auto w-[min(95%,_1100px)] overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-white/10 p-5 sm:p-6 md:p-8 lg:p-10 backdrop-blur-xl"
           >
               {/* sheen + corner ornaments for premium feel */}
               <span className="gold-sheen" aria-hidden />
               <span className="corner-ornament corner-ornament--tl" aria-hidden />
               <span className="corner-ornament corner-ornament--br" aria-hidden />
-              <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-[minmax(0,1.4fr)_minmax(260px,1fr)]">
+              <div className="grid grid-cols-1 items-start gap-5 sm:gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(260px,1fr)]">
                 <div className="w-full">
-                  <h3 className="text-center text-2xl font-semibold text-white md:text-left md:text-3xl">{current.title}</h3>
-                  <p className="mt-3 text-center text-base leading-relaxed text-white/85 md:text-left md:text-lg">
+                  <h3 className="text-center text-xl sm:text-2xl md:text-3xl font-semibold text-white lg:text-left">{current.title}</h3>
+                  <p className="mt-3 text-center text-sm sm:text-base md:text-lg leading-relaxed text-white/85 lg:text-left">
                     {current.description}
                   </p>
-                  <div className="mt-4 flex justify-center md:justify-start">
-                    <button className="inline-flex items-center justify-center rounded-full border border-[#FFD700]/50 bg-[#FFD700]/10 px-6 py-2.5 text-sm font-semibold text-[#FFD700] transition-colors hover:bg-[#FFD700]/20">
+                  <div className="mt-4 sm:mt-5 flex justify-center lg:justify-start">
+                    <button className="inline-flex items-center justify-center rounded-full border border-[#FFD700]/50 bg-[#FFD700]/10 px-5 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-[#FFD700] transition-colors hover:bg-[#FFD700]/20">
                       Watch Recap
                     </button>
                   </div>
                 </div>
-                <div className="grid w-full grid-cols-2 gap-3 md:w-auto md:min-w-[260px] md:justify-self-end">
+                <div className="grid w-full grid-cols-2 gap-3 sm:gap-4 lg:w-auto lg:min-w-[260px] lg:justify-self-end">
                   {["Image 1", "Image 2"].map((label) => (
                     <div
                       key={label}
-                      className="relative h-20 md:h-24 overflow-hidden rounded-xl border border-white/10 bg-gradient-to-br from-[#0A0E27] to-[#111536]"
+                      className="relative h-24 sm:h-28 md:h-32 overflow-hidden rounded-lg sm:rounded-xl border border-white/10 bg-gradient-to-br from-[#0A0E27] to-[#111536]"
                     >
                       <div className="absolute inset-0 grid place-items-center text-center">
-                        <span className="text-[11px] text-white/70">{label}</span>
+                        <span className="text-xs sm:text-sm text-white/70">{label}</span>
                       </div>
                       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,215,0,0.08),_transparent_65%)]" />
                     </div>
