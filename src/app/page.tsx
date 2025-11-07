@@ -695,11 +695,11 @@ export default function Home() {
       {/* Committee Section */}
       <motion.section
         id="committee"
-        className="relative overflow-hidden py-12 sm:py-16 md:py-20 px-4 sm:px-6"
+        className="relative overflow-visible py-12 sm:py-16 md:py-20 px-4 sm:px-6 min-h-screen"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.05, margin: "0px 0px -100px 0px" }}
       >
         <div className="relative max-w-7xl mx-auto space-y-12 sm:space-y-16 md:space-y-20">
           <motion.div
@@ -707,7 +707,7 @@ export default function Home() {
             
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, amount: 0.35 }}
+            viewport={{ once: false, amount: 0.1 }}
           >
             <motion.p
               initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}
@@ -736,7 +736,7 @@ export default function Home() {
               
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: false, amount: 0.3 }}
+              viewport={{ once: false, amount: 0.1 }}
             >
               <div>
                 <motion.p
@@ -765,7 +765,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 35 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              viewport={{ once: false, amount: 0.3 }}
+              viewport={{ once: false, amount: 0.1 }}
             >
               {/* Primary Leadership - Larger cards */}
               <div className="grid grid-cols-1 gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-2 max-w-4xl mx-auto px-4">
@@ -775,7 +775,7 @@ export default function Home() {
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.4, delay: index * 0.1 }}
-                    viewport={{ once: false, amount: 0.3 }}
+                    viewport={{ once: false, amount: 0.1 }}
                   >
                     <CommitteePortrait
                       name={member.name}
@@ -817,7 +817,7 @@ export default function Home() {
               
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: false, amount: 0.3 }}
+              viewport={{ once: false, amount: 0.1 }}
             >
               <motion.p
                 initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}
@@ -845,7 +845,7 @@ export default function Home() {
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.4, delay: index * 0.05 }}
-                  viewport={{ once: false, amount: 0.3 }}
+                  viewport={{ once: false, amount: 0.1 }}
                 >
                   <CommitteePortrait
                     name={member.name}
@@ -865,7 +865,7 @@ export default function Home() {
               
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: false, amount: 0.3 }}
+              viewport={{ once: false, amount: 0.1 }}
             >
               <motion.p
                 initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }}
@@ -957,7 +957,7 @@ export default function Home() {
                           initial={{ opacity: 0, scale: 0.9 }}
                           whileInView={{ opacity: 1, scale: 1 }}
                           transition={{ duration: 0.4, delay: index * 0.05 }}
-                          viewport={{ once: false, amount: 0.3 }}
+                          viewport={{ once: false, amount: 0.05 }}
                         >
                           <CommitteePortrait
                             name={member.name}
