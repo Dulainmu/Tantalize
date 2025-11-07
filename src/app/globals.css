@@ -67,6 +67,16 @@ body {
   background: linear-gradient(180deg, #FFA500, #FF8C00);
 }
 
+/* Hide scrollbar for horizontal year selector */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Selection styling */
 ::selection {
   background: rgba(255, 215, 0, 0.3);

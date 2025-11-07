@@ -493,10 +493,18 @@ export default function Home() {
             >
               {/* Menu Items */}
               <nav className="space-y-4 sm:space-y-6">
-                {['About', 'Lineup', 'Schedule', 'Committee', 'Sponsors', 'Contact'].map((item, index) => (
+                {[
+                  { label: 'Purpose & Legacy', href: 'purpose-legacy' },
+                  { label: 'About', href: 'about' },
+                  { label: 'Artist Lineup', href: 'lineup' },
+                  { label: 'Committee', href: 'committee' },
+                  { label: 'Schedule', href: 'schedule' },
+                  { label: 'Sponsors', href: 'sponsors' },
+                  { label: 'Contact', href: 'contact' }
+                ].map((item, index) => (
                   <motion.a
-                    key={item}
-                    href={`#${item.toLowerCase()}`}
+                    key={item.href}
+                    href={`#${item.href}`}
                     className="block text-3xl sm:text-4xl md:text-6xl font-bold text-white hover:text-gold-500 transition-all duration-300 text-center group"
                     initial={{ x: -50, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
@@ -505,7 +513,7 @@ export default function Home() {
                     whileHover={{ scale: 1.05, x: 10 }}
                   >
                     <span className="inline-block group-hover:text-glow">
-                      {item}
+                      {item.label}
                     </span>
                   </motion.a>
                 ))}
@@ -634,7 +642,7 @@ export default function Home() {
 
             {/* CTA Button (3D glow + ripple) */}
             <motion.div
-              className="flex justify-center items-center mt-6 sm:mt-8 md:mt-12"
+              className="flex justify-center items-center mt-6 sm:mt-8 md:mt-12 mb-16 sm:mb-0"
               initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
             >
               <motion.a
@@ -664,11 +672,13 @@ export default function Home() {
 
         {/* Scroll Indicator */}
         <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
+          className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-20"
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          <ArrowDown className="w-6 h-6 text-gold-500" />
+          <a href="#purpose-legacy" className="block">
+            <ArrowDown className="w-6 h-6 sm:w-8 sm:h-8 text-gold-500 hover:text-gold-400 transition-colors cursor-pointer" />
+          </a>
         </motion.div>
       </section>
 
@@ -685,13 +695,13 @@ export default function Home() {
       {/* Committee Section */}
       <motion.section
         id="committee"
-        className="relative overflow-hidden py-24 px-6"
+        className="relative overflow-hidden py-12 sm:py-16 md:py-20 px-4 sm:px-6"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true, amount: 0.2 }}
       >
-        <div className="relative max-w-7xl mx-auto space-y-20">
+        <div className="relative max-w-7xl mx-auto space-y-12 sm:space-y-16 md:space-y-20">
           <motion.div
             className="text-center space-y-5"
             
