@@ -110,7 +110,7 @@ export default function LegacyTimeline() {
         />
         {/* Animated light beams overlay */}
         <div className="legacy-hero-beams" aria-hidden />
-        <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col items-center justify-center px-4 sm:px-6 text-center pt-20 sm:pt-24 md:pt-0 pb-8 sm:pb-12 md:pb-0">
+        <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col items-center justify-center px-4 sm:px-6 text-center pt-[200px] sm:pt-[220px] md:pt-0 pb-8 sm:pb-12 md:pb-0">
           <motion.p
             className="text-xs uppercase tracking-[0.5em] text-[#FFD700]/85"
             initial={{ opacity: 0, y: 20 }}
