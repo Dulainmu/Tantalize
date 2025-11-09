@@ -7,10 +7,10 @@
 // - Fully responsive with scrollable timeline on mobile
 
 import { useMemo, useState, useEffect, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { Playfair_Display, Poppins } from "next/font/google";
 import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -68,49 +68,33 @@ const legacyEvents = [
 export default function LegacyTimeline() {
   const [selectedYear, setSelectedYear] = useState(legacyEvents[legacyEvents.length - 1].year);
   const sectionRef = useRef<HTMLElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const current = useMemo(() => legacyEvents.find((e) => e.year === selectedYear) || legacyEvents[legacyEvents.length - 1], [selectedYear]);
   const years = useMemo(() => legacyEvents.map((e) => e.year), []);
 
-  // Framer Motion scroll progress
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end end"]
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.95, 1, 1, 0.95]);
-
   useEffect(() => {
-    if (!sectionRef.current || !containerRef.current) return;
+    if (!sectionRef.current || !contentRef.current) return;
 
-    // Create GSAP ScrollTrigger pin effect
-    const scrollTrigger = ScrollTrigger.create({
-      trigger: sectionRef.current,
-      start: "top top",
-      end: "+=300%", // Pin for 3x viewport height
-      pin: true,
-      pinSpacing: true,
-      anticipatePin: 1,
-      scrub: 1,
-      onUpdate: (self) => {
-        // Add visual feedback based on scroll progress
-        const progress = self.progress;
-        if (containerRef.current) {
-          containerRef.current.style.opacity = String(Math.max(0.3, 1 - progress * 0.7));
-        }
-      }
+    // GSAP ScrollTrigger - pin the section while scrolling
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top top",
+        end: "+=200%",
+        pin: contentRef.current,
+        pinSpacing: true,
+        scrub: true,
+        markers: false, // Set to true for debugging
+      });
     });
 
-    return () => {
-      scrollTrigger.kill();
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={sectionRef} id="legacy" className="relative overflow-hidden min-h-[400vh]">
-      <div ref={containerRef} className="sticky top-0 h-screen">
+    <section ref={sectionRef} id="legacy" className="relative overflow-hidden">
+      <div ref={contentRef} className="relative min-h-screen">
       {/* Background layers with subtle particles and shimmer lines */}
       <div className="pointer-events-none absolute inset-0">
         {/* Gold particles */}
