@@ -6,7 +6,7 @@
 // - Dynamic content card fades/slides when switching years
 // - Fully responsive with scrollable timeline on mobile
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Playfair_Display, Poppins } from "next/font/google";
 
@@ -61,12 +61,45 @@ const legacyEvents = [
 
 export default function LegacyTimeline() {
   const [selectedYear, setSelectedYear] = useState(legacyEvents[legacyEvents.length - 1].year);
+  const [scrollLocked, setScrollLocked] = useState(false);
+  const [scrollCount, setScrollCount] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
 
   const current = useMemo(() => legacyEvents.find((e) => e.year === selectedYear) || legacyEvents[legacyEvents.length - 1], [selectedYear]);
   const years = useMemo(() => legacyEvents.map((e) => e.year), []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current) return;
+
+      const rect = sectionRef.current.getBoundingClientRect();
+      const isInView = rect.top <= 100 && rect.bottom >= window.innerHeight / 2;
+
+      if (isInView && scrollCount < 3) {
+        if (!scrollLocked) {
+          setScrollLocked(true);
+          document.body.style.overflow = 'hidden';
+        }
+        setScrollCount((prev) => prev + 1);
+        
+        setTimeout(() => {
+          if (scrollCount >= 2) {
+            setScrollLocked(false);
+            document.body.style.overflow = 'auto';
+          }
+        }, 1000);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.body.style.overflow = 'auto';
+    };
+  }, [scrollCount, scrollLocked]);
+
   return (
-    <section id="legacy" className="relative overflow-hidden">
+    <section ref={sectionRef} id="legacy" className="relative overflow-hidden">
       {/* Background layers with subtle particles and shimmer lines */}
       <div className="pointer-events-none absolute inset-0">
         {/* Gold particles */}
