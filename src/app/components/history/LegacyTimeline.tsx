@@ -61,42 +61,52 @@ const legacyEvents = [
 
 export default function LegacyTimeline() {
   const [selectedYear, setSelectedYear] = useState(legacyEvents[legacyEvents.length - 1].year);
-  const [scrollLocked, setScrollLocked] = useState(false);
-  const [scrollCount, setScrollCount] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
+  const scrollCountRef = useRef(0);
+  const isLockedRef = useRef(false);
+  const hasEnteredRef = useRef(false);
 
   const current = useMemo(() => legacyEvents.find((e) => e.year === selectedYear) || legacyEvents[legacyEvents.length - 1], [selectedYear]);
   const years = useMemo(() => legacyEvents.map((e) => e.year), []);
 
   useEffect(() => {
-    const handleScroll = () => {
+    const handleWheel = (e: WheelEvent) => {
       if (!sectionRef.current) return;
 
       const rect = sectionRef.current.getBoundingClientRect();
-      const isInView = rect.top <= 100 && rect.bottom >= window.innerHeight / 2;
+      const isInView = rect.top <= 50 && rect.bottom >= window.innerHeight * 0.5;
 
-      if (isInView && scrollCount < 3) {
-        if (!scrollLocked) {
-          setScrollLocked(true);
-          document.body.style.overflow = 'hidden';
+      // Check if user has scrolled into the section
+      if (isInView && !hasEnteredRef.current) {
+        hasEnteredRef.current = true;
+        isLockedRef.current = true;
+        scrollCountRef.current = 0;
+      }
+
+      // If locked and in view, prevent scrolling for 3 attempts
+      if (isLockedRef.current && isInView && scrollCountRef.current < 3) {
+        e.preventDefault();
+        scrollCountRef.current += 1;
+
+        // After 3 scroll attempts, unlock
+        if (scrollCountRef.current >= 3) {
+          isLockedRef.current = false;
         }
-        setScrollCount((prev) => prev + 1);
-        
-        setTimeout(() => {
-          if (scrollCount >= 2) {
-            setScrollLocked(false);
-            document.body.style.overflow = 'auto';
-          }
-        }, 1000);
+      }
+
+      // Reset when leaving the section
+      if (!isInView && hasEnteredRef.current) {
+        hasEnteredRef.current = false;
+        isLockedRef.current = false;
+        scrollCountRef.current = 0;
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('wheel', handleWheel, { passive: false });
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-      document.body.style.overflow = 'auto';
+      window.removeEventListener('wheel', handleWheel);
     };
-  }, [scrollCount, scrollLocked]);
+  }, []);
 
   return (
     <section ref={sectionRef} id="legacy" className="relative overflow-hidden">
