@@ -7,8 +7,14 @@
 // - Fully responsive with scrollable timeline on mobile
 
 import { useMemo, useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Playfair_Display, Poppins } from "next/font/google";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const playfair = Playfair_Display({ subsets: ["latin"], weight: ["600"], variable: "--font-playfair" });
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-poppins-local" });
@@ -62,54 +68,49 @@ const legacyEvents = [
 export default function LegacyTimeline() {
   const [selectedYear, setSelectedYear] = useState(legacyEvents[legacyEvents.length - 1].year);
   const sectionRef = useRef<HTMLElement>(null);
-  const scrollCountRef = useRef(0);
-  const isLockedRef = useRef(false);
-  const hasEnteredRef = useRef(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const current = useMemo(() => legacyEvents.find((e) => e.year === selectedYear) || legacyEvents[legacyEvents.length - 1], [selectedYear]);
   const years = useMemo(() => legacyEvents.map((e) => e.year), []);
 
+  // Framer Motion scroll progress
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"]
+  });
+
+  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.95, 1, 1, 0.95]);
+
   useEffect(() => {
-    const handleWheel = (e: WheelEvent) => {
-      if (!sectionRef.current) return;
+    if (!sectionRef.current || !containerRef.current) return;
 
-      const rect = sectionRef.current.getBoundingClientRect();
-      const isInView = rect.top <= 50 && rect.bottom >= window.innerHeight * 0.5;
-
-      // Check if user has scrolled into the section
-      if (isInView && !hasEnteredRef.current) {
-        hasEnteredRef.current = true;
-        isLockedRef.current = true;
-        scrollCountRef.current = 0;
-      }
-
-      // If locked and in view, prevent scrolling for 3 attempts
-      if (isLockedRef.current && isInView && scrollCountRef.current < 3) {
-        e.preventDefault();
-        scrollCountRef.current += 1;
-
-        // After 3 scroll attempts, unlock
-        if (scrollCountRef.current >= 3) {
-          isLockedRef.current = false;
+    // Create GSAP ScrollTrigger pin effect
+    const scrollTrigger = ScrollTrigger.create({
+      trigger: sectionRef.current,
+      start: "top top",
+      end: "+=300%", // Pin for 3x viewport height
+      pin: true,
+      pinSpacing: true,
+      anticipatePin: 1,
+      scrub: 1,
+      onUpdate: (self) => {
+        // Add visual feedback based on scroll progress
+        const progress = self.progress;
+        if (containerRef.current) {
+          containerRef.current.style.opacity = String(Math.max(0.3, 1 - progress * 0.7));
         }
       }
+    });
 
-      // Reset when leaving the section
-      if (!isInView && hasEnteredRef.current) {
-        hasEnteredRef.current = false;
-        isLockedRef.current = false;
-        scrollCountRef.current = 0;
-      }
-    };
-
-    window.addEventListener('wheel', handleWheel, { passive: false });
     return () => {
-      window.removeEventListener('wheel', handleWheel);
+      scrollTrigger.kill();
     };
   }, []);
 
   return (
-    <section ref={sectionRef} id="legacy" className="relative overflow-hidden">
+    <section ref={sectionRef} id="legacy" className="relative overflow-hidden min-h-[400vh]">
+      <div ref={containerRef} className="sticky top-0 h-screen">
       {/* Background layers with subtle particles and shimmer lines */}
       <div className="pointer-events-none absolute inset-0">
         {/* Gold particles */}
@@ -243,6 +244,7 @@ export default function LegacyTimeline() {
               </div>
           </div>
         </div>
+      </div>
       </div>
 
       {/* Detail card removed to avoid duplication; summary lives on banner */}
