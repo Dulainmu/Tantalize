@@ -112,7 +112,7 @@ export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isMuted, setIsMuted] = useState(true);
   const [mounted, setMounted] = useState(false);
-  const [activeTeam, setActiveTeam] = useState<'entertainment' | 'logistics' | 'media' | 'marketing'>('entertainment');
+  const [activeTeam, setActiveTeam] = useState<'entertainment' | 'logistics' | 'media' | 'marketing'>('logistics');
   const [hoveredArtist, setHoveredArtist] = useState<number | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const audioRefs = useRef<{ [key: number]: HTMLAudioElement | null }>({});
@@ -185,25 +185,6 @@ export default function Home() {
 
   const teamTabs = [
     {
-      id: 'entertainment' as const,
-      emoji: '🎭',
-      name: 'Entertainment',
-      gradient: 'from-pink-500 via-rose-400 to-red-400',
-      ring: 'border-rose-400/40',
-      headline: 'Crafting unforgettable performances and immersive audience moments.',
-      description: 'From auditions to encore planning, this crew curates the show flow and keeps the stage electrifying.',
-      members: [
-        { name: 'Raqiub Isfan', role: 'Head of Entertainment', initials: 'RI' },
-        { name: 'Imad Nazar', role: 'Deputy Head of Entertainment', initials: 'IN' },
-        { name: 'Ashok Ainkaran', role: 'Committee Member', initials: 'AA' },
-        { name: 'Malisha Jayasuriya', role: 'Committee Member', initials: 'MJ' },
-        { name: 'Uthkarsha Premaratne', role: 'Committee Member', initials: 'UP' },
-        { name: 'Avithran Sridharan', role: 'Committee Member', initials: 'AS' },
-        { name: 'Ranidi Dahamya', role: 'Committee Member', initials: 'RD' },
-        { name: 'Thimansa Tennakoon', role: 'Committee Member', initials: 'TT' },
-      ],
-    },
-    {
       id: 'logistics' as const,
       emoji: '📦',
       name: 'Logistics',
@@ -243,7 +224,7 @@ export default function Home() {
     },
     {
       id: 'marketing' as const,
-      emoji: '📢',
+      emoji: '�',
       name: 'Marketing',
       gradient: 'from-orange-500 via-amber-400 to-yellow-400',
       ring: 'border-amber-400/40',
@@ -262,6 +243,25 @@ export default function Home() {
         { name: 'Kithmi Mallikarachchi', role: 'Committee Member', initials: 'KM' },
         { name: 'Denam Pathmanathan', role: 'Committee Member', initials: 'DP' },
         { name: 'Sachini Samarawickrama', role: 'Committee Member', initials: 'SS' },
+      ],
+    },
+    {
+      id: 'entertainment' as const,
+      emoji: '🎭',
+      name: 'Entertainment',
+      gradient: 'from-pink-500 via-rose-400 to-red-400',
+      ring: 'border-rose-400/40',
+      headline: 'Crafting unforgettable performances and immersive audience moments.',
+      description: 'From auditions to encore planning, this crew curates the show flow and keeps the stage electrifying.',
+      members: [
+        { name: 'Raqiub Isfan', role: 'Head of Entertainment', initials: 'RI' },
+        { name: 'Imad Nazar', role: 'Deputy Head of Entertainment', initials: 'IN' },
+        { name: 'Ashok Ainkaran', role: 'Committee Member', initials: 'AA' },
+        { name: 'Malisha Jayasuriya', role: 'Committee Member', initials: 'MJ' },
+        { name: 'Uthkarsha Premaratne', role: 'Committee Member', initials: 'UP' },
+        { name: 'Avithran Sridharan', role: 'Committee Member', initials: 'AS' },
+        { name: 'Ranidi Dahamya', role: 'Committee Member', initials: 'RD' },
+        { name: 'Thimansa Tennakoon', role: 'Committee Member', initials: 'TT' },
       ],
     },
   ];
