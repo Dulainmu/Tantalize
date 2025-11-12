@@ -46,13 +46,16 @@ const CommitteePortrait = ({
     medium: 'scale-[0.85]', // Executive Committee - even smaller
     small: 'scale-100', // Team members - full size
   };
-  const [isHovered, setIsHovered] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
   
   return (
     <motion.div 
       className={`relative aspect-square overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-gray-900 w-full sm:scale-100 ${mobileScales[cardSize]} ${wrapperClassName}`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      onViewportEnter={() => setShowInfo(true)}
+      onViewportLeave={() => setShowInfo(false)}
+      viewport={{ once: false, amount: 0.5, margin: "-10%" }}
       whileHover={{ scale: 1.03, y: -8 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
@@ -64,38 +67,35 @@ const CommitteePortrait = ({
           fill
           sizes={imageSizes}
           className="object-cover transition-all duration-500 ease-out"
-          style={{
-            filter: isHovered ? 'brightness(0.4)' : 'brightness(1)',
-          }}
           loading="lazy"
           quality={90}
         />
       </div>
 
-      {/* Dark Overlay on Hover */}
+      {/* Dark Overlay when info is shown */}
       <div 
         className="absolute inset-0 bg-black/60 transition-opacity duration-500"
-        style={{ opacity: isHovered ? 1 : 0 }}
+        style={{ opacity: showInfo ? 1 : 0 }}
       />
 
-      {/* Hover Overlay - Name & Role */}
+      {/* Name & Role Overlay - Shows when card is in viewport */}
       <motion.div
-        className={`absolute inset-0 flex flex-col items-center justify-center ${isLarge ? 'p-4 sm:p-6 md:p-8' : 'p-3 sm:p-4 md:p-6'} text-center`}
+        className={`absolute inset-0 flex flex-col items-center justify-center ${isLarge ? 'p-4 sm:p-6 md:p-8' : 'p-3 sm:p-4 md:p-6'} text-center pointer-events-none`}
         initial={{ opacity: 0 }}
         animate={{ 
-          opacity: isHovered ? 1 : 0 
+          opacity: showInfo ? 1 : 0 
         }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
       >
         {/* Member Name */}
         <motion.h4 
           className={`font-bold text-white mb-2 sm:mb-3 ${isLarge ? 'text-xl sm:text-2xl md:text-3xl' : 'text-base sm:text-lg md:text-xl lg:text-2xl'}`}
           initial={{ y: 20, opacity: 0 }}
           animate={{ 
-            y: isHovered ? 0 : 20, 
-            opacity: isHovered ? 1 : 0 
+            y: showInfo ? 0 : 20, 
+            opacity: showInfo ? 1 : 0 
           }}
-          transition={{ duration: 0.3, delay: 0.1 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
         >
           {name}
         </motion.h4>
@@ -105,10 +105,10 @@ const CommitteePortrait = ({
           className={`uppercase tracking-[0.15em] sm:tracking-[0.2em] text-gray-300 font-medium ${isLarge ? 'text-xs sm:text-sm' : 'text-[0.65rem] sm:text-xs'}`}
           initial={{ y: 20, opacity: 0 }}
           animate={{ 
-            y: isHovered ? 0 : 20, 
-            opacity: isHovered ? 1 : 0 
+            y: showInfo ? 0 : 20, 
+            opacity: showInfo ? 1 : 0 
           }}
-          transition={{ duration: 0.3, delay: 0.2 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
         >
           {role}
         </motion.p>
