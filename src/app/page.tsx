@@ -135,7 +135,7 @@ export default function Home() {
       quote: "",
       accent: "from-yellow-300 via-amber-400 to-orange-500",
       highlight: "Executive Lead",
-      image: "/committee/Lenucy.jpg",
+      image: "/Committee/Lenucy.png",
     },
     {
       name: "Thisal Piumka",
@@ -144,7 +144,7 @@ export default function Home() {
       quote: "",
       accent: "from-gold-400 via-yellow-300 to-amber-500",
       highlight: "Executive Co-Lead",
-      image: "/committee/Thisal.jpg",
+      image: "/Committee/Thisal.png",
     },
     {
       name: "Methuli Perera",
