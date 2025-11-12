@@ -44,7 +44,7 @@ const CommitteePortrait = ({
     xlarge: 'w-full sm:w-auto', // Chair/Co-Chair - full size
     large: 'w-[85%] mx-auto sm:w-auto', // Project Coordinators - 85% on mobile
     medium: 'w-[75%] mx-auto sm:w-auto', // Executive Committee - 75% on mobile
-    small: 'w-[70%] mx-auto sm:w-auto', // Team members - 70% on mobile
+    small: 'w-full', // Team members - full width (for 2-column grid)
   };
   const [isHovered, setIsHovered] = useState(false);
   
@@ -963,7 +963,7 @@ export default function Home() {
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4">
+                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 px-4">
                       {activeTeamData.members.map((member, index) => (
                         <motion.div
                           key={member.name}
@@ -975,7 +975,7 @@ export default function Home() {
                           <CommitteePortrait
                             name={member.name}
                             role={member.role}
-                            imageSizes="(max-width: 640px) 100vw, 400px"
+                            imageSizes="(max-width: 640px) 50vw, 400px"
                             cardSize="small"
                           />
                         </motion.div>
