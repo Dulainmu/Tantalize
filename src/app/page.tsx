@@ -135,6 +135,7 @@ export default function Home() {
       quote: "",
       accent: "from-yellow-300 via-amber-400 to-orange-500",
       highlight: "Executive Lead",
+      image: "/committee/Lenucy.jpg",
     },
     {
       name: "Thisal Piumka",
@@ -143,6 +144,7 @@ export default function Home() {
       quote: "",
       accent: "from-gold-400 via-yellow-300 to-amber-500",
       highlight: "Executive Co-Lead",
+      image: "/committee/Thisal.jpg",
     },
     {
       name: "Methuli Perera",
@@ -790,6 +792,7 @@ export default function Home() {
                     <CommitteePortrait
                       name={member.name}
                       role={member.role}
+                      image={member.image}
                       imageSizes="(max-width: 640px) 100vw, 600px"
                       isLarge={true}
                       cardSize="xlarge"
