@@ -26,6 +26,7 @@ type CommitteePortraitProps = {
   imageSizes?: string;
   wrapperClassName?: string;
   isLarge?: boolean;
+  cardSize?: 'xlarge' | 'large' | 'medium' | 'small';
 };
 
 const CommitteePortrait = ({
@@ -35,12 +36,21 @@ const CommitteePortrait = ({
   imageSizes = '400px',
   wrapperClassName = '',
   isLarge = false,
+  cardSize = 'medium',
 }: CommitteePortraitProps) => {
+  
+  // Size classes for mobile-specific sizing
+  const sizeClasses = {
+    xlarge: 'w-full sm:w-auto', // Chair/Co-Chair - full size
+    large: 'w-[85%] mx-auto sm:w-auto', // Project Coordinators - 85% on mobile
+    medium: 'w-[75%] mx-auto sm:w-auto', // Executive Committee - 75% on mobile
+    small: 'w-[70%] mx-auto sm:w-auto', // Team members - 70% on mobile
+  };
   const [isHovered, setIsHovered] = useState(false);
   
   return (
     <motion.div 
-      className={`relative aspect-square overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-gray-900 ${wrapperClassName}`}
+      className={`relative aspect-square overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-gray-900 ${sizeClasses[cardSize]} ${wrapperClassName}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       whileHover={{ scale: 1.03, y: -8 }}
@@ -782,6 +792,7 @@ export default function Home() {
                       role={member.role}
                       imageSizes="(max-width: 640px) 100vw, 600px"
                       isLarge={true}
+                      cardSize="xlarge"
                     />
                   </motion.div>
                 ))}
@@ -802,6 +813,7 @@ export default function Home() {
                         role={member.role}
                         imageSizes="(max-width: 640px) 100vw, 400px"
                         isLarge={false}
+                        cardSize="large"
                       />
                     </motion.div>
                   ))}
@@ -852,6 +864,7 @@ export default function Home() {
                     role={member.role}
                     imageSizes="400px"
                     isLarge={false}
+                    cardSize="medium"
                   />
                 </motion.div>
               ))}
@@ -963,6 +976,7 @@ export default function Home() {
                             name={member.name}
                             role={member.role}
                             imageSizes="(max-width: 640px) 100vw, 400px"
+                            cardSize="small"
                           />
                         </motion.div>
                       ))}
