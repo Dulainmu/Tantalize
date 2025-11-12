@@ -41,9 +41,9 @@ const CommitteePortrait = ({
   
   // Size classes for mobile-specific sizing
   const sizeClasses = {
-    xlarge: 'w-full sm:w-auto', // Chair/Co-Chair - full size
-    large: 'w-[85%] mx-auto sm:w-auto', // Project Coordinators - 85% on mobile
-    medium: 'w-[75%] mx-auto sm:w-auto', // Executive Committee - 75% on mobile
+    xlarge: 'w-[60%] mx-auto sm:w-auto', // Chair/Co-Chair - 60% on mobile
+    large: 'w-[55%] mx-auto sm:w-auto', // Project Coordinators - 55% on mobile
+    medium: 'w-[50%] mx-auto sm:w-auto', // Executive Committee - 50% on mobile
     small: 'w-full', // Team members - full width (for 2-column grid)
   };
   const [isHovered, setIsHovered] = useState(false);
