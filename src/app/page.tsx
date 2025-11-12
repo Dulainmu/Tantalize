@@ -39,18 +39,18 @@ const CommitteePortrait = ({
   cardSize = 'medium',
 }: CommitteePortraitProps) => {
   
-  // Size classes for mobile-specific sizing
-  const sizeClasses = {
-    xlarge: 'w-[60%] mx-auto sm:w-auto', // Chair/Co-Chair - 60% on mobile
-    large: 'w-[55%] mx-auto sm:w-auto', // Project Coordinators - 55% on mobile
-    medium: 'w-[50%] mx-auto sm:w-auto', // Executive Committee - 50% on mobile
-    small: 'w-full', // Team members - full width (for 2-column grid)
+  // Size scales for mobile - all cards in 2-column grid, differentiated by scale
+  const mobileScales = {
+    xlarge: 'scale-95', // Chair/Co-Chair - slightly smaller
+    large: 'scale-90', // Project Coordinators - smaller
+    medium: 'scale-[0.85]', // Executive Committee - even smaller
+    small: 'scale-100', // Team members - full size
   };
   const [isHovered, setIsHovered] = useState(false);
   
   return (
     <motion.div 
-      className={`relative aspect-square overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-gray-900 ${sizeClasses[cardSize]} ${wrapperClassName}`}
+      className={`relative aspect-square overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-gray-900 w-full sm:scale-100 ${mobileScales[cardSize]} ${wrapperClassName}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       whileHover={{ scale: 1.03, y: -8 }}
@@ -780,7 +780,7 @@ export default function Home() {
               viewport={{ once: false, amount: 0.1 }}
             >
               {/* Primary Leadership - Larger cards */}
-              <div className="grid grid-cols-1 gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-2 max-w-4xl mx-auto px-4">
+              <div className="grid grid-cols-2 gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-2 max-w-4xl mx-auto px-4">
                 {leadershipPrimary.map((member, index) => (
                   <motion.div
                     key={member.name}
@@ -802,7 +802,7 @@ export default function Home() {
               </div>
               {/* Coordinators - Regular size */}
               <div className="flex justify-center px-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl w-full">
+                <div className="grid grid-cols-2 sm:grid-cols-2 gap-6 max-w-2xl w-full">
                   {leadershipCoordinators.map((member, index) => (
                     <motion.div
                       key={member.name}
@@ -853,7 +853,7 @@ export default function Home() {
                 Strategic leads keeping every pillar synchronized, funded, and ready for showtime.
               </motion.p>
             </motion.div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4">
               {executiveMembers.map((member, index) => (
                 <motion.div
                   key={member.name}
