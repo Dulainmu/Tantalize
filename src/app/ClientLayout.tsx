@@ -44,7 +44,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
 
   useEffect(() => {
     const minShowMs = 2500; // Optimized splash time
-    
+
     // Faster progress animation
     const progressInterval = setInterval(() => {
       setProgress(prev => {
@@ -71,7 +71,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
     <>
       <AnimatePresence mode="wait">
         {isLoading && (
-          <motion.div 
+          <motion.div
             className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden"
             initial={{ opacity: 1 }}
             exit={{ opacity: 0, scale: 1.05 }}
@@ -119,41 +119,41 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
             <div className="flex flex-col items-center justify-center space-y-8 sm:space-y-10 md:space-y-12 px-6">
               <div className="flex items-center justify-center space-x-4 sm:space-x-6 md:space-x-10">
                 {/* Tantalize Logo with Enhanced Glitch Effect */}
-                <motion.div 
+                <motion.div
                   className="relative flex-shrink-0"
                   initial={{ opacity: 0, x: -50, scale: 0.8 }}
                   animate={{ opacity: 1, x: 0, scale: 1 }}
-                  transition={{ 
-                    duration: 0.6, 
+                  transition={{
+                    duration: 0.6,
                     delay: 0.1,
                     ease: "easeOut"
                   }}
                 >
                   <div className="glitch-container-enhanced">
-                    <img 
-                      src="/Tanata Logo.png" 
-                      alt="Tantalize logo" 
+                    <img
+                      src="/Tanata Logo.webp"
+                      alt="Tantalize logo"
                       className="glitch-logo-enhanced"
                       loading="eager"
                       decoding="async"
                     />
-                    <img 
-                      src="/Tanata Logo.png" 
-                      aria-hidden 
+                    <img
+                      src="/Tanata Logo.webp"
+                      aria-hidden
                       className="glitch-logo-enhanced glitch-offset-1"
                       loading="eager"
                       decoding="async"
                     />
-                    <img 
-                      src="/Tanata Logo.png" 
-                      aria-hidden 
+                    <img
+                      src="/Tanata Logo.webp"
+                      aria-hidden
                       className="glitch-logo-enhanced glitch-offset-2"
                       loading="eager"
                       decoding="async"
                     />
-                    <img 
-                      src="/Tanata Logo.png" 
-                      aria-hidden 
+                    <img
+                      src="/Tanata Logo.webp"
+                      aria-hidden
                       className="glitch-logo-enhanced glitch-offset-3"
                       loading="eager"
                       decoding="async"
@@ -165,12 +165,12 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
                 <motion.div
                   className="text-gold-500 text-3xl sm:text-4xl md:text-5xl font-thin relative flex-shrink-0"
                   initial={{ opacity: 0, scale: 0 }}
-                  animate={{ 
-                    opacity: 1, 
+                  animate={{
+                    opacity: 1,
                     scale: 1,
                   }}
-                  transition={{ 
-                    duration: 0.4, 
+                  transition={{
+                    duration: 0.4,
                     delay: 0.3,
                     ease: "easeOut"
                   }}
@@ -183,37 +183,37 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
                   className="relative flex items-center justify-center flex-shrink-0"
                   initial={{ opacity: 0, x: 50, scale: 0.8 }}
                   animate={{ opacity: 1, x: 0, scale: 1 }}
-                  transition={{ 
-                    duration: 0.6, 
+                  transition={{
+                    duration: 0.6,
                     delay: 0.1,
                     ease: "easeOut"
                   }}
                 >
                   <div className="glitch-container-apiit">
-                    <img 
-                      src="/APIIT-Logo-White.png" 
-                      alt="APIIT logo" 
+                    <img
+                      src="/APIIT-Logo-White.webp"
+                      alt="APIIT logo"
                       className="glitch-logo-apiit"
                       loading="eager"
                       decoding="async"
                     />
-                    <img 
-                      src="/APIIT-Logo-White.png" 
-                      aria-hidden 
+                    <img
+                      src="/APIIT-Logo-White.webp"
+                      aria-hidden
                       className="glitch-logo-apiit glitch-offset-apiit-1"
                       loading="eager"
                       decoding="async"
                     />
-                    <img 
-                      src="/APIIT-Logo-White.png" 
-                      aria-hidden 
+                    <img
+                      src="/APIIT-Logo-White.webp"
+                      aria-hidden
                       className="glitch-logo-apiit glitch-offset-apiit-2"
                       loading="eager"
                       decoding="async"
                     />
-                    <img 
-                      src="/APIIT-Logo-White.png" 
-                      aria-hidden 
+                    <img
+                      src="/APIIT-Logo-White.webp"
+                      aria-hidden
                       className="glitch-logo-apiit glitch-offset-apiit-3"
                       loading="eager"
                       decoding="async"
@@ -239,10 +239,10 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
                   <motion.div
                     className="h-full bg-gradient-to-r from-gold-500 via-yellow-400 to-gold-500 rounded-full progress-shimmer"
                     initial={{ width: '0%' }}
-                    animate={{ 
+                    animate={{
                       width: `${Math.min(progress, 100)}%`,
                     }}
-                    transition={{ 
+                    transition={{
                       width: { duration: 0.2, ease: "easeOut" }
                     }}
                   />
@@ -281,8 +281,8 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
           </motion.div>
         )}
       </AnimatePresence>
-      
-      <div 
+
+      <div
         className={isLoading ? 'opacity-0 pointer-events-none' : 'opacity-100'}
         style={{ transition: 'opacity 0.4s ease-in-out' }}
       >

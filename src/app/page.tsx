@@ -38,7 +38,7 @@ const CommitteePortrait = ({
   isLarge = false,
   cardSize = 'medium',
 }: CommitteePortraitProps) => {
-  
+
   // Size scales for mobile - all cards in 2-column grid, differentiated by scale
   const mobileScales = {
     xlarge: 'scale-95', // Chair/Co-Chair - slightly smaller
@@ -47,9 +47,9 @@ const CommitteePortrait = ({
     small: 'scale-100', // Team members - full size
   };
   const [showInfo, setShowInfo] = useState(false);
-  
+
   return (
-    <motion.div 
+    <motion.div
       className={`relative aspect-square overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-gray-900 w-full sm:scale-100 ${mobileScales[cardSize]} ${wrapperClassName}`}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
@@ -73,7 +73,7 @@ const CommitteePortrait = ({
       </div>
 
       {/* Dark Overlay when info is shown */}
-      <div 
+      <div
         className="absolute inset-0 bg-black/60 transition-opacity duration-500"
         style={{ opacity: showInfo ? 1 : 0 }}
       />
@@ -82,18 +82,18 @@ const CommitteePortrait = ({
       <motion.div
         className={`absolute inset-0 flex flex-col items-center justify-center ${isLarge ? 'p-4 sm:p-6 md:p-8' : 'p-3 sm:p-4 md:p-6'} text-center pointer-events-none`}
         initial={{ opacity: 0 }}
-        animate={{ 
-          opacity: showInfo ? 1 : 0 
+        animate={{
+          opacity: showInfo ? 1 : 0
         }}
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
         {/* Member Name */}
-        <motion.h4 
+        <motion.h4
           className={`font-bold text-white mb-2 sm:mb-3 ${isLarge ? 'text-xl sm:text-2xl md:text-3xl' : 'text-base sm:text-lg md:text-xl lg:text-2xl'}`}
           initial={{ y: 20, opacity: 0 }}
-          animate={{ 
-            y: showInfo ? 0 : 20, 
-            opacity: showInfo ? 1 : 0 
+          animate={{
+            y: showInfo ? 0 : 20,
+            opacity: showInfo ? 1 : 0
           }}
           transition={{ duration: 0.4, delay: 0.1 }}
         >
@@ -104,9 +104,9 @@ const CommitteePortrait = ({
         <motion.p
           className={`uppercase tracking-[0.15em] sm:tracking-[0.2em] text-gray-300 font-medium ${isLarge ? 'text-xs sm:text-sm' : 'text-[0.65rem] sm:text-xs'}`}
           initial={{ y: 20, opacity: 0 }}
-          animate={{ 
-            y: showInfo ? 0 : 20, 
-            opacity: showInfo ? 1 : 0 
+          animate={{
+            y: showInfo ? 0 : 20,
+            opacity: showInfo ? 1 : 0
           }}
           transition={{ duration: 0.4, delay: 0.2 }}
         >
@@ -135,7 +135,7 @@ export default function Home() {
       quote: "",
       accent: "from-yellow-300 via-amber-400 to-orange-500",
       highlight: "Executive Lead",
-      image: "/Committee/Lenucy.png",
+      image: "/Committee/Lenucy.webp",
     },
     {
       name: "Thisal Piumka",
@@ -144,7 +144,7 @@ export default function Home() {
       quote: "",
       accent: "from-gold-400 via-yellow-300 to-amber-500",
       highlight: "Executive Co-Lead",
-      image: "/Committee/Thisal.png",
+      image: "/Committee/Thisal.webp",
     },
     {
       name: "Methuli Perera",
@@ -435,25 +435,25 @@ export default function Home() {
   return (
     <div className="min-h-screen overflow-x-hidden">
       {/* Navigation */}
-      <motion.nav 
+      <motion.nav
         className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 py-2 sm:py-3"
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.8, delay: 0.5 }}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <motion.div 
+          <motion.div
             className="flex items-center space-x-2 sm:space-x-3"
             whileHover={{ scale: 1.05 }}
           >
             <img
-              src="/Tanata Logo.png"
+              src="/Tanata Logo.webp"
               alt="Tantalize logo"
               className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 object-contain"
             />
             <span className="text-gold-500 text-base sm:text-xl font-light">/</span>
             <img
-              src="/APIIT-Logo-White.png"
+              src="/APIIT-Logo-White.webp"
               alt="APIIT logo"
               className="object-contain h-16 sm:h-24 md:h-32"
             />
@@ -539,7 +539,7 @@ export default function Home() {
                 transition={{ duration: 0.5, delay: 0.7 }}
               >
                 <motion.a
-                  href="https://bio.site/tantalizeofficial"
+                  href="https://tickets.tantalize.lk"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-premium text-base sm:text-lg px-8 sm:px-10 py-3 sm:py-4 inline-block"
@@ -572,7 +572,7 @@ export default function Home() {
           </div>
         </motion.div>
       )}
-    
+
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -613,14 +613,14 @@ export default function Home() {
             <Volume2 className="w-5 h-5 sm:w-6 sm:h-6 text-gold-500" />
           )}
         </motion.button>
-        
+
         {/* Reactive hero particles */}
         {mounted && (<HeroParticles offset={mousePosition} />)}
 
         {/* Hero Content */}
         <div className="relative z-20 text-center px-4 sm:px-6 max-w-6xl mx-auto">
           <motion.div
-            
+
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.35 }}
@@ -642,7 +642,7 @@ export default function Home() {
               }}
             >
               <img
-                src="/TantaText.png"
+                src="/TantaText.webp"
                 alt="TANTALIZE 15"
                 className="w-full max-w-xs sm:max-w-2xl md:max-w-4xl h-auto object-contain mx-auto"
                 style={{
@@ -658,7 +658,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
             >
               <motion.a
-                href="https://bio.site/tantalizeofficial"
+                href="https://tickets.tantalize.lk"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-3d text-sm sm:text-base md:text-lg lg:text-xl px-6 sm:px-8 md:px-10"
@@ -716,7 +716,7 @@ export default function Home() {
         <div className="relative max-w-7xl mx-auto space-y-12 sm:space-y-16 md:space-y-20">
           <motion.div
             className="text-center space-y-5"
-            
+
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false, amount: 0.1 }}
@@ -745,7 +745,7 @@ export default function Home() {
           <div className="space-y-10">
             <motion.div
               className="flex flex-col md:flex-row md:items-end md:justify-between gap-6"
-              
+
               initial="hidden"
               whileInView="visible"
               viewport={{ once: false, amount: 0.1 }}
@@ -829,7 +829,7 @@ export default function Home() {
           <div className="space-y-12">
             <motion.div
               className="text-center space-y-3"
-              
+
               initial="hidden"
               whileInView="visible"
               viewport={{ once: false, amount: 0.1 }}
@@ -878,7 +878,7 @@ export default function Home() {
           <div className="space-y-12">
             <motion.div
               className="text-center space-y-3"
-              
+
               initial="hidden"
               whileInView="visible"
               viewport={{ once: false, amount: 0.1 }}
@@ -1006,8 +1006,8 @@ export default function Home() {
               About Tantalize
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4">
-              Tantalize has established itself as one of Sri Lanka&apos;s premier cultural and music events, 
-              attracting thousands of attendees and prominent sponsors. Experience the pinnacle of 
+              Tantalize has established itself as one of Sri Lanka&apos;s premier cultural and music events,
+              attracting thousands of attendees and prominent sponsors. Experience the pinnacle of
               entertainment in 2025.
             </p>
           </motion.div>
@@ -1023,9 +1023,20 @@ export default function Home() {
             <QrCode className="w-24 h-24 text-gold-500 mx-auto mb-6" />
             <h3 className="text-3xl font-bold text-white mb-4">Get Your Tickets</h3>
             <p className="text-lg text-gray-300 mb-8">
-              Scan the QR code with your Pickme app to purchase tickets and secure your spot 
+              Scan the QR code with your Pickme app to purchase tickets and secure your spot
               at Sri Lanka&apos;s most anticipated cultural event.
             </p>
+
+            <div className="mb-8">
+              <a
+                href="https://tickets.tantalize.lk"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-gold-500 px-8 py-3 text-sm font-bold uppercase tracking-widest text-black transition-transform duration-300 hover:scale-105 hover:bg-gold-400"
+              >
+                Buy Tickets Online
+              </a>
+            </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <div className="text-center">
                 <p className="text-2xl font-bold text-gold-500">General Admission</p>
@@ -1070,8 +1081,8 @@ export default function Home() {
             >
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-32 bg-gradient-to-b from-transparent via-gold-500 to-transparent" />
             </motion.div>
-            
-            <motion.p 
+
+            <motion.p
               className="text-sm uppercase tracking-[0.5em] text-gold-500/90 mb-4 flex items-center justify-center gap-3"
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -1081,8 +1092,8 @@ export default function Home() {
               🎤 The Stage is Set
               <span className="inline-block w-12 h-px bg-gradient-to-l from-transparent to-gold-500" />
             </motion.p>
-            
-            <motion.h2 
+
+            <motion.h2
               className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 relative"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -1102,8 +1113,8 @@ export default function Home() {
                 Artist Lineup
               </span>
             </motion.h2>
-            
-            <motion.p 
+
+            <motion.p
               className="text-base sm:text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -1116,25 +1127,25 @@ export default function Home() {
           {/* Premium 3D Artist Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 lg:gap-10">
             {[
-              { name: "Bathiya & Santhush", genre: "Legends", icon: "🎸", color: "from-amber-500 to-orange-600", image: "/BnS.jpg", audio: "/BnS.mp3" },
-              { name: "Wasthi", genre: "Vocals", icon: "🎤", color: "from-pink-500 to-rose-600", image: "/wasthi.jpg", audio: "/wasthi.mp3" },
-              { name: "Hana", genre: "Rhythms", icon: "🎵", color: "from-blue-500 to-cyan-600", image: "/Hana.jpg", audio: "/Hana.mp3" },
-              { name: "Iraj", genre: "Hip-Hop", icon: "🎧", color: "from-purple-500 to-indigo-600", image: "/Iraj.jpg", audio: "/Iraj.mp3" },
-              { name: "Dhanith Sri", genre: "Melodies", icon: "🎹", color: "from-green-500 to-emerald-600", image: "/Dhanith Sri.jpeg", audio: "/Dhanith Sri.mp3" },
-              { name: "Raveen", genre: "Beats", icon: "🥁", color: "from-red-500 to-pink-600", image: "/Raveen.jpeg", audio: "/Raveen.mp3" },
-              { name: "Yaka Crew", genre: "Collective", icon: "👥", color: "from-slate-500 to-zinc-600", image: "/Yaka Crew.jpg", audio: "/Yaka Crew.mp3" },
-              { name: "KK", genre: "Energy", icon: "🔥", color: "from-orange-500 to-red-600", image: "/KK.jpg", audio: "/KK.mp3" },
-              { name: "Dilo", genre: "Vibes", icon: "🎺", color: "from-teal-500 to-cyan-600", image: "/Dilo.jpg", audio: "/Dilo.mp3" },
-              { name: "Chanuka Mora", genre: "Soul", icon: "✨", color: "from-indigo-500 to-violet-600", image: "/Chanuka Mora.jpg", audio: "/Chanuka Mora.mp3" },
-              { name: "Infinity", genre: "Limitless", icon: "♾️", color: "from-violet-500 to-purple-600", image: "/Infinity.jpg", audio: "/Infinity.mp3" }
+              { name: "Bathiya & Santhush", genre: "Legends", icon: "🎸", color: "from-amber-500 to-orange-600", image: "/BnS.webp", audio: "/BnS.mp3" },
+              { name: "Wasthi", genre: "Vocals", icon: "🎤", color: "from-pink-500 to-rose-600", image: "/wasthi.webp", audio: "/wasthi.mp3" },
+              { name: "Hana", genre: "Rhythms", icon: "🎵", color: "from-blue-500 to-cyan-600", image: "/Hana.webp", audio: "/Hana.mp3" },
+              { name: "Iraj", genre: "Hip-Hop", icon: "🎧", color: "from-purple-500 to-indigo-600", image: "/Iraj.webp", audio: "/Iraj.mp3" },
+              { name: "Dhanith Sri", genre: "Melodies", icon: "🎹", color: "from-green-500 to-emerald-600", image: "/Dhanith Sri.webp", audio: "/Dhanith Sri.mp3" },
+              { name: "Raveen", genre: "Beats", icon: "🥁", color: "from-red-500 to-pink-600", image: "/Raveen.webp", audio: "/Raveen.mp3" },
+              { name: "Yaka Crew", genre: "Collective", icon: "👥", color: "from-slate-500 to-zinc-600", image: "/Yaka Crew.webp", audio: "/Yaka Crew.mp3" },
+              { name: "KK", genre: "Energy", icon: "🔥", color: "from-orange-500 to-red-600", image: "/KK.webp", audio: "/KK.mp3" },
+              { name: "Dilo", genre: "Vibes", icon: "🎺", color: "from-teal-500 to-cyan-600", image: "/Dilo.webp", audio: "/Dilo.mp3" },
+              { name: "Chanuka Mora", genre: "Soul", icon: "✨", color: "from-indigo-500 to-violet-600", image: "/Chanuka Mora.webp", audio: "/Chanuka Mora.mp3" },
+              { name: "Infinity", genre: "Limitless", icon: "♾️", color: "from-violet-500 to-purple-600", image: "/Infinity.webp", audio: "/Infinity.mp3" }
             ].map((artist, index) => (
               <motion.div
                 key={index}
                 className="artist-card-wrapper"
                 initial={{ opacity: 0, y: 100, rotateX: 45 }}
                 whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-                transition={{ 
-                  duration: 0.8, 
+                transition={{
+                  duration: 0.8,
                   delay: index * 0.1,
                   type: "spring",
                   stiffness: 100
@@ -1147,7 +1158,7 @@ export default function Home() {
                 {/* Hidden audio element */}
                 {artist.audio && (
                   <audio
-                    ref={(el) => { 
+                    ref={(el) => {
                       if (el) {
                         audioRefs.current[index] = el;
                       }
@@ -1157,21 +1168,21 @@ export default function Home() {
                     playsInline
                   />
                 )}
-                
+
                 <motion.div
                   className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-gradient-to-br from-[#1a1f3a]/80 via-[#0f1229]/90 to-[#1a1232]/80 p-6 sm:p-8 text-center backdrop-blur-xl"
-                  whileHover={{ 
+                  whileHover={{
                     scale: 1.05,
                     rotateY: 5,
                     rotateX: 5,
                     z: 50
                   }}
-                  transition={{ 
-                    type: "spring", 
+                  transition={{
+                    type: "spring",
                     stiffness: 300,
-                    damping: 20 
+                    damping: 20
                   }}
-                  style={{ 
+                  style={{
                     transformStyle: "preserve-3d",
                     boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)"
                   }}
@@ -1195,7 +1206,7 @@ export default function Home() {
                       />
                       {/* Gradient overlay for text readability */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
-                      
+
                       {/* Audio indicator */}
                       <motion.div
                         className="absolute top-6 right-6 flex items-center gap-2 bg-gold-500/20 backdrop-blur-md rounded-full px-4 py-2 border border-gold-500/40"
@@ -1213,7 +1224,7 @@ export default function Home() {
                       </motion.div>
 
                       {/* Sound Wave Visualization on Image Overlay */}
-                      <motion.div 
+                      <motion.div
                         className="absolute bottom-8 left-0 right-0 flex justify-center items-center gap-1.5"
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -1294,26 +1305,26 @@ export default function Home() {
                     <motion.div
                       className="relative mx-auto mb-8 flex h-32 w-32 items-center justify-center overflow-hidden rounded-full"
                       style={{ transformStyle: "preserve-3d" }}
-                      whileHover={{ 
+                      whileHover={{
                         rotateY: 180,
                         rotateZ: 360
                       }}
-                      transition={{ 
+                      transition={{
                         duration: 0.8,
                         type: "spring",
-                        stiffness: 200 
+                        stiffness: 200
                       }}
                     >
                       {/* 3D Layered Circles */}
-                      <div 
+                      <div
                         className={`absolute inset-0 rounded-full bg-gradient-to-br ${artist.color} opacity-20 blur-2xl group-hover:opacity-40 transition-all duration-500 group-hover:scale-150`}
                         style={{ transform: "translateZ(-20px)" }}
                       />
-                      <div 
+                      <div
                         className="absolute inset-2 rounded-full border-2 border-gold-500/30 bg-gradient-to-br from-gold-500/10 to-transparent"
                         style={{ transform: "translateZ(-10px)" }}
                       />
-                      <motion.div 
+                      <motion.div
                         className={`relative flex h-full w-full items-center justify-center rounded-full border-2 border-gold-500/50 ${artist.image ? 'bg-black/40' : `bg-gradient-to-br ${artist.color}`} text-6xl shadow-[0_0_40px_rgba(255,215,0,0.3)] overflow-hidden`}
                         style={{ transform: "translateZ(20px)" }}
                         animate={{
@@ -1346,13 +1357,13 @@ export default function Home() {
                     </motion.div>
 
                     {/* Artist Name with 3D Effect */}
-                    <motion.h3 
+                    <motion.h3
                       className="mb-4 text-3xl font-bold text-white relative"
-                      style={{ 
+                      style={{
                         transformStyle: "preserve-3d",
                         textShadow: "0 0 20px rgba(255,215,0,0.3)"
                       }}
-                      whileHover={{ 
+                      whileHover={{
                         scale: 1.05,
                         textShadow: "0 0 30px rgba(255,215,0,0.6)"
                       }}
@@ -1361,9 +1372,9 @@ export default function Home() {
                     </motion.h3>
 
                     {/* Genre Tag with Magnetic Effect */}
-                    <motion.div 
+                    <motion.div
                       className={`inline-flex items-center gap-3 rounded-full border border-gold-500/40 bg-gradient-to-r ${artist.color} bg-opacity-20 px-6 py-3 backdrop-blur-sm`}
-                      whileHover={{ 
+                      whileHover={{
                         scale: 1.1,
                         borderColor: "rgba(255,215,0,0.8)"
                       }}
@@ -1380,7 +1391,7 @@ export default function Home() {
                     </motion.div>
 
                     {/* Sound Wave Visualization */}
-                    <motion.div 
+                    <motion.div
                       className="mt-6 flex justify-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                       style={{ transformStyle: "preserve-3d" }}
                     >
@@ -1680,13 +1691,13 @@ export default function Home() {
         <div className="max-w-6xl mx-auto text-center">
           <div className="flex items-center justify-center space-x-4 mb-4">
             <img
-              src="/Tanata Logo.png"
+              src="/Tanata Logo.webp"
               alt="Tantalize logo"
               className="w-24 h-24 object-contain"
             />
             <span className="text-gold-500 text-2xl font-light">/</span>
             <img
-              src="/APIIT-Logo-White.png"
+              src="/APIIT-Logo-White.webp"
               alt="APIIT logo"
               className="object-contain"
               style={{ height: '205px' }}
