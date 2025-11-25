@@ -547,7 +547,7 @@ export default function Home() {
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Register Now
+                  Get Your Tickets Now
                 </motion.a>
               </motion.div>
 
@@ -676,7 +676,7 @@ export default function Home() {
                 <span className="btn-glow" aria-hidden />
                 <span className="btn-shine" aria-hidden />
                 <span className="btn-ripple" aria-hidden />
-                Register Now
+                Get Your Tickets Now
               </motion.a>
             </motion.div>
           </motion.div>
@@ -699,11 +699,461 @@ export default function Home() {
       <section id="purpose-legacy" className="relative isolate">
         <div className="section-bg-cinematic" />
         <div className="section-blend-gold" aria-hidden />
-        <ParallaxSection strength={8} className="relative z-10">
+        <ParallaxSection strength={8} className="relative z-10 -mt-2">
           <LegacyTimeline />
         </ParallaxSection>
       </section>
 
+
+      {/* About Section */}
+      <section id="about" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            className="text-center mb-12 sm:mb-16"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gold-500 mb-4 sm:mb-6">
+              About Tantalize
+            </h2>
+            <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4">
+              Tantalize has established itself as one of Sri Lanka&apos;s premier cultural and music events,
+              attracting thousands of attendees and prominent sponsors. Experience the pinnacle of
+              entertainment in 2025.
+            </p>
+          </motion.div>
+
+          {/* QR Code Section */}
+          <motion.div
+            className="bg-gradient-to-r from-gold-500/10 to-gold-600/10 rounded-3xl p-12 text-center border border-gold-500/20"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <QrCode className="w-24 h-24 text-gold-500 mx-auto mb-6" />
+            <h3 className="text-3xl font-bold text-white mb-4">Get Your Tickets</h3>
+            <p className="text-lg text-gray-300 mb-8">
+              Scan the QR code with your Pickme app to purchase tickets and secure your spot
+              at Sri Lanka&apos;s most anticipated cultural event.
+            </p>
+
+            <div className="mb-8">
+              <a
+                href="https://tickets.tantalize.lk"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-gold-500 px-8 py-3 text-sm font-bold uppercase tracking-widest text-black transition-transform duration-300 hover:scale-105 hover:bg-gold-400"
+              >
+                Buy Tickets Online
+              </a>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <div className="text-center">
+                <p className="text-2xl font-bold text-gold-500">General Admission</p>
+                <p className="text-white">Rs. 2,500</p>
+                <p className="text-sm text-gray-400">3,000 tickets available</p>
+              </div>
+              <div className="text-center">
+                <p className="text-2xl font-bold text-gold-500">VIP Experience</p>
+                <p className="text-white">Rs. 5,000</p>
+                <p className="text-sm text-gray-400">300 tickets available</p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Lineup Section - Premium 3D */}
+      <section id="lineup" className="relative py-32 px-6 overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0e27] via-[#1a1232] to-[#0a0e27]" />
+          <div className="absolute inset-0 opacity-30">
+            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gold-500/20 rounded-full blur-[120px]" />
+            <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-[120px] delay-1000" />
+          </div>
+        </div>
+
+        <div className="max-w-7xl mx-auto">
+          {/* Header with Spotlight Effect */}
+          <motion.div
+            className="text-center mb-20 relative"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <motion.div
+              className="absolute inset-0 -z-10"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 1.5 }}
+            >
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-32 bg-gradient-to-b from-transparent via-gold-500 to-transparent" />
+            </motion.div>
+
+            <motion.p
+              className="text-sm uppercase tracking-[0.5em] text-gold-500/90 mb-4 flex items-center justify-center gap-3"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6 }}
+            >
+              <span className="inline-block w-12 h-px bg-gradient-to-r from-transparent to-gold-500" />
+              🎤 The Stage is Set
+              <span className="inline-block w-12 h-px bg-gradient-to-l from-transparent to-gold-500" />
+            </motion.p>
+
+            <motion.h2
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 relative"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <span className="relative inline-block">
+                TANTALIZE 2025
+                <motion.span
+                  className="absolute -bottom-1 sm:-bottom-2 left-0 right-0 h-0.5 sm:h-1 bg-gradient-to-r from-gold-500 via-gold-400 to-gold-500"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  transition={{ duration: 0.8, delay: 0.5 }}
+                />
+              </span>
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-400 via-gold-500 to-gold-600">
+                Artist Lineup
+              </span>
+            </motion.h2>
+
+            <motion.p
+              className="text-base sm:text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              The island&apos;s finest artists bringing the heat to stage
+            </motion.p>
+          </motion.div>
+
+          {/* Premium 3D Artist Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 lg:gap-10">
+            {[
+              { name: "Bathiya & Santhush", genre: "Legends", icon: "🎸", color: "from-amber-500 to-orange-600", image: "/BnS.webp", audio: "/BnS.mp3" },
+              { name: "Wasthi", genre: "Vocals", icon: "🎤", color: "from-pink-500 to-rose-600", image: "/wasthi.webp", audio: "/wasthi.mp3" },
+              { name: "Hana", genre: "Rhythms", icon: "🎵", color: "from-blue-500 to-cyan-600", image: "/Hana.webp", audio: "/Hana.mp3" },
+              { name: "Iraj", genre: "Hip-Hop", icon: "🎧", color: "from-purple-500 to-indigo-600", image: "/Iraj.webp", audio: "/Iraj.mp3" },
+              { name: "Dhanith Sri", genre: "Melodies", icon: "🎹", color: "from-green-500 to-emerald-600", image: "/Dhanith Sri.webp", audio: "/Dhanith Sri.mp3" },
+              { name: "Raveen", genre: "Beats", icon: "🥁", color: "from-red-500 to-pink-600", image: "/Raveen.webp", audio: "/Raveen.mp3" },
+              { name: "Yaka Crew", genre: "Collective", icon: "👥", color: "from-slate-500 to-zinc-600", image: "/Yaka Crew.webp", audio: "/Yaka Crew.mp3" },
+              { name: "KK", genre: "Energy", icon: "🔥", color: "from-orange-500 to-red-600", image: "/KK.webp", audio: "/KK.mp3" },
+              { name: "Dilo", genre: "Vibes", icon: "🎺", color: "from-teal-500 to-cyan-600", image: "/Dilo.webp", audio: "/Dilo.mp3" },
+              { name: "Chanuka Mora", genre: "Soul", icon: "✨", color: "from-indigo-500 to-violet-600", image: "/Chanuka Mora.webp", audio: "/Chanuka Mora.mp3" },
+              { name: "Infinity", genre: "Limitless", icon: "♾️", color: "from-violet-500 to-purple-600", image: "/Infinity.webp", audio: "/Infinity.mp3" }
+            ].map((artist, index) => (
+              <motion.div
+                key={index}
+                className="artist-card-wrapper h-full"
+                initial={{ opacity: 0, y: 100, rotateX: 45 }}
+                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                transition={{
+                  duration: 0.8,
+                  delay: index * 0.1,
+                  type: "spring",
+                  stiffness: 100
+                }}
+                viewport={{ once: true }}
+                style={{ perspective: "1000px" }}
+                onMouseEnter={() => artist.audio && handleArtistHover(index)}
+                onMouseLeave={() => artist.audio && handleArtistLeave(index)}
+              >
+                {/* Hidden audio element */}
+                {artist.audio && (
+                  <audio
+                    ref={(el) => {
+                      if (el) {
+                        audioRefs.current[index] = el;
+                      }
+                    }}
+                    src={artist.audio}
+                    preload="none"
+                    playsInline
+                  />
+                )}
+
+                <motion.div
+                  className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-gradient-to-br from-[#1a1f3a]/80 via-[#0f1229]/90 to-[#1a1232]/80 p-6 sm:p-8 text-center backdrop-blur-xl h-full flex flex-col justify-between"
+                  whileHover={{
+                    scale: 1.05,
+                    rotateY: 5,
+                    rotateX: 5,
+                    z: 50
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 20
+                  }}
+                  style={{
+                    transformStyle: "preserve-3d",
+                    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)"
+                  }}
+                >
+                  {/* Artist Image Overlay - Appears on Hover */}
+                  {artist.image && (
+                    <motion.div
+                      className="absolute inset-0 z-20 rounded-3xl overflow-hidden"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: hoveredArtist === index ? 1 : 0 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <Image
+                        src={artist.image}
+                        alt={artist.name}
+                        fill
+                        className="object-cover"
+                        quality={75}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        loading="lazy"
+                      />
+                      {/* Gradient overlay for text readability */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+
+                      {/* Audio indicator */}
+                      <motion.div
+                        className="absolute top-6 right-6 flex items-center gap-2 bg-gold-500/20 backdrop-blur-md rounded-full px-4 py-2 border border-gold-500/40"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.2 }}
+                      >
+                        <motion.div
+                          animate={{ scale: [1, 1.2, 1] }}
+                          transition={{ duration: 1, repeat: Infinity }}
+                        >
+                          <Play className="w-4 h-4 text-gold-400" fill="currentColor" />
+                        </motion.div>
+                        <span className="text-xs font-bold text-gold-300 uppercase tracking-wider">Now Playing</span>
+                      </motion.div>
+
+                      {/* Sound Wave Visualization on Image Overlay */}
+                      <motion.div
+                        className="absolute bottom-8 left-0 right-0 flex justify-center items-center gap-1.5"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                      >
+                        {[...Array(5)].map((_, i) => (
+                          <motion.div
+                            key={i}
+                            className={`w-1.5 rounded-full bg-gradient-to-t ${artist.color} shadow-lg`}
+                            animate={{
+                              height: [12, 28, 12],
+                            }}
+                            transition={{
+                              duration: 0.8,
+                              repeat: Infinity,
+                              delay: i * 0.1,
+                              ease: "easeInOut"
+                            }}
+                          />
+                        ))}
+                      </motion.div>
+                    </motion.div>
+                  )}
+
+                  {/* Holographic Shine Effect */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                    <div className="absolute inset-0 bg-gradient-to-br from-gold-500/20 via-transparent to-purple-500/20" />
+                    <motion.div
+                      className="absolute inset-0"
+                      style={{
+                        background: "linear-gradient(45deg, transparent 30%, rgba(255,215,0,0.1) 50%, transparent 70%)",
+                        backgroundSize: "200% 200%"
+                      }}
+                      animate={{
+                        backgroundPosition: ["0% 0%", "100% 100%"]
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        repeatType: "reverse"
+                      }}
+                    />
+                  </div>
+
+                  {/* Particle Effect Container */}
+                  <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                    {[...Array(8)].map((_, i) => (
+                      <motion.div
+                        key={i}
+                        className={`absolute w-1 h-1 rounded-full bg-gradient-to-r ${artist.color} opacity-0 group-hover:opacity-100`}
+                        style={{
+                          left: `${Math.random() * 100}%`,
+                          top: `${Math.random() * 100}%`,
+                        }}
+                        animate={{
+                          y: [-20, -60],
+                          opacity: [0, 1, 0],
+                          scale: [0, 1.5, 0]
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          delay: i * 0.2,
+                          ease: "easeOut"
+                        }}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Glow Border on Hover */}
+                  <motion.div
+                    className={`absolute inset-0 rounded-3xl bg-gradient-to-r ${artist.color} opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500`}
+                  />
+
+                  {/* Content */}
+                  <div className="relative" style={{ transformStyle: "preserve-3d" }}>
+                    {/* 3D Icon/Image Container */}
+                    <motion.div
+                      className="relative mx-auto mb-8 flex h-32 w-32 items-center justify-center overflow-hidden rounded-full"
+                      style={{ transformStyle: "preserve-3d" }}
+                      whileHover={{
+                        rotateY: 180,
+                        rotateZ: 360
+                      }}
+                      transition={{
+                        duration: 0.8,
+                        type: "spring",
+                        stiffness: 200
+                      }}
+                    >
+                      {/* 3D Layered Circles */}
+                      <div
+                        className={`absolute inset-0 rounded-full bg-gradient-to-br ${artist.color} opacity-20 blur-2xl group-hover:opacity-40 transition-all duration-500 group-hover:scale-150`}
+                        style={{ transform: "translateZ(-20px)" }}
+                      />
+                      <div
+                        className="absolute inset-2 rounded-full border-2 border-gold-500/30 bg-gradient-to-br from-gold-500/10 to-transparent"
+                        style={{ transform: "translateZ(-10px)" }}
+                      />
+                      <motion.div
+                        className={`relative flex h-full w-full items-center justify-center rounded-full border-2 border-gold-500/50 ${artist.image ? 'bg-black/40' : `bg-gradient-to-br ${artist.color}`} text-6xl shadow-[0_0_40px_rgba(255,215,0,0.3)] overflow-hidden`}
+                        style={{ transform: "translateZ(20px)" }}
+                        animate={{
+                          boxShadow: [
+                            "0 0 40px rgba(255,215,0,0.3)",
+                            "0 0 60px rgba(255,215,0,0.5)",
+                            "0 0 40px rgba(255,215,0,0.3)"
+                          ]
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      >
+                        {artist.image ? (
+                          <Image
+                            src={artist.image}
+                            alt={artist.name}
+                            fill
+                            className="object-cover"
+                            quality={75}
+                            sizes="(max-width: 768px) 128px, 128px"
+                            loading="lazy"
+                          />
+                        ) : (
+                          artist.icon
+                        )}
+                      </motion.div>
+                    </motion.div>
+
+                    {/* Artist Name with 3D Effect */}
+                    <motion.h3
+                      className="mb-4 text-3xl font-bold text-white relative"
+                      style={{
+                        transformStyle: "preserve-3d",
+                        textShadow: "0 0 20px rgba(255,215,0,0.3)"
+                      }}
+                      whileHover={{
+                        scale: 1.05,
+                        textShadow: "0 0 30px rgba(255,215,0,0.6)"
+                      }}
+                    >
+                      {artist.name}
+                    </motion.h3>
+
+                    {/* Genre Tag with Magnetic Effect */}
+                    <motion.div
+                      className={`inline-flex items-center gap-3 rounded-full border border-gold-500/40 bg-gradient-to-r ${artist.color} bg-opacity-20 px-6 py-3 backdrop-blur-sm`}
+                      whileHover={{
+                        scale: 1.1,
+                        borderColor: "rgba(255,215,0,0.8)"
+                      }}
+                      style={{ transformStyle: "preserve-3d" }}
+                    >
+                      {/* Animated Pulse Dot */}
+                      <span className="relative flex h-3 w-3">
+                        <span className={`absolute inline-flex h-full w-full animate-ping rounded-full bg-gradient-to-r ${artist.color} opacity-75`}></span>
+                        <span className={`relative inline-flex h-3 w-3 rounded-full bg-gradient-to-r ${artist.color}`}></span>
+                      </span>
+                      <p className="text-sm font-bold uppercase tracking-[0.25em] text-gold-300">
+                        {artist.genre}
+                      </p>
+                    </motion.div>
+
+                    {/* Sound Wave Visualization */}
+                    <motion.div
+                      className="mt-6 flex justify-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                      style={{ transformStyle: "preserve-3d" }}
+                    >
+                      {[...Array(5)].map((_, i) => (
+                        <motion.div
+                          key={i}
+                          className={`w-1 rounded-full bg-gradient-to-t ${artist.color}`}
+                          animate={{
+                            height: [12, 24, 12],
+                          }}
+                          transition={{
+                            duration: 0.8,
+                            repeat: Infinity,
+                            delay: i * 0.1,
+                            ease: "easeInOut"
+                          }}
+                        />
+                      ))}
+                    </motion.div>
+                  </div>
+                </motion.div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Bottom CTA */}
+          <motion.div
+            className="mt-20 text-center"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            viewport={{ once: true }}
+          >
+            <motion.button
+              className="group relative overflow-hidden rounded-full border-2 border-gold-500/50 bg-gradient-to-r from-gold-500/10 to-gold-600/10 px-12 py-4 text-lg font-bold uppercase tracking-[0.2em] text-white backdrop-blur-lg"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-gold-500 to-gold-600 opacity-0 group-hover:opacity-20"
+                initial={false}
+                animate={{ x: ["-100%", "100%"] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              />
+              <span className="relative z-10">More Artists Coming Soon</span>
+            </motion.button>
+          </motion.div>
+        </div>
+      </section>
       {/* Committee Section */}
       <motion.section
         id="committee"
@@ -992,456 +1442,6 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* About Section */}
-      <section id="about" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto">
-          <motion.div
-            className="text-center mb-12 sm:mb-16"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gold-500 mb-4 sm:mb-6">
-              About Tantalize
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4">
-              Tantalize has established itself as one of Sri Lanka&apos;s premier cultural and music events,
-              attracting thousands of attendees and prominent sponsors. Experience the pinnacle of
-              entertainment in 2025.
-            </p>
-          </motion.div>
-
-          {/* QR Code Section */}
-          <motion.div
-            className="bg-gradient-to-r from-gold-500/10 to-gold-600/10 rounded-3xl p-12 text-center border border-gold-500/20"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <QrCode className="w-24 h-24 text-gold-500 mx-auto mb-6" />
-            <h3 className="text-3xl font-bold text-white mb-4">Get Your Tickets</h3>
-            <p className="text-lg text-gray-300 mb-8">
-              Scan the QR code with your Pickme app to purchase tickets and secure your spot
-              at Sri Lanka&apos;s most anticipated cultural event.
-            </p>
-
-            <div className="mb-8">
-              <a
-                href="https://tickets.tantalize.lk"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-gold-500 px-8 py-3 text-sm font-bold uppercase tracking-widest text-black transition-transform duration-300 hover:scale-105 hover:bg-gold-400"
-              >
-                Buy Tickets Online
-              </a>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <div className="text-center">
-                <p className="text-2xl font-bold text-gold-500">General Admission</p>
-                <p className="text-white">Rs. 2,500</p>
-                <p className="text-sm text-gray-400">3,000 tickets available</p>
-              </div>
-              <div className="text-center">
-                <p className="text-2xl font-bold text-gold-500">VIP Experience</p>
-                <p className="text-white">Rs. 5,000</p>
-                <p className="text-sm text-gray-400">300 tickets available</p>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Lineup Section - Premium 3D */}
-      <section id="lineup" className="relative py-32 px-6 overflow-hidden">
-        {/* Animated Background */}
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0e27] via-[#1a1232] to-[#0a0e27]" />
-          <div className="absolute inset-0 opacity-30">
-            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gold-500/20 rounded-full blur-[120px] animate-pulse" />
-            <div className="absolute bottom-1/3 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-[120px] animate-pulse delay-1000" />
-          </div>
-        </div>
-
-        <div className="max-w-7xl mx-auto">
-          {/* Header with Spotlight Effect */}
-          <motion.div
-            className="text-center mb-20 relative"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <motion.div
-              className="absolute inset-0 -z-10"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 1.5 }}
-            >
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-32 bg-gradient-to-b from-transparent via-gold-500 to-transparent" />
-            </motion.div>
-
-            <motion.p
-              className="text-sm uppercase tracking-[0.5em] text-gold-500/90 mb-4 flex items-center justify-center gap-3"
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6 }}
-            >
-              <span className="inline-block w-12 h-px bg-gradient-to-r from-transparent to-gold-500" />
-              🎤 The Stage is Set
-              <span className="inline-block w-12 h-px bg-gradient-to-l from-transparent to-gold-500" />
-            </motion.p>
-
-            <motion.h2
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 relative"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <span className="relative inline-block">
-                TANTALIZE 2025
-                <motion.span
-                  className="absolute -bottom-1 sm:-bottom-2 left-0 right-0 h-0.5 sm:h-1 bg-gradient-to-r from-gold-500 via-gold-400 to-gold-500"
-                  initial={{ scaleX: 0 }}
-                  whileInView={{ scaleX: 1 }}
-                  transition={{ duration: 0.8, delay: 0.5 }}
-                />
-              </span>
-              <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold-400 via-gold-500 to-gold-600">
-                Artist Lineup
-              </span>
-            </motion.h2>
-
-            <motion.p
-              className="text-base sm:text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              The island&apos;s finest artists bringing the heat to stage
-            </motion.p>
-          </motion.div>
-
-          {/* Premium 3D Artist Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 lg:gap-10">
-            {[
-              { name: "Bathiya & Santhush", genre: "Legends", icon: "🎸", color: "from-amber-500 to-orange-600", image: "/BnS.webp", audio: "/BnS.mp3" },
-              { name: "Wasthi", genre: "Vocals", icon: "🎤", color: "from-pink-500 to-rose-600", image: "/wasthi.webp", audio: "/wasthi.mp3" },
-              { name: "Hana", genre: "Rhythms", icon: "🎵", color: "from-blue-500 to-cyan-600", image: "/Hana.webp", audio: "/Hana.mp3" },
-              { name: "Iraj", genre: "Hip-Hop", icon: "🎧", color: "from-purple-500 to-indigo-600", image: "/Iraj.webp", audio: "/Iraj.mp3" },
-              { name: "Dhanith Sri", genre: "Melodies", icon: "🎹", color: "from-green-500 to-emerald-600", image: "/Dhanith Sri.webp", audio: "/Dhanith Sri.mp3" },
-              { name: "Raveen", genre: "Beats", icon: "🥁", color: "from-red-500 to-pink-600", image: "/Raveen.webp", audio: "/Raveen.mp3" },
-              { name: "Yaka Crew", genre: "Collective", icon: "👥", color: "from-slate-500 to-zinc-600", image: "/Yaka Crew.webp", audio: "/Yaka Crew.mp3" },
-              { name: "KK", genre: "Energy", icon: "🔥", color: "from-orange-500 to-red-600", image: "/KK.webp", audio: "/KK.mp3" },
-              { name: "Dilo", genre: "Vibes", icon: "🎺", color: "from-teal-500 to-cyan-600", image: "/Dilo.webp", audio: "/Dilo.mp3" },
-              { name: "Chanuka Mora", genre: "Soul", icon: "✨", color: "from-indigo-500 to-violet-600", image: "/Chanuka Mora.webp", audio: "/Chanuka Mora.mp3" },
-              { name: "Infinity", genre: "Limitless", icon: "♾️", color: "from-violet-500 to-purple-600", image: "/Infinity.webp", audio: "/Infinity.mp3" }
-            ].map((artist, index) => (
-              <motion.div
-                key={index}
-                className="artist-card-wrapper"
-                initial={{ opacity: 0, y: 100, rotateX: 45 }}
-                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-                transition={{
-                  duration: 0.8,
-                  delay: index * 0.1,
-                  type: "spring",
-                  stiffness: 100
-                }}
-                viewport={{ once: true }}
-                style={{ perspective: "1000px" }}
-                onMouseEnter={() => artist.audio && handleArtistHover(index)}
-                onMouseLeave={() => artist.audio && handleArtistLeave(index)}
-              >
-                {/* Hidden audio element */}
-                {artist.audio && (
-                  <audio
-                    ref={(el) => {
-                      if (el) {
-                        audioRefs.current[index] = el;
-                      }
-                    }}
-                    src={artist.audio}
-                    preload="none"
-                    playsInline
-                  />
-                )}
-
-                <motion.div
-                  className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-gradient-to-br from-[#1a1f3a]/80 via-[#0f1229]/90 to-[#1a1232]/80 p-6 sm:p-8 text-center backdrop-blur-xl"
-                  whileHover={{
-                    scale: 1.05,
-                    rotateY: 5,
-                    rotateX: 5,
-                    z: 50
-                  }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 300,
-                    damping: 20
-                  }}
-                  style={{
-                    transformStyle: "preserve-3d",
-                    boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)"
-                  }}
-                >
-                  {/* Artist Image Overlay - Appears on Hover */}
-                  {artist.image && (
-                    <motion.div
-                      className="absolute inset-0 z-20 rounded-3xl overflow-hidden"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: hoveredArtist === index ? 1 : 0 }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      <Image
-                        src={artist.image}
-                        alt={artist.name}
-                        fill
-                        className="object-cover"
-                        quality={75}
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        loading="lazy"
-                      />
-                      {/* Gradient overlay for text readability */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
-
-                      {/* Audio indicator */}
-                      <motion.div
-                        className="absolute top-6 right-6 flex items-center gap-2 bg-gold-500/20 backdrop-blur-md rounded-full px-4 py-2 border border-gold-500/40"
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.2 }}
-                      >
-                        <motion.div
-                          animate={{ scale: [1, 1.2, 1] }}
-                          transition={{ duration: 1, repeat: Infinity }}
-                        >
-                          <Play className="w-4 h-4 text-gold-400" fill="currentColor" />
-                        </motion.div>
-                        <span className="text-xs font-bold text-gold-300 uppercase tracking-wider">Now Playing</span>
-                      </motion.div>
-
-                      {/* Sound Wave Visualization on Image Overlay */}
-                      <motion.div
-                        className="absolute bottom-8 left-0 right-0 flex justify-center items-center gap-1.5"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.3 }}
-                      >
-                        {[...Array(5)].map((_, i) => (
-                          <motion.div
-                            key={i}
-                            className={`w-1.5 rounded-full bg-gradient-to-t ${artist.color} shadow-lg`}
-                            animate={{
-                              height: [12, 28, 12],
-                            }}
-                            transition={{
-                              duration: 0.8,
-                              repeat: Infinity,
-                              delay: i * 0.1,
-                              ease: "easeInOut"
-                            }}
-                          />
-                        ))}
-                      </motion.div>
-                    </motion.div>
-                  )}
-
-                  {/* Holographic Shine Effect */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-                    <div className="absolute inset-0 bg-gradient-to-br from-gold-500/20 via-transparent to-purple-500/20" />
-                    <motion.div
-                      className="absolute inset-0"
-                      style={{
-                        background: "linear-gradient(45deg, transparent 30%, rgba(255,215,0,0.1) 50%, transparent 70%)",
-                        backgroundSize: "200% 200%"
-                      }}
-                      animate={{
-                        backgroundPosition: ["0% 0%", "100% 100%"]
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        repeatType: "reverse"
-                      }}
-                    />
-                  </div>
-
-                  {/* Particle Effect Container */}
-                  <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    {[...Array(8)].map((_, i) => (
-                      <motion.div
-                        key={i}
-                        className={`absolute w-1 h-1 rounded-full bg-gradient-to-r ${artist.color} opacity-0 group-hover:opacity-100`}
-                        style={{
-                          left: `${Math.random() * 100}%`,
-                          top: `${Math.random() * 100}%`,
-                        }}
-                        animate={{
-                          y: [-20, -60],
-                          opacity: [0, 1, 0],
-                          scale: [0, 1.5, 0]
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          delay: i * 0.2,
-                          ease: "easeOut"
-                        }}
-                      />
-                    ))}
-                  </div>
-
-                  {/* Glow Border on Hover */}
-                  <motion.div
-                    className={`absolute inset-0 rounded-3xl bg-gradient-to-r ${artist.color} opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500`}
-                  />
-
-                  {/* Content */}
-                  <div className="relative" style={{ transformStyle: "preserve-3d" }}>
-                    {/* 3D Icon/Image Container */}
-                    <motion.div
-                      className="relative mx-auto mb-8 flex h-32 w-32 items-center justify-center overflow-hidden rounded-full"
-                      style={{ transformStyle: "preserve-3d" }}
-                      whileHover={{
-                        rotateY: 180,
-                        rotateZ: 360
-                      }}
-                      transition={{
-                        duration: 0.8,
-                        type: "spring",
-                        stiffness: 200
-                      }}
-                    >
-                      {/* 3D Layered Circles */}
-                      <div
-                        className={`absolute inset-0 rounded-full bg-gradient-to-br ${artist.color} opacity-20 blur-2xl group-hover:opacity-40 transition-all duration-500 group-hover:scale-150`}
-                        style={{ transform: "translateZ(-20px)" }}
-                      />
-                      <div
-                        className="absolute inset-2 rounded-full border-2 border-gold-500/30 bg-gradient-to-br from-gold-500/10 to-transparent"
-                        style={{ transform: "translateZ(-10px)" }}
-                      />
-                      <motion.div
-                        className={`relative flex h-full w-full items-center justify-center rounded-full border-2 border-gold-500/50 ${artist.image ? 'bg-black/40' : `bg-gradient-to-br ${artist.color}`} text-6xl shadow-[0_0_40px_rgba(255,215,0,0.3)] overflow-hidden`}
-                        style={{ transform: "translateZ(20px)" }}
-                        animate={{
-                          boxShadow: [
-                            "0 0 40px rgba(255,215,0,0.3)",
-                            "0 0 60px rgba(255,215,0,0.5)",
-                            "0 0 40px rgba(255,215,0,0.3)"
-                          ]
-                        }}
-                        transition={{
-                          duration: 2,
-                          repeat: Infinity,
-                          ease: "easeInOut"
-                        }}
-                      >
-                        {artist.image ? (
-                          <Image
-                            src={artist.image}
-                            alt={artist.name}
-                            fill
-                            className="object-cover"
-                            quality={75}
-                            sizes="(max-width: 768px) 128px, 128px"
-                            loading="lazy"
-                          />
-                        ) : (
-                          artist.icon
-                        )}
-                      </motion.div>
-                    </motion.div>
-
-                    {/* Artist Name with 3D Effect */}
-                    <motion.h3
-                      className="mb-4 text-3xl font-bold text-white relative"
-                      style={{
-                        transformStyle: "preserve-3d",
-                        textShadow: "0 0 20px rgba(255,215,0,0.3)"
-                      }}
-                      whileHover={{
-                        scale: 1.05,
-                        textShadow: "0 0 30px rgba(255,215,0,0.6)"
-                      }}
-                    >
-                      {artist.name}
-                    </motion.h3>
-
-                    {/* Genre Tag with Magnetic Effect */}
-                    <motion.div
-                      className={`inline-flex items-center gap-3 rounded-full border border-gold-500/40 bg-gradient-to-r ${artist.color} bg-opacity-20 px-6 py-3 backdrop-blur-sm`}
-                      whileHover={{
-                        scale: 1.1,
-                        borderColor: "rgba(255,215,0,0.8)"
-                      }}
-                      style={{ transformStyle: "preserve-3d" }}
-                    >
-                      {/* Animated Pulse Dot */}
-                      <span className="relative flex h-3 w-3">
-                        <span className={`absolute inline-flex h-full w-full animate-ping rounded-full bg-gradient-to-r ${artist.color} opacity-75`}></span>
-                        <span className={`relative inline-flex h-3 w-3 rounded-full bg-gradient-to-r ${artist.color}`}></span>
-                      </span>
-                      <p className="text-sm font-bold uppercase tracking-[0.25em] text-gold-300">
-                        {artist.genre}
-                      </p>
-                    </motion.div>
-
-                    {/* Sound Wave Visualization */}
-                    <motion.div
-                      className="mt-6 flex justify-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                      style={{ transformStyle: "preserve-3d" }}
-                    >
-                      {[...Array(5)].map((_, i) => (
-                        <motion.div
-                          key={i}
-                          className={`w-1 rounded-full bg-gradient-to-t ${artist.color}`}
-                          animate={{
-                            height: [12, 24, 12],
-                          }}
-                          transition={{
-                            duration: 0.8,
-                            repeat: Infinity,
-                            delay: i * 0.1,
-                            ease: "easeInOut"
-                          }}
-                        />
-                      ))}
-                    </motion.div>
-                  </div>
-                </motion.div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Bottom CTA */}
-          <motion.div
-            className="mt-20 text-center"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            viewport={{ once: true }}
-          >
-            <motion.button
-              className="group relative overflow-hidden rounded-full border-2 border-gold-500/50 bg-gradient-to-r from-gold-500/10 to-gold-600/10 px-12 py-4 text-lg font-bold uppercase tracking-[0.2em] text-white backdrop-blur-lg"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-gold-500 to-gold-600 opacity-0 group-hover:opacity-20"
-                initial={false}
-                animate={{ x: ["-100%", "100%"] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              />
-              <span className="relative z-10">More Artists Coming Soon</span>
-            </motion.button>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Schedule Section */}
       <section id="schedule" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
@@ -1625,66 +1625,7 @@ export default function Home() {
       {/* Scroll Markers (progress dots) */}
       <ScrollMarkers />
 
-      {/* Contact Section */}
-      <section id="contact" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl md:text-6xl font-bold text-gold-500 mb-6">
-              Get In Touch
-            </h2>
-            <p className="text-xl text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed">
-              Have questions about Tantalize 2025? We&apos;d love to hear from you.
-            </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gold-500 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <span className="text-primary-950 font-bold text-xl">E</span>
-                </div>
-                <h3 className="text-lg font-semibold text-white mb-2">Email</h3>
-                <p className="text-gray-300">info@tantalize2025.com</p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gold-500 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <span className="text-primary-950 font-bold text-xl">P</span>
-                </div>
-                <h3 className="text-lg font-semibold text-white mb-2">Phone</h3>
-                <p className="text-gray-300">+94 11 234 5678</p>
-              </div>
-              <div className="text-center">
-                <div className="w-16 h-16 bg-gold-500 rounded-full mx-auto mb-4 flex items-center justify-center">
-                  <span className="text-primary-950 font-bold text-xl">L</span>
-                </div>
-                <h3 className="text-lg font-semibold text-white mb-2">Location</h3>
-                <p className="text-gray-300">APIIT Colombo</p>
-              </div>
-            </div>
-
-            <motion.div
-              className="bg-gradient-to-r from-gold-500/10 to-gold-600/10 rounded-3xl p-8 border border-gold-500/20"
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.3 }}
-            >
-              <h3 className="text-2xl font-bold text-white mb-4">Ready to Experience Tantalize 2025?</h3>
-              <p className="text-gray-300 mb-6">
-                Don&apos;t miss out on Sri Lanka&apos;s most anticipated cultural and music event.
-              </p>
-              <motion.button
-                className="btn-premium text-lg px-8 py-4"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Get Your Tickets Now
-              </motion.button>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
 
       {/* Footer */}
       <footer className="py-12 px-6 border-t border-gold-500/20">
