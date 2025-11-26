@@ -130,7 +130,7 @@ export default function LegacyTimeline() {
   };
 
   return (
-    <section ref={sectionRef} id="legacy" className="relative overflow-hidden h-screen bg-primary-950">
+    <section ref={sectionRef} id="purpose-legacy" className="relative overflow-hidden h-screen bg-primary-950">
       <div ref={contentRef} className="relative h-full">
         {/* Background layers with subtle particles and shimmer lines */}
         <div className="pointer-events-none absolute inset-0">

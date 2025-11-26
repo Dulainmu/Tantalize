@@ -191,28 +191,28 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
                 >
                   <div className="glitch-container-apiit">
                     <img
-                      src="/APIIT-Logo-White.webp"
+                      src="/APIIT logo white.webp"
                       alt="APIIT logo"
                       className="glitch-logo-apiit"
                       loading="eager"
                       decoding="async"
                     />
                     <img
-                      src="/APIIT-Logo-White.webp"
+                      src="/APIIT logo white.webp"
                       aria-hidden
                       className="glitch-logo-apiit glitch-offset-apiit-1"
                       loading="eager"
                       decoding="async"
                     />
                     <img
-                      src="/APIIT-Logo-White.webp"
+                      src="/APIIT logo white.webp"
                       aria-hidden
                       className="glitch-logo-apiit glitch-offset-apiit-2"
                       loading="eager"
                       decoding="async"
                     />
                     <img
-                      src="/APIIT-Logo-White.webp"
+                      src="/APIIT logo white.webp"
                       aria-hidden
                       className="glitch-logo-apiit glitch-offset-apiit-3"
                       loading="eager"

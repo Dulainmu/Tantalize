@@ -456,9 +456,9 @@ export default function Home() {
             />
             <span className="text-gold-500 text-base sm:text-xl font-light">/</span>
             <img
-              src="/APIIT-Logo-White.webp"
+              src="/APIIT logo white.webp"
               alt="APIIT logo"
-              className="object-contain h-16 sm:h-24 md:h-32"
+              className="object-contain h-8 sm:h-12 md:h-16"
             />
           </motion.div>
 
@@ -509,9 +509,10 @@ export default function Home() {
               {/* Menu Items */}
               <nav className="space-y-4 sm:space-y-6">
                 {[
-                  { label: 'Purpose & Legacy', href: 'purpose-legacy' },
                   { label: 'About', href: 'about' },
+                  { label: 'Purpose & Legacy', href: 'purpose-legacy' },
                   { label: 'Artist Lineup', href: 'lineup' },
+                  { label: 'Tickets', href: 'tickets' },
                   { label: 'Committee', href: 'committee' },
                   { label: 'Schedule', href: 'schedule' },
                   { label: 'Sponsors', href: 'sponsors' },
@@ -691,7 +692,7 @@ export default function Home() {
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          <a href="#purpose-legacy" className="block">
+          <a href="#about" className="block">
             <ArrowDown className="w-6 h-6 sm:w-8 sm:h-8 text-gold-500 hover:text-gold-400 transition-colors cursor-pointer" />
           </a>
         </motion.div>
@@ -699,65 +700,14 @@ export default function Home() {
 
       {/* Legacy hero merged into LegacyTimeline */}
 
-      <section id="purpose-legacy" className="relative isolate">
-        <div className="section-bg-cinematic" />
-        <div className="section-blend-gold" aria-hidden />
-        <LegacyTimeline />
-      </section>
-
-
       {/* 3D About Section */}
       <ThreeDAbout />
 
-      {/* Ticket Section */}
-      <section id="tickets" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto">
-          <motion.div
-            className="bg-gradient-to-r from-gold-500/10 to-gold-600/10 rounded-3xl p-12 text-center border border-gold-500/20"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <div className="mb-6 flex justify-center">
-              <span className="text-6xl">🎟️</span>
-            </div>
-            <h3 className="text-3xl font-bold text-white mb-4">Get Your Tickets</h3>
-            <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
-              Secure your spot at Sri Lanka&apos;s most anticipated cultural event.
-              Don&apos;t miss out on an unforgettable night!
-            </p>
+      {/* Legacy hero merged into LegacyTimeline */}
 
-            <div className="mb-8">
-              <a
-                href="https://tickets.tantalize.lk"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-gold-500 px-8 py-3 text-sm font-bold uppercase tracking-widest text-black transition-transform duration-300 hover:scale-105 hover:bg-gold-400"
-              >
-                Buy Tickets Online
-              </a>
-            </div>
-            <div className="flex flex-wrap gap-6 sm:gap-10 justify-center items-center">
-              <div className="text-center scale-110 transform relative">
-                <div className="absolute -top-6 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-gold-500 px-3 py-1 text-xs font-bold text-black uppercase tracking-wider">
-                  Selling Fast
-                </div>
-                <p className="text-2xl sm:text-3xl font-bold text-gold-500">Early Bird</p>
-                <p className="text-white text-xl sm:text-2xl font-bold">Rs. 2,000</p>
-              </div>
-              <div className="text-center opacity-60">
-                <p className="text-xl sm:text-2xl font-bold text-gold-500/80">Standard</p>
-                <p className="text-white text-lg sm:text-xl">Rs. 2,500</p>
-              </div>
-              <div className="text-center opacity-60">
-                <p className="text-xl sm:text-2xl font-bold text-gold-500/80">At The Gate</p>
-                <p className="text-white text-lg sm:text-xl">Rs. 3,500</p>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      <LegacyTimeline />
+
+
 
       {/* Lineup Section - Premium 3D */}
       <section id="lineup" className="relative py-32 px-6 overflow-hidden">
@@ -1144,6 +1094,55 @@ export default function Home() {
               />
               <span className="relative z-10">More Artists Coming Soon</span>
             </motion.button>
+          </motion.div>
+        </div>
+      </section>
+      {/* Ticket Section */}
+      <section id="tickets" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            className="bg-gradient-to-r from-gold-500/10 to-gold-600/10 rounded-3xl p-12 text-center border border-gold-500/20"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <div className="mb-6 flex justify-center">
+              <span className="text-6xl">🎟️</span>
+            </div>
+            <h3 className="text-3xl font-bold text-white mb-4">Get Your Tickets</h3>
+            <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
+              Secure your spot at Sri Lanka&apos;s most anticipated cultural event.
+              Don&apos;t miss out on an unforgettable night!
+            </p>
+
+            <div className="mb-8">
+              <a
+                href="https://tickets.tantalize.lk"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-gold-500 px-8 py-3 text-sm font-bold uppercase tracking-widest text-black transition-transform duration-300 hover:scale-105 hover:bg-gold-400"
+              >
+                Buy Tickets Online
+              </a>
+            </div>
+            <div className="flex flex-wrap gap-6 sm:gap-10 justify-center items-center">
+              <div className="text-center scale-110 transform relative">
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-gold-500 px-3 py-1 text-xs font-bold text-black uppercase tracking-wider">
+                  Selling Fast
+                </div>
+                <p className="text-2xl sm:text-3xl font-bold text-gold-500">Early Bird</p>
+                <p className="text-white text-xl sm:text-2xl font-bold">Rs. 2,000</p>
+              </div>
+              <div className="text-center opacity-60">
+                <p className="text-xl sm:text-2xl font-bold text-gold-500/80">Standard</p>
+                <p className="text-white text-lg sm:text-xl">Rs. 2,500</p>
+              </div>
+              <div className="text-center opacity-60">
+                <p className="text-xl sm:text-2xl font-bold text-gold-500/80">At The Gate</p>
+                <p className="text-white text-lg sm:text-xl">Rs. 3,500</p>
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
