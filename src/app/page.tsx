@@ -709,20 +709,70 @@ export default function Home() {
       <section id="about" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
           <motion.div
-            className="text-center mb-12 sm:mb-16"
+            className="mb-16 sm:mb-24 space-y-16"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gold-500 mb-4 sm:mb-6">
-              About Tantalize
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4">
-              Tantalize has established itself as one of Sri Lanka&apos;s premier cultural and music events,
-              attracting thousands of attendees and prominent sponsors. Experience the pinnacle of
-              entertainment in 2025.
-            </p>
+            {/* Intro */}
+            <div className="text-center max-w-4xl mx-auto space-y-6">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gold-500 mb-6">
+                About Tantalize
+              </h2>
+              <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
+                Tantalize, Sri Lanka&apos;s most anticipated inter-university talent search, proudly celebrates its 15th milestone year in 2025. Since its inception in 2008, the event has grown exponentially to become the premier platform for showcasing the creative brilliance of university students across the nation.
+              </p>
+              <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
+                Organized annually by the Student Activity Club of the Asia Pacific Institute of Information Technology (APIIT), Colombo, Tantalize has evolved into more than just a competition – it&apos;s a cultural phenomenon that brings together talent, passion, and purpose. With categories ranging from singing and dancing to dynamic band performances, it provides a stage for young performers to shine and captivate thousands.
+              </p>
+            </div>
+
+            {/* Mission & Cause Grid */}
+            <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+              {/* Mission */}
+              <div className="bg-white/5 rounded-3xl p-8 sm:p-10 border border-white/10 hover:border-gold-500/30 transition-colors duration-300">
+                <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                  <span className="text-gold-500">🎯</span> Our Mission
+                </h3>
+                <div className="space-y-4 text-gray-300 text-sm sm:text-base leading-relaxed">
+                  <p>
+                    As we step into the 15th edition of Tantalize, our mission goes far beyond entertainment – it&apos;s about creating lasting, positive change. This year, the proceeds from Tantalize 2025 will be directed towards empowering underprivileged communities through educational development and youth empowerment initiatives.
+                  </p>
+                  <p>
+                    We believe that access to quality education and resources is vital for shaping a brighter future, especially in underserved regions. By supporting these communities, Tantalize 2025 aims to spark opportunity, inspire hope, and play a part in building a more inclusive and progressive society.
+                  </p>
+                  <p className="font-semibold text-gold-400">
+                    This isn&apos;t just a celebration of talent – it&apos;s an impact movement.
+                  </p>
+                </div>
+              </div>
+
+              {/* Cause */}
+              <div className="bg-white/5 rounded-3xl p-8 sm:p-10 border border-white/10 hover:border-gold-500/30 transition-colors duration-300">
+                <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                  <span className="text-gold-500">🤝</span> The Cause
+                </h3>
+                <div className="space-y-4 text-gray-300 text-sm sm:text-base leading-relaxed">
+                  <p>
+                    Tantalize 2025 isn&apos;t just about fun and entertainment; it&apos;s about making a difference. The funds raised will go towards developing schools in rural areas. We believe that education is key to a better future, and through this event, we hope to give more students the support and opportunities they deserve.
+                  </p>
+                  <p>
+                    Over the past few years, with the unwavering support of the APIIT family and our extended community, we&apos;ve proudly contributed essential learning tools – from books and stationery to classroom equipment – to several schools in need.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Tagline */}
+            <div className="text-center space-y-2">
+              <p className="text-xl sm:text-2xl md:text-3xl font-display font-bold text-white">
+                &ldquo;A celebration of talent with a purpose&rdquo;
+              </p>
+              <p className="text-gold-500 text-lg sm:text-xl">
+                Together, let&apos;s celebrate talent and spark change.
+              </p>
+            </div>
           </motion.div>
 
           {/* Ticket Section */}
@@ -752,10 +802,21 @@ export default function Home() {
                 Buy Tickets Online
               </a>
             </div>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <div className="text-center">
-                <p className="text-2xl font-bold text-gold-500">General Admission</p>
-                <p className="text-white">Rs. 2,500</p>
+            <div className="flex flex-wrap gap-6 sm:gap-10 justify-center items-center">
+              <div className="text-center scale-110 transform relative">
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-gold-500 px-3 py-1 text-xs font-bold text-black uppercase tracking-wider">
+                  Selling Fast
+                </div>
+                <p className="text-2xl sm:text-3xl font-bold text-gold-500">Early Bird</p>
+                <p className="text-white text-xl sm:text-2xl font-bold">Rs. 2,000</p>
+              </div>
+              <div className="text-center opacity-60">
+                <p className="text-xl sm:text-2xl font-bold text-gold-500/80">Standard</p>
+                <p className="text-white text-lg sm:text-xl">Rs. 2,500</p>
+              </div>
+              <div className="text-center opacity-60">
+                <p className="text-xl sm:text-2xl font-bold text-gold-500/80">At The Gate</p>
+                <p className="text-white text-lg sm:text-xl">Rs. 3,500</p>
               </div>
             </div>
           </motion.div>
