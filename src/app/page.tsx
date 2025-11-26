@@ -1049,7 +1049,7 @@ export default function Home() {
 
                     {/* Sound Wave Visualization */}
                     <motion.div
-                      className="mt-6 flex justify-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                      className="mt-6 flex justify-center gap-1 h-6 items-end opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                       style={{ transformStyle: "preserve-3d" }}
                     >
                       {[...Array(5)].map((_, i) => (
