@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useRef, type ReactNode } from 'react';
-import { QrCode, ArrowDown, Volume2, VolumeX, Play, Pause } from 'lucide-react';
+import { ArrowDown, Volume2, VolumeX, Play, Pause } from 'lucide-react';
 import dynamic from 'next/dynamic';
 
 // Lazy load heavy components
@@ -725,7 +725,7 @@ export default function Home() {
             </p>
           </motion.div>
 
-          {/* QR Code Section */}
+          {/* Ticket Section */}
           <motion.div
             className="bg-gradient-to-r from-gold-500/10 to-gold-600/10 rounded-3xl p-12 text-center border border-gold-500/20"
             initial={{ opacity: 0, scale: 0.9 }}
@@ -733,11 +733,13 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <QrCode className="w-24 h-24 text-gold-500 mx-auto mb-6" />
+            <div className="mb-6 flex justify-center">
+              <span className="text-6xl">🎟️</span>
+            </div>
             <h3 className="text-3xl font-bold text-white mb-4">Get Your Tickets</h3>
-            <p className="text-lg text-gray-300 mb-8">
-              Scan the QR code with your Pickme app to purchase tickets and secure your spot
-              at Sri Lanka&apos;s most anticipated cultural event.
+            <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
+              Secure your spot at Sri Lanka&apos;s most anticipated cultural event.
+              Don&apos;t miss out on an unforgettable night!
             </p>
 
             <div className="mb-8">
@@ -754,12 +756,6 @@ export default function Home() {
               <div className="text-center">
                 <p className="text-2xl font-bold text-gold-500">General Admission</p>
                 <p className="text-white">Rs. 2,500</p>
-                <p className="text-sm text-gray-400">3,000 tickets available</p>
-              </div>
-              <div className="text-center">
-                <p className="text-2xl font-bold text-gold-500">VIP Experience</p>
-                <p className="text-white">Rs. 5,000</p>
-                <p className="text-sm text-gray-400">300 tickets available</p>
               </div>
             </div>
           </motion.div>
