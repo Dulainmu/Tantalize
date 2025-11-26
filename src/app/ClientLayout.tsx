@@ -43,7 +43,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const minShowMs = 2500; // Optimized splash time
+    const minShowMs = 800; // Optimized splash time
 
     // Faster progress animation
     const progressInterval = setInterval(() => {

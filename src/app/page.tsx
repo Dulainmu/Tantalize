@@ -589,7 +589,8 @@ export default function Home() {
             muted
             loop
             playsInline
-            preload="metadata"
+            poster="/hero-poster.webp"
+            preload="none"
             onError={(e) => {
               // Fallback to gradient background if video fails to load
               e.currentTarget.style.display = 'none';

@@ -39,8 +39,9 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* Preload critical images for faster loading screen */}
-        <link rel="preload" href="/Tanata Logo.webp" as="image" type="image/webp" />
-        <link rel="preload" href="/APIIT logo white.webp" as="image" type="image/webp" />
+        <link rel="preload" href="/Tanata Logo.webp" as="image" type="image/webp" fetchPriority="high" />
+        <link rel="preload" href="/APIIT logo white.webp" as="image" type="image/webp" fetchPriority="high" />
+        <link rel="preload" href="/hero-poster.webp" as="image" type="image/webp" fetchPriority="high" />
       </head>
       <body
         className={`${inter.variable} ${poppins.variable} font-sans antialiased bg-primary-950 text-white overflow-x-hidden`}
