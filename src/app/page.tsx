@@ -13,6 +13,9 @@ const LegacyTimeline = dynamic(() => import('./components/history/LegacyTimeline
 const ScrollMarkers = dynamic(() => import('./components/common/ScrollMarkers'));
 const ParallaxSection = dynamic(() => import('./components/common/ParallaxSection'));
 const HeroParticles = dynamic(() => import('./components/common/HeroParticles'));
+const ThreeDAbout = dynamic(() => import('./components/about/ThreeDAbout'), {
+  loading: () => <div className="h-screen w-full bg-primary-950" />
+});
 
 const getAvatarUrl = (name: string) =>
   `https://api.dicebear.com/7.x/adventurer-neutral/svg?radius=50&backgroundColor=0a0e27,1a1f3a&seed=${encodeURIComponent(
@@ -699,83 +702,16 @@ export default function Home() {
       <section id="purpose-legacy" className="relative isolate">
         <div className="section-bg-cinematic" />
         <div className="section-blend-gold" aria-hidden />
-        <ParallaxSection strength={8} className="relative z-10 -mt-2">
-          <LegacyTimeline />
-        </ParallaxSection>
+        <LegacyTimeline />
       </section>
 
 
-      {/* About Section */}
-      <section id="about" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
+      {/* 3D About Section */}
+      <ThreeDAbout />
+
+      {/* Ticket Section */}
+      <section id="tickets" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
-          <motion.div
-            className="mb-16 sm:mb-24 space-y-16"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            {/* Intro */}
-            <div className="text-center max-w-4xl mx-auto space-y-6">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gold-500 mb-6">
-                About Tantalize
-              </h2>
-              <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
-                Tantalize, Sri Lanka&apos;s most anticipated inter-university talent search, proudly celebrates its 15th milestone year in 2025. Since its inception in 2008, the event has grown exponentially to become the premier platform for showcasing the creative brilliance of university students across the nation.
-              </p>
-              <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
-                Organized annually by the Student Activity Club of the Asia Pacific Institute of Information Technology (APIIT), Colombo, Tantalize has evolved into more than just a competition – it&apos;s a cultural phenomenon that brings together talent, passion, and purpose. With categories ranging from singing and dancing to dynamic band performances, it provides a stage for young performers to shine and captivate thousands.
-              </p>
-            </div>
-
-            {/* Mission & Cause Grid */}
-            <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
-              {/* Mission */}
-              <div className="bg-white/5 rounded-3xl p-8 sm:p-10 border border-white/10 hover:border-gold-500/30 transition-colors duration-300">
-                <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-                  <span className="text-gold-500">🎯</span> Our Mission
-                </h3>
-                <div className="space-y-4 text-gray-300 text-sm sm:text-base leading-relaxed">
-                  <p>
-                    As we step into the 15th edition of Tantalize, our mission goes far beyond entertainment – it&apos;s about creating lasting, positive change. This year, the proceeds from Tantalize 2025 will be directed towards empowering underprivileged communities through educational development and youth empowerment initiatives.
-                  </p>
-                  <p>
-                    We believe that access to quality education and resources is vital for shaping a brighter future, especially in underserved regions. By supporting these communities, Tantalize 2025 aims to spark opportunity, inspire hope, and play a part in building a more inclusive and progressive society.
-                  </p>
-                  <p className="font-semibold text-gold-400">
-                    This isn&apos;t just a celebration of talent – it&apos;s an impact movement.
-                  </p>
-                </div>
-              </div>
-
-              {/* Cause */}
-              <div className="bg-white/5 rounded-3xl p-8 sm:p-10 border border-white/10 hover:border-gold-500/30 transition-colors duration-300">
-                <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-3">
-                  <span className="text-gold-500">🤝</span> The Cause
-                </h3>
-                <div className="space-y-4 text-gray-300 text-sm sm:text-base leading-relaxed">
-                  <p>
-                    Tantalize 2025 isn&apos;t just about fun and entertainment; it&apos;s about making a difference. The funds raised will go towards developing schools in rural areas. We believe that education is key to a better future, and through this event, we hope to give more students the support and opportunities they deserve.
-                  </p>
-                  <p>
-                    Over the past few years, with the unwavering support of the APIIT family and our extended community, we&apos;ve proudly contributed essential learning tools – from books and stationery to classroom equipment – to several schools in need.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Tagline */}
-            <div className="text-center space-y-2">
-              <p className="text-xl sm:text-2xl md:text-3xl font-display font-bold text-white">
-                &ldquo;A celebration of talent with a purpose&rdquo;
-              </p>
-              <p className="text-gold-500 text-lg sm:text-xl">
-                Together, let&apos;s celebrate talent and spark change.
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Ticket Section */}
           <motion.div
             className="bg-gradient-to-r from-gold-500/10 to-gold-600/10 rounded-3xl p-12 text-center border border-gold-500/20"
             initial={{ opacity: 0, scale: 0.9 }}

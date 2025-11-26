@@ -95,10 +95,10 @@ h3,
   letter-spacing: 0.02em;
 }
 
-/* Smooth animations for all elements */
-* {
+/* Smooth animations for all elements - REMOVED for performance and GSAP compatibility */
+/* * {
   transition: all 0.3s ease;
-}
+} */
 
 /* Premium text effects */
 .text-premium {

@@ -12,6 +12,7 @@ import { Playfair_Display, Poppins } from "next/font/google";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ChevronRight, Play } from "lucide-react";
+import { useGSAP } from "@gsap/react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -71,22 +72,47 @@ const legacyEvents = [
 ];
 
 export default function LegacyTimeline() {
-  const [selectedYear, setSelectedYear] = useState(legacyEvents[legacyEvents.length - 1].year);
+  const [selectedYear, setSelectedYear] = useState(legacyEvents[0].year);
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
 
-  const current = useMemo(() => legacyEvents.find((e) => e.year === selectedYear) || legacyEvents[legacyEvents.length - 1], [selectedYear]);
+  const current = useMemo(() => legacyEvents.find((e) => e.year === selectedYear) || legacyEvents[0], [selectedYear]);
   const years = useMemo(() => legacyEvents.map((e) => e.year), []);
 
+  const yearRef = useRef(legacyEvents[0].year);
 
+  useGSAP(() => {
+    const totalEvents = legacyEvents.length;
+
+    ScrollTrigger.create({
+      trigger: sectionRef.current,
+      start: "top top",
+      end: `+=${totalEvents * 100}%`, // Pin for 100% viewport height per event
+      pin: true,
+      pinSpacing: true,
+      anticipatePin: 1,
+      scrub: 0.5,
+      onUpdate: (self) => {
+        // Calculate index based on scroll progress
+        // Use a slightly smaller range (0.99) to ensure we don't go out of bounds at exactly 1.0
+        const progress = self.progress * 0.999;
+        const index = Math.floor(progress * totalEvents);
+        const year = legacyEvents[index]?.year;
+
+        if (year && year !== yearRef.current) {
+          yearRef.current = year;
+          setSelectedYear(year);
+        }
+      }
+    });
+  }, { scope: sectionRef });
 
   // Scroll active year into view in the timeline
   useEffect(() => {
     if (timelineRef.current) {
       const activeBtn = timelineRef.current.querySelector(`[data-year="${selectedYear}"]`);
       if (activeBtn) {
-        // Only scroll if the button is not fully visible
         const containerRect = timelineRef.current.getBoundingClientRect();
         const btnRect = activeBtn.getBoundingClientRect();
 
@@ -104,8 +130,8 @@ export default function LegacyTimeline() {
   };
 
   return (
-    <section ref={sectionRef} id="legacy" className="relative overflow-hidden">
-      <div ref={contentRef} className="relative min-h-screen">
+    <section ref={sectionRef} id="legacy" className="relative overflow-hidden h-screen bg-primary-950">
+      <div ref={contentRef} className="relative h-full">
         {/* Background layers with subtle particles and shimmer lines */}
         <div className="pointer-events-none absolute inset-0">
           {/* Gold particles */}
@@ -129,7 +155,7 @@ export default function LegacyTimeline() {
         </div>
 
         {/* Hero header (banner) */}
-        <div className="relative w-full min-h-[85vh] sm:min-h-[90vh] md:min-h-screen overflow-hidden">
+        <div className="relative w-full h-full overflow-hidden flex flex-col">
           <AnimatePresence mode="popLayout">
             <motion.img
               key={current.year} // Re-animate background on year change
@@ -149,37 +175,41 @@ export default function LegacyTimeline() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
           />
-          {/* Animated light beams overlay */}
-          <div className="legacy-hero-beams" aria-hidden />
-          <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col items-center justify-center px-4 sm:px-6 text-center pt-[180px] sm:pt-[200px] md:pt-[220px] pb-8 sm:pb-12 md:pb-0">
-            <motion.p
-              className="text-xs uppercase tracking-[0.5em] text-[#FFD700]/85"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.35, margin: '-20%' }}
-              transition={{ duration: 0.6, ease: 'easeOut' }}
-            >
-              OUR LEGACY
-            </motion.p>
-            <motion.h2
-              className={`${playfair.className} mt-3 text-3xl font-semibold text-white md:text-5xl`}
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.35, margin: '-20%' }}
-              transition={{ duration: 0.7, ease: 'easeOut', delay: 0.05 }}
-            >
-              Relive the Years that Made Tantalize Legendary
-            </motion.h2>
-            <motion.div
-              className="legacy-underline mx-auto mt-6 h-px w-48 bg-gradient-to-r from-transparent via-[#FFD700] to-transparent"
-              initial={{ scaleX: 0, opacity: 0 }}
-              whileInView={{ scaleX: 1, opacity: 1 }}
-              viewport={{ once: false, amount: 0.35, margin: '-20%' }}
-              transition={{ duration: 0.8, ease: 'easeInOut' }}
-            />
+
+          {/* Content Container - Centered vertically */}
+          <div className="relative z-10 mx-auto flex flex-col items-center justify-center px-4 sm:px-6 text-center h-full w-full max-w-7xl">
+
+            {/* Header Section */}
+            <div className="mb-8 sm:mb-12">
+              <motion.p
+                className="text-xs uppercase tracking-[0.5em] text-[#FFD700]/85"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.35 }}
+                transition={{ duration: 0.6, ease: 'easeOut' }}
+              >
+                OUR LEGACY
+              </motion.p>
+              <motion.h2
+                className={`${playfair.className} mt-3 text-3xl font-semibold text-white md:text-5xl`}
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.35 }}
+                transition={{ duration: 0.7, ease: 'easeOut', delay: 0.05 }}
+              >
+                Relive the Years that Made Tantalize Legendary
+              </motion.h2>
+              <motion.div
+                className="legacy-underline mx-auto mt-6 h-px w-48 bg-gradient-to-r from-transparent via-[#FFD700] to-transparent"
+                initial={{ scaleX: 0, opacity: 0 }}
+                whileInView={{ scaleX: 1, opacity: 1 }}
+                viewport={{ once: false, amount: 0.35 }}
+                transition={{ duration: 0.8, ease: 'easeInOut' }}
+              />
+            </div>
 
             {/* Interactive Timeline Slider */}
-            <div className="relative w-full max-w-4xl mt-10 sm:mt-12 mb-8">
+            <div className="relative w-full max-w-4xl mb-8 sm:mb-12">
               {/* Connecting Line */}
               <div className="absolute top-1/2 left-0 w-full h-px bg-white/10 -translate-y-1/2" />
 
@@ -193,7 +223,14 @@ export default function LegacyTimeline() {
                     <button
                       key={y}
                       data-year={y}
-                      onClick={() => setSelectedYear(y)}
+                      onClick={() => {
+                        // Optional: Scroll to the specific point in the pinned section
+                        // This is complex with ScrollTrigger scrubbing, so we might just set state
+                        // But setting state directly fights with the scroll scrub logic.
+                        // Ideally, clicking should scroll the page to the correct progress.
+                        // For now, let's keep it as a visual indicator or simple state set (which will be overwritten by scroll)
+                        setSelectedYear(y);
+                      }}
                       className="group relative flex flex-col items-center justify-center min-w-[80px] sm:min-w-[100px] focus:outline-none"
                     >
                       {/* Timeline Dot */}
@@ -214,32 +251,32 @@ export default function LegacyTimeline() {
             </div>
 
             {/* Content Card with AnimatePresence for smooth transitions */}
-            <div className="relative w-[min(90%,_900px)] mx-auto min-h-[300px]">
+            <div className="relative w-full max-w-5xl mx-auto">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={selectedYear}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3, ease: "linear" }}
-                  className="group relative overflow-visible rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-4 sm:p-5 md:p-6 lg:p-8 backdrop-blur-xl"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  className="group relative overflow-visible rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-6 sm:p-8 md:p-10 backdrop-blur-xl"
                 >
                   {/* sheen + corner ornaments for premium feel */}
                   <span className="gold-sheen" aria-hidden />
                   <span className="corner-ornament corner-ornament--tl" aria-hidden />
                   <span className="corner-ornament corner-ornament--br" aria-hidden />
 
-                  <div className="grid grid-cols-1 items-start gap-6 sm:gap-8 lg:grid-cols-[1.2fr_1fr]">
+                  <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[1.2fr_1fr]">
                     <div className="w-full text-left">
-                      <div className="flex items-center gap-3 mb-2">
+                      <div className="flex items-center gap-3 mb-4">
                         <span className="px-3 py-1 rounded-full bg-[#FFD700]/10 border border-[#FFD700]/20 text-[#FFD700] text-xs font-bold tracking-wider">
                           {current.year} EDITION
                         </span>
                       </div>
-                      <h3 className={`${playfair.className} text-2xl sm:text-3xl font-semibold text-white mb-4`}>
+                      <h3 className={`${playfair.className} text-3xl sm:text-4xl font-semibold text-white mb-4`}>
                         {current.title}
                       </h3>
-                      <p className="text-sm sm:text-base leading-relaxed text-white/80 mb-6">
+                      <p className="text-base sm:text-lg leading-relaxed text-white/80 mb-8">
                         {current.description}
                       </p>
 
@@ -255,13 +292,13 @@ export default function LegacyTimeline() {
                       )}
                     </div>
 
-                    <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                    <div className="grid grid-cols-2 gap-4">
                       {current.images?.map((img, idx) => (
                         <motion.div
                           key={idx}
                           initial={{ opacity: 0, scale: 0.95 }}
                           animate={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: 0.1 + idx * 0.1 }}
+                          transition={{ delay: 0.2 + idx * 0.1 }}
                           className={`relative overflow-hidden rounded-xl border border-white/10 bg-gray-900 ${idx === 0 ? 'aspect-[4/3]' : 'aspect-square mt-8'
                             }`}
                         >
