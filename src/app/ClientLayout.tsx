@@ -117,44 +117,22 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
             />
 
             <div className="flex flex-col items-center justify-center space-y-8 sm:space-y-10 md:space-y-12 px-6">
-              <div className="flex items-center justify-center space-x-4 sm:space-x-6 md:space-x-10">
-                {/* Tantalize Logo with Enhanced Glitch Effect */}
+              <div className="flex items-center justify-center space-x-4 sm:space-x-8 md:space-x-12">
+                {/* Tantalize Logo - Smooth Fade */}
                 <motion.div
                   className="relative flex-shrink-0"
-                  initial={{ opacity: 0, x: -50, scale: 0.8 }}
-                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
+                  animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                   transition={{
-                    duration: 0.6,
-                    delay: 0.1,
+                    duration: 0.8,
                     ease: "easeOut"
                   }}
                 >
-                  <div className="glitch-container-enhanced">
+                  <div className="relative w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] md:w-[260px] md:h-[260px] flex items-center justify-center">
                     <img
                       src="/Tanata Logo.webp"
                       alt="Tantalize logo"
-                      className="glitch-logo-enhanced"
-                      loading="eager"
-                      decoding="async"
-                    />
-                    <img
-                      src="/Tanata Logo.webp"
-                      aria-hidden
-                      className="glitch-logo-enhanced glitch-offset-1"
-                      loading="eager"
-                      decoding="async"
-                    />
-                    <img
-                      src="/Tanata Logo.webp"
-                      aria-hidden
-                      className="glitch-logo-enhanced glitch-offset-2"
-                      loading="eager"
-                      decoding="async"
-                    />
-                    <img
-                      src="/Tanata Logo.webp"
-                      aria-hidden
-                      className="glitch-logo-enhanced glitch-offset-3"
+                      className="w-full h-full object-contain drop-shadow-[0_0_25px_rgba(255,215,0,0.2)]"
                       loading="eager"
                       decoding="async"
                     />
@@ -163,58 +141,34 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
 
                 {/* Animated Separator */}
                 <motion.div
-                  className="text-gold-500 text-3xl sm:text-4xl md:text-5xl font-thin relative flex-shrink-0"
+                  className="text-gold-500 text-3xl sm:text-4xl md:text-5xl font-thin relative flex-shrink-0 pb-4"
                   initial={{ opacity: 0, scale: 0 }}
-                  animate={{
-                    opacity: 1,
-                    scale: 1,
-                  }}
+                  animate={{ opacity: 1, scale: 1 }}
                   transition={{
-                    duration: 0.4,
-                    delay: 0.3,
+                    duration: 0.6,
+                    delay: 0.2,
                     ease: "easeOut"
                   }}
                 >
                   <span className="text-glow-pulse">/</span>
                 </motion.div>
 
-                {/* APIIT Logo with Glitch Effect */}
+                {/* APIIT Logo - Smooth Fade */}
                 <motion.div
-                  className="relative flex items-center justify-center flex-shrink-0"
-                  initial={{ opacity: 0, x: 50, scale: 0.8 }}
-                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  className="relative flex-shrink-0"
+                  initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
+                  animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
                   transition={{
-                    duration: 0.6,
+                    duration: 0.8,
                     delay: 0.1,
                     ease: "easeOut"
                   }}
                 >
-                  <div className="glitch-container-apiit">
+                  <div className="relative w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] md:w-[380px] md:h-[380px] flex items-center justify-center">
                     <img
                       src="/APIIT logo white.webp"
                       alt="APIIT logo"
-                      className="glitch-logo-apiit"
-                      loading="eager"
-                      decoding="async"
-                    />
-                    <img
-                      src="/APIIT logo white.webp"
-                      aria-hidden
-                      className="glitch-logo-apiit glitch-offset-apiit-1"
-                      loading="eager"
-                      decoding="async"
-                    />
-                    <img
-                      src="/APIIT logo white.webp"
-                      aria-hidden
-                      className="glitch-logo-apiit glitch-offset-apiit-2"
-                      loading="eager"
-                      decoding="async"
-                    />
-                    <img
-                      src="/APIIT logo white.webp"
-                      aria-hidden
-                      className="glitch-logo-apiit glitch-offset-apiit-3"
+                      className="w-full h-full object-contain drop-shadow-[0_0_25px_rgba(255,215,0,0.2)]"
                       loading="eager"
                       decoding="async"
                     />
@@ -235,9 +189,10 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
                 </div>
 
                 {/* Optimized Progress Bar */}
-                <div className="w-40 sm:w-56 md:w-64 h-0.5 bg-primary-900/50 rounded-full overflow-hidden">
+                <div className="w-40 sm:w-56 md:w-64 h-0.5 bg-primary-900/50 rounded-full overflow-hidden relative">
+                  <div className="absolute inset-0 bg-gold-500/20 blur-[2px]" />
                   <motion.div
-                    className="h-full bg-gradient-to-r from-gold-500 via-yellow-400 to-gold-500 rounded-full progress-shimmer"
+                    className="h-full bg-gradient-to-r from-gold-500 via-yellow-400 to-gold-500 rounded-full progress-shimmer relative z-10"
                     initial={{ width: '0%' }}
                     animate={{
                       width: `${Math.min(progress, 100)}%`,
@@ -274,6 +229,18 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
                 </p>
               </motion.div>
             </div>
+
+            {/* Developer Credit */}
+            <motion.div
+              className="absolute bottom-8 left-0 right-0 text-center z-10"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.2, duration: 0.8 }}
+            >
+              <p className="text-[10px] sm:text-xs text-gold-500/30 uppercase tracking-[0.3em] font-light hover:text-gold-500/60 transition-colors duration-500 cursor-default">
+                Developed by Dulain Munasinghe
+              </p>
+            </motion.div>
 
             {/* Simplified Corner Accents */}
             <div className="absolute top-0 left-0 w-20 sm:w-24 md:w-32 h-20 sm:h-24 md:h-32 border-l border-t border-gold-500/20" />

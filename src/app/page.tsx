@@ -16,6 +16,9 @@ const HeroParticles = dynamic(() => import('./components/common/HeroParticles'))
 const ThreeDAbout = dynamic(() => import('./components/about/ThreeDAbout'), {
   loading: () => <div className="h-screen w-full bg-primary-950" />
 });
+const SocialsSection = dynamic(() => import('./components/socials/SocialsSection'));
+const ScheduleTimeline = dynamic(() => import('./components/schedule/ScheduleTimeline'));
+const Footer = dynamic(() => import('./components/layout/Footer'));
 
 const getAvatarUrl = (name: string) =>
   `https://api.dicebear.com/7.x/adventurer-neutral/svg?radius=50&backgroundColor=0a0e27,1a1f3a&seed=${encodeURIComponent(
@@ -1436,134 +1439,9 @@ export default function Home() {
       </motion.section>
 
       {/* Schedule Section */}
-      <section id="schedule" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
-        <div className="max-w-6xl mx-auto">
-          <motion.div
-            className="text-center mb-10 sm:mb-14 md:mb-16"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <p className="text-xs uppercase tracking-[0.3em] sm:tracking-[0.5em] text-gold-500/90 px-4">
-              TANTALIZE 2025 – Official Event Schedule
-            </p>
-            <h2 className="mt-3 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white px-4">
-              A Journey From First Note To Finale
-            </h2>
-            <div className="mx-auto mt-4 sm:mt-6 h-px w-32 sm:w-40 bg-gradient-to-r from-transparent via-gold-500 to-transparent" />
-          </motion.div>
+      <ScheduleTimeline />
 
-          {/* Premium vertical stepper timeline */}
-          <div className="relative">
-            {/* Spine */}
-            <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-gold-500/40 via-gold-500/20 to-transparent" />
-
-            {(
-              [
-                {
-                  icon: '🎶',
-                  title: 'Acoustic Night',
-                  lines: [
-                    'Purpose: Opening event of the Tantalize 2025 series.',
-                    'Focus: Calm, soulful performances highlighting vocal and acoustic talent.',
-                    'Participants: Musicians from APIIT and guest artists.',
-                    'Vibe: Intimate, low-key setting to introduce the season.',
-                  ],
-                },
-                {
-                  icon: '💫',
-                  title: 'Auditions',
-                  lines: [
-                    'Description: The beginning of the competition.',
-                    'Participants: University students from across Sri Lanka.',
-                    'Categories: Singing, Dancing, Band Performances, and more.',
-                    'Outcome: Selection of finalists for the main event.',
-                  ],
-                },
-                {
-                  icon: '🎭',
-                  title: 'Workshops',
-                  lines: [
-                    'Purpose: Skill-building sessions for selected finalists.',
-                    'Trainers: Industry professionals (vocal coaches, choreographers, etc.).',
-                    'Focus Areas: Stage presence, confidence, performance refinement.',
-                  ],
-                },
-                {
-                  icon: '📰',
-                  title: 'Press Conference',
-                  lines: [
-                    'Timing: Held before the Grand Finale.',
-                    'Purpose: Media engagement and event publicity.',
-                    'Participants: Organizers, sponsors, judges, and finalists.',
-                    'Outcome: Builds hype and sponsor visibility before the main night.',
-                  ],
-                },
-                {
-                  icon: '🌟',
-                  title: 'Grand Finale',
-                  lines: [
-                    'Venue: Nelum Pokuna Outdoor Arena',
-                    'Audience: Over 2,000 attendees expected.',
-                    'Highlights: Top finalists, guest performances, celebrity judges.',
-                    'Experience: The biggest and most anticipated youth cultural event of 2025.',
-                  ],
-                  cta: 'Get Tickets',
-                },
-              ] as Array<{ icon: string; title: string; lines: string[]; cta?: string }>
-            ).map((step, index) => (
-              <motion.div
-                key={step.title}
-                className={`relative mb-10 flex items-center ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.06 }}
-                viewport={{ once: true }}
-              >
-                {/* Card */}
-                <div className={`w-full md:w-1/2 ${index % 2 === 0 ? 'pr-6 md:pr-10' : 'pl-6 md:pl-10'}`}>
-                  <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl transition-all duration-500 hover:-translate-y-1 hover:border-gold-500/40">
-                    {/* Accent line */}
-                    <span className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
-                    <div className="flex items-start gap-4">
-                      <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-white/15 bg-white/10 text-xl">
-                        <span>{step.icon}</span>
-                      </div>
-                      <div>
-                        <h3 className="text-xl md:text-2xl font-semibold text-white">{step.title}</h3>
-                        <ul className="mt-3 space-y-1.5 text-gray-300 text-sm leading-relaxed">
-                          {step.lines.map((l) => (
-                            <li key={l}>{l}</li>
-                          ))}
-                        </ul>
-                        {step.cta && (
-                          <div className="mt-5">
-                            <a
-                              href="#tickets"
-                              className="inline-flex items-center justify-center rounded-full border border-gold-500/50 bg-gold-500/10 px-5 py-2 text-sm font-semibold text-gold-400 transition-colors hover:bg-gold-500/20"
-                            >
-                              {step.cta}
-                            </a>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Node */}
-                <div className="absolute left-1/2 -translate-x-1/2 grid place-items-center">
-                  <div className="h-4 w-4 rounded-full bg-gold-500 ring-4 ring-[#0A0E27]" />
-                </div>
-
-                {/* Spacer */}
-                <div className="hidden md:block md:w-1/2" />
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <SocialsSection />
 
       {/* Sponsors Section */}
       <section id="sponsors" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
@@ -1583,35 +1461,22 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8">
-            {[
-              "APIIT Colombo",
-              "Pickme Events",
-              "Premium Partner",
-              "Gold Sponsor",
-              "Silver Sponsor",
-              "Media Partner",
-              "Food Partner",
-              "Tech Partner"
-            ].map((sponsor, index) => (
-              <motion.div
-                key={index}
-                className="glass rounded-xl p-8 text-center group hover:scale-105 transition-all duration-300"
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -5 }}
-              >
-                <div className="w-16 h-16 bg-gradient-to-r from-gold-500/20 to-gold-600/20 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                  <span className="text-gold-500 font-bold text-lg">
-                    {sponsor.split(' ').map(word => word[0]).join('')}
-                  </span>
-                </div>
-                <h3 className="text-sm font-semibold text-white">{sponsor}</h3>
-              </motion.div>
-            ))}
-          </div>
+          <motion.div
+            className="flex flex-col items-center justify-center py-12"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-gold-500 to-gold-600 rounded-lg blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200" />
+              <div className="relative px-8 py-4 bg-black rounded-lg leading-none flex items-center">
+                <span className="text-gold-500 text-xl sm:text-2xl font-bold tracking-[0.2em] uppercase">
+                  Coming Soon
+                </span>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -1621,37 +1486,8 @@ export default function Home() {
 
 
       {/* Footer */}
-      <footer className="py-12 px-6 border-t border-gold-500/20">
-        <div className="max-w-6xl mx-auto text-center">
-          <div className="flex items-center justify-center space-x-4 mb-4">
-            <img
-              src="/Tanata Logo.webp"
-              alt="Tantalize logo"
-              className="w-24 h-24 object-contain"
-            />
-            <span className="text-gold-500 text-2xl font-light">/</span>
-            <img
-              src="/APIIT-Logo-White.webp"
-              alt="APIIT logo"
-              className="object-contain"
-              style={{ height: '205px' }}
-            />
-          </div>
-          <h3 className="text-2xl font-bold text-gold-500 mb-2">TANTALIZE 2025</h3>
-          <p className="text-gray-400 mb-6">
-            Sri Lanka&apos;s Premier Cultural & Music Event
-          </p>
-          <div className="flex justify-center space-x-6 mb-6">
-            <a href="#" className="text-gray-400 hover:text-gold-500 transition-colors">Facebook</a>
-            <a href="#" className="text-gray-400 hover:text-gold-500 transition-colors">Instagram</a>
-            <a href="#" className="text-gray-400 hover:text-gold-500 transition-colors">Twitter</a>
-            <a href="#" className="text-gray-400 hover:text-gold-500 transition-colors">YouTube</a>
-          </div>
-          <p className="text-gray-500 text-sm">
-            © 2025 Tantalize. All rights reserved. | Powered by APIIT Colombo
-          </p>
-        </div>
-      </footer>
-    </div>
+      <Footer />
+
+    </div >
   );
 }
