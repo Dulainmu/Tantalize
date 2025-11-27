@@ -96,7 +96,7 @@ export default function SocialsSection() {
 
                 {/* Fan Layout Container */}
                 <div className="relative h-[400px] sm:h-[500px] md:h-[600px] flex items-center justify-center mb-20 perspective-[2000px]">
-                    <div className="relative w-full h-full flex items-center justify-center">
+                    <div className="relative w-full h-full flex items-center justify-center scale-[0.55] sm:scale-75 md:scale-100 origin-center">
                         {socialCards.map((card, index) => {
                             // Calculate dynamic offset based on hover
                             let xOffset = 0;

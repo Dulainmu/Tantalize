@@ -130,7 +130,7 @@ export default function LegacyTimeline() {
   };
 
   return (
-    <section ref={sectionRef} id="purpose-legacy" className="relative overflow-hidden h-screen bg-primary-950">
+    <section ref={sectionRef} id="purpose-legacy" className="relative overflow-hidden h-[100dvh] bg-primary-950">
       <div ref={contentRef} className="relative h-full">
         {/* Background layers with subtle particles and shimmer lines */}
         <div className="pointer-events-none absolute inset-0">
@@ -180,7 +180,7 @@ export default function LegacyTimeline() {
           <div className="relative z-10 mx-auto flex flex-col items-center justify-center px-4 sm:px-6 text-center h-full w-full max-w-7xl">
 
             {/* Header Section */}
-            <div className="mb-8 sm:mb-12">
+            <div className="mb-4 sm:mb-12">
               <motion.p
                 className="text-xs uppercase tracking-[0.5em] text-[#FFD700]/85"
                 initial={{ opacity: 0, y: 20 }}
@@ -191,7 +191,7 @@ export default function LegacyTimeline() {
                 OUR LEGACY
               </motion.p>
               <motion.h2
-                className={`${playfair.className} mt-3 text-3xl font-semibold text-white md:text-5xl`}
+                className={`${playfair.className} mt-3 text-2xl sm:text-3xl md:text-5xl font-semibold text-white`}
                 initial={{ opacity: 0, y: 28 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false, amount: 0.35 }}
@@ -200,7 +200,7 @@ export default function LegacyTimeline() {
                 Relive the Years that Made Tantalize Legendary
               </motion.h2>
               <motion.div
-                className="legacy-underline mx-auto mt-6 h-px w-48 bg-gradient-to-r from-transparent via-[#FFD700] to-transparent"
+                className="legacy-underline mx-auto mt-4 sm:mt-6 h-px w-32 sm:w-48 bg-gradient-to-r from-transparent via-[#FFD700] to-transparent"
                 initial={{ scaleX: 0, opacity: 0 }}
                 whileInView={{ scaleX: 1, opacity: 1 }}
                 viewport={{ once: false, amount: 0.35 }}
@@ -209,7 +209,7 @@ export default function LegacyTimeline() {
             </div>
 
             {/* Interactive Timeline Slider */}
-            <div className="relative w-full max-w-4xl mb-8 sm:mb-12">
+            <div className="relative w-full max-w-4xl mb-6 sm:mb-12">
               {/* Connecting Line */}
               <div className="absolute top-1/2 left-0 w-full h-px bg-white/10 -translate-y-1/2" />
 
@@ -231,7 +231,7 @@ export default function LegacyTimeline() {
                         // For now, let's keep it as a visual indicator or simple state set (which will be overwritten by scroll)
                         setSelectedYear(y);
                       }}
-                      className="group relative flex flex-col items-center justify-center min-w-[80px] sm:min-w-[100px] focus:outline-none"
+                      className="group relative flex flex-col items-center justify-center min-w-[70px] sm:min-w-[100px] focus:outline-none"
                     >
                       {/* Timeline Dot */}
                       <div className={`relative z-10 w-3 h-3 sm:w-4 sm:h-4 rounded-full transition-all duration-300 ${active
@@ -240,7 +240,7 @@ export default function LegacyTimeline() {
                         }`} />
 
                       {/* Year Label */}
-                      <span className={`mt-3 sm:mt-4 text-xs sm:text-sm font-medium transition-colors duration-300 ${active ? "text-[#FFD700]" : "text-white/50 group-hover:text-white/80"
+                      <span className={`mt-3 sm:mt-4 text-[10px] sm:text-sm font-medium transition-colors duration-300 ${active ? "text-[#FFD700]" : "text-white/50 group-hover:text-white/80"
                         }`}>
                         {y}
                       </span>
@@ -259,7 +259,7 @@ export default function LegacyTimeline() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.4, ease: "easeOut" }}
-                  className="group relative overflow-visible rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-6 sm:p-8 md:p-10 backdrop-blur-xl"
+                  className="group relative overflow-visible rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-5 sm:p-8 md:p-10 backdrop-blur-xl"
                 >
                   {/* sheen + corner ornaments for premium feel */}
                   <span className="gold-sheen" aria-hidden />

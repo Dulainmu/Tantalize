@@ -167,7 +167,7 @@ function TimelineCard({ chapter, index }: { chapter: Chapter; index: number }) {
       </div>
 
       {/* Content Side */}
-      <div className="w-full md:w-1/2 pl-12 md:pl-0 md:px-16">
+      <div className="w-full md:w-1/2 pl-14 sm:pl-16 md:pl-0 md:px-16">
         <div className="group relative overflow-hidden rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm p-6 sm:p-8 hover:border-gold-500/30 transition-all duration-500 hover:shadow-[0_0_30px_rgba(0,0,0,0.3)]">
           {/* Hover Gradient */}
           <div className="absolute inset-0 bg-gradient-to-br from-gold-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
