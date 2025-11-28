@@ -76,6 +76,41 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${poppins.variable} font-sans antialiased bg-primary-950 text-white overflow-x-hidden`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Event",
+              "name": "Tantalize 2025",
+              "startDate": "2025-06-07T18:00",
+              "endDate": "2025-06-07T23:59",
+              "eventStatus": "https://schema.org/EventScheduled",
+              "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+              "location": {
+                "@type": "Place",
+                "name": "Nelum Pokuna Outdoor Arena",
+                "address": {
+                  "@type": "PostalAddress",
+                  "streetAddress": "110 Ananda Coomaraswamy Mawatha",
+                  "addressLocality": "Colombo 07",
+                  "postalCode": "00700",
+                  "addressCountry": "LK"
+                }
+              },
+              "image": [
+                "https://tantalize.lk/hero-poster.webp",
+                "https://tantalize.lk/2024_Crowd.webp"
+              ],
+              "description": "Sri Lanka's Premier Cultural & Music Event featuring the biggest student talent and guest stars.",
+              "organizer": {
+                "@type": "Organization",
+                "name": "APIIT Student Council",
+                "url": "https://tantalize.lk"
+              }
+            })
+          }}
+        />
         <ClientLayout>
           {children}
           <Analytics />
