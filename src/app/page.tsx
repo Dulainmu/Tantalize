@@ -2,8 +2,8 @@
 
 import Image from 'next/image';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
-import { useState, useEffect, useRef, type ReactNode } from 'react';
-import { ArrowDown, Volume2, VolumeX, Play, Pause } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { ArrowDown, Volume2, VolumeX, Play } from 'lucide-react';
 import dynamic from 'next/dynamic';
 
 // Lazy load heavy components
@@ -11,14 +11,11 @@ const LegacyTimeline = dynamic(() => import('./components/history/LegacyTimeline
   loading: () => <div className="text-center text-gold-400">Loading...</div>
 });
 const ScrollMarkers = dynamic(() => import('./components/common/ScrollMarkers'));
-const ParallaxSection = dynamic(() => import('./components/common/ParallaxSection'));
 const HeroParticles = dynamic(() => import('./components/common/HeroParticles'));
 const ThreeDAbout = dynamic(() => import('./components/about/ThreeDAbout'), {
   loading: () => <div className="h-screen w-full bg-primary-950" />
 });
 const SocialsSection = dynamic(() => import('./components/socials/SocialsSection'));
-const ScheduleTimeline = dynamic(() => import('./components/schedule/ScheduleTimeline'));
-const Footer = dynamic(() => import('./components/layout/Footer'));
 
 const getAvatarUrl = (name: string) =>
   `https://api.dicebear.com/7.x/adventurer-neutral/svg?radius=50&backgroundColor=0a0e27,1a1f3a&seed=${encodeURIComponent(
@@ -232,13 +229,6 @@ export default function Home() {
       { name: "Senara", role: "Team Lead", image: "/Committee/Senara.webp" },
     ],
   };
-
-  const teams = [
-    { id: 'logistics', label: 'Logistics', icon: '🏗️', desc: 'The backbone of the event.' },
-    { id: 'entertainment', label: 'Entertainment', icon: '🎭', desc: 'Curating the show.' },
-    { id: 'marketing', label: 'Marketing', icon: '📢', desc: 'Spreading the word.' },
-    { id: 'media', label: 'Media', icon: '📸', desc: 'Capturing the moments.' },
-  ] as const;
 
   const teamTabs = [
     {
@@ -486,16 +476,20 @@ export default function Home() {
             className="flex items-center space-x-2 sm:space-x-3"
             whileHover={{ scale: 1.05 }}
           >
-            <img
+            <Image
               src="/Tanata Logo.webp"
               alt="Tantalize logo"
+              width={80}
+              height={80}
               className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 object-contain"
             />
             <span className="text-gold-500 text-base sm:text-xl font-light">/</span>
-            <img
+            <Image
               src="/APIIT logo white.webp"
               alt="APIIT logo"
-              className="object-contain h-8 sm:h-12 md:h-16"
+              width={64}
+              height={64}
+              className="object-contain h-8 sm:h-12 md:h-16 w-auto"
             />
           </motion.div>
 
@@ -683,9 +677,11 @@ export default function Home() {
                 transform: `translate(${mousePosition.x * 0.5}px, ${mousePosition.y * 0.5}px)`
               }}
             >
-              <img
+              <Image
                 src="/TantaText.webp"
                 alt="TANTALIZE 15"
+                width={800}
+                height={300}
                 className="w-full max-w-xs sm:max-w-2xl md:max-w-4xl h-auto object-contain mx-auto"
                 style={{
                   filter: 'drop-shadow(0 10px 30px rgba(255, 215, 0, 0.3))',

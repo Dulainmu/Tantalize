@@ -8,7 +8,7 @@
 
 import { useMemo, useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Playfair_Display, Poppins } from "next/font/google";
+import { Playfair_Display } from "next/font/google";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ChevronRight, Play } from "lucide-react";
@@ -19,7 +19,6 @@ if (typeof window !== "undefined") {
 }
 
 const playfair = Playfair_Display({ subsets: ["latin"], weight: ["600"], variable: "--font-playfair" });
-const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-poppins-local" });
 
 // Event data (2017–2024 per requirements)
 const legacyEvents = [

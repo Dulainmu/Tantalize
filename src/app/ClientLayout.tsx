@@ -129,12 +129,13 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
                   }}
                 >
                   <div className="relative w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] md:w-[260px] md:h-[260px] flex items-center justify-center">
-                    <img
+                    <Image
                       src="/Tanata Logo.webp"
                       alt="Tantalize logo"
+                      width={260}
+                      height={260}
                       className="w-full h-full object-contain drop-shadow-[0_0_25px_rgba(255,215,0,0.2)]"
-                      loading="eager"
-                      decoding="async"
+                      priority
                     />
                   </div>
                 </motion.div>
@@ -165,12 +166,13 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
                   }}
                 >
                   <div className="relative w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] md:w-[380px] md:h-[380px] flex items-center justify-center">
-                    <img
+                    <Image
                       src="/APIIT logo white.webp"
                       alt="APIIT logo"
+                      width={380}
+                      height={380}
                       className="w-full h-full object-contain drop-shadow-[0_0_25px_rgba(255,215,0,0.2)]"
-                      loading="eager"
-                      decoding="async"
+                      priority
                     />
                   </div>
                 </motion.div>
