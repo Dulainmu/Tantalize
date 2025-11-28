@@ -53,6 +53,9 @@ export const metadata: Metadata = {
     description: "Sri Lanka's Premier Cultural & Music Event",
     images: ["/2024_Crowd.webp"],
   },
+  verification: {
+    google: "uBObjysE7b7UYMPv_wK_Nbhs4wObOqnYf_oZHBVyNyQ",
+  },
 };
 
 export default function RootLayout({
