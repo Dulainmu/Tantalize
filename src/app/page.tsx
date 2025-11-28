@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 import { useState, useEffect, useRef, type ReactNode } from 'react';
 import { ArrowDown, Volume2, VolumeX, Play, Pause } from 'lucide-react';
 import dynamic from 'next/dynamic';
@@ -133,6 +133,19 @@ export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const audioRefs = useRef<{ [key: number]: HTMLAudioElement | null }>({});
 
+  // Navbar Scroll Logic
+  const { scrollY } = useScroll();
+  const [hidden, setHidden] = useState(false);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious() ?? 0;
+    if (latest > previous && latest > 150) {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
+  });
+
   const leadershipMembers = [
     {
       name: "Lenucy Ranasinghe",
@@ -201,6 +214,32 @@ export default function Home() {
     },
   ];
 
+  const teamLeads = {
+    entertainment: [
+      { name: "Shenal", role: "Team Lead", image: "/Committee/Shenal.webp" },
+      { name: "Binuka", role: "Team Lead", image: "/Committee/Binuka.webp" },
+    ],
+    logistics: [
+      { name: "Vimukthi", role: "Team Lead", image: "/Committee/Vimukthi.webp" },
+      { name: "Sajani", role: "Team Lead", image: "/Committee/Sajani.webp" },
+    ],
+    media: [
+      { name: "Kavindu", role: "Team Lead", image: "/Committee/Kavindu.webp" },
+      { name: "Adithya", role: "Team Lead", image: "/Committee/Adithya.webp" },
+    ],
+    marketing: [
+      { name: "Randul", role: "Team Lead", image: "/Committee/Randul.webp" },
+      { name: "Senara", role: "Team Lead", image: "/Committee/Senara.webp" },
+    ],
+  };
+
+  const teams = [
+    { id: 'logistics', label: 'Logistics', icon: '🏗️', desc: 'The backbone of the event.' },
+    { id: 'entertainment', label: 'Entertainment', icon: '🎭', desc: 'Curating the show.' },
+    { id: 'marketing', label: 'Marketing', icon: '📢', desc: 'Spreading the word.' },
+    { id: 'media', label: 'Media', icon: '📸', desc: 'Capturing the moments.' },
+  ] as const;
+
   const teamTabs = [
     {
       id: 'logistics' as const,
@@ -242,7 +281,7 @@ export default function Home() {
     },
     {
       id: 'marketing' as const,
-      emoji: '�',
+      emoji: '',
       name: 'Marketing',
       gradient: 'from-orange-500 via-amber-400 to-yellow-400',
       ring: 'border-amber-400/40',
@@ -288,12 +327,7 @@ export default function Home() {
   const leadershipCoordinators = leadershipMembers.slice(2);
   const activeTeamData = teamTabs.find((team) => team.id === activeTeam) ?? teamTabs[0];
 
-  const renderLeadershipCard = (
-    member: (typeof leadershipMembers)[number],
-    index: number,
-    variant: 'primary' | 'secondary' = 'primary',
-  ) => {
-    const isPrimary = variant === 'primary';
+  const CommitteeMemberCard = ({ member, isPrimary = false, index = 0 }: { member: any, isPrimary?: boolean, index?: number }) => {
     return (
       <motion.div
         key={member.name}
@@ -444,8 +478,8 @@ export default function Home() {
       <motion.nav
         className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 py-2 sm:py-3"
         initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.8, delay: 0.5 }}
+        animate={{ y: hidden ? "-100%" : 0 }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <motion.div
