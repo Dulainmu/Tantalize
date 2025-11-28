@@ -20,11 +20,38 @@ export const metadata: Metadata = {
   description: "Experience the pinnacle of Sri Lankan cultural and music events. Tantalize 2025 brings together the finest artists, sponsors, and attendees for an unforgettable celebration of culture and music.",
   keywords: "Tantalize, Sri Lanka, cultural event, music festival, 2025, APIIT, Colombo",
   authors: [{ name: "Tantalize Team" }],
+  icons: {
+    icon: "/Tanata Logo.webp",
+    shortcut: "/Tanata Logo.webp",
+    apple: "/Tanata Logo.webp",
+  },
   openGraph: {
     title: "Tantalize 2025 - Sri Lanka's Premier Cultural & Music Event",
     description: "Experience the pinnacle of Sri Lankan cultural and music events.",
+    url: "https://tantalize.lk",
+    siteName: "Tantalize 2025",
+    images: [
+      {
+        url: "/2024_Crowd.webp",
+        width: 1200,
+        height: 630,
+        alt: "Tantalize 2025 Crowd",
+      },
+      {
+        url: "/Tanata Logo.webp",
+        width: 800,
+        height: 800,
+        alt: "Tantalize Logo",
+      },
+    ],
     type: "website",
     locale: "en_LK",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Tantalize 2025",
+    description: "Sri Lanka's Premier Cultural & Music Event",
+    images: ["/2024_Crowd.webp"],
   },
 };
 
