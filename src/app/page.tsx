@@ -16,6 +16,8 @@ const ThreeDAbout = dynamic(() => import('./components/about/ThreeDAbout'), {
   loading: () => <div className="h-screen w-full bg-primary-950" />
 });
 const SocialsSection = dynamic(() => import('./components/socials/SocialsSection'));
+const ScheduleTimeline = dynamic(() => import('./components/schedule/ScheduleTimeline'));
+const Footer = dynamic(() => import('./components/layout/Footer'));
 
 const getAvatarUrl = (name: string) =>
   `https://api.dicebear.com/7.x/adventurer-neutral/svg?radius=50&backgroundColor=0a0e27,1a1f3a&seed=${encodeURIComponent(
@@ -211,25 +213,6 @@ export default function Home() {
     },
   ];
 
-  const teamLeads = {
-    entertainment: [
-      { name: "Shenal", role: "Team Lead", image: "/Committee/Shenal.webp" },
-      { name: "Binuka", role: "Team Lead", image: "/Committee/Binuka.webp" },
-    ],
-    logistics: [
-      { name: "Vimukthi", role: "Team Lead", image: "/Committee/Vimukthi.webp" },
-      { name: "Sajani", role: "Team Lead", image: "/Committee/Sajani.webp" },
-    ],
-    media: [
-      { name: "Kavindu", role: "Team Lead", image: "/Committee/Kavindu.webp" },
-      { name: "Adithya", role: "Team Lead", image: "/Committee/Adithya.webp" },
-    ],
-    marketing: [
-      { name: "Randul", role: "Team Lead", image: "/Committee/Randul.webp" },
-      { name: "Senara", role: "Team Lead", image: "/Committee/Senara.webp" },
-    ],
-  };
-
   const teamTabs = [
     {
       id: 'logistics' as const,
@@ -316,99 +299,6 @@ export default function Home() {
   const leadershipPrimary = leadershipMembers.slice(0, 2);
   const leadershipCoordinators = leadershipMembers.slice(2);
   const activeTeamData = teamTabs.find((team) => team.id === activeTeam) ?? teamTabs[0];
-
-  const CommitteeMemberCard = ({ member, isPrimary = false, index = 0 }: { member: any, isPrimary?: boolean, index?: number }) => {
-    return (
-      <motion.div
-        key={member.name}
-        className={
-          isPrimary
-            ? "group relative overflow-hidden rounded-3xl border border-white/12 bg-primary-950/80 p-8 md:p-10 lg:p-12 min-h-[280px] transition-all duration-500 ease-out hover:-translate-y-1.5 hover:border-gold-500/45"
-            : "group relative overflow-hidden rounded-3xl border border-white/10 bg-primary-950/70 p-7 md:p-8 lg:p-9 min-h-[220px] transition-all duration-500 ease-out hover:-translate-y-1.5 hover:border-gold-500/40"
-        }
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: index * 0.12 }}
-        viewport={{ once: false, amount: 0.2 }}
-      >
-        <div
-          className={
-            isPrimary
-              ? "pointer-events-none absolute inset-0 opacity-20 transition-opacity duration-500 ease-out group-hover:opacity-45"
-              : "pointer-events-none absolute inset-0 opacity-10 transition-opacity duration-500 ease-out group-hover:opacity-30"
-          }
-          style={{
-            background: isPrimary
-              ? 'radial-gradient(120% 115% at 100% 5%, rgba(255,215,0,0.38) 0%, transparent 62%)'
-              : 'radial-gradient(120% 110% at 95% 10%, rgba(255,215,0,0.18) 0%, transparent 68%)',
-          }}
-          aria-hidden
-        />
-        {/* Executive member portrait - kept simple for this section */}
-        <div className={`relative shrink-0 overflow-hidden rounded-2xl ${isPrimary ? 'h-28 w-28' : 'h-24 w-24'} ${isPrimary ? "pointer-events-none absolute top-6 right-6 opacity-70 transition-all duration-500 ease-out group-hover:scale-105 group-hover:opacity-100" : "pointer-events-none absolute top-5 right-5 opacity-60 transition-all duration-500 ease-out group-hover:scale-105 group-hover:opacity-100"}`}>
-          {member.accent && (
-            <div
-              className={`absolute inset-0 -z-10 bg-gradient-to-br ${member.accent ?? 'from-gold-500/50 via-amber-400/20 to-transparent'} opacity-30 blur-xl transition duration-500 ease-out group-hover:opacity-60`}
-              aria-hidden
-            />
-          )}
-          <Image
-            src={getAvatarUrl(member.name)}
-            alt={`${member.name} portrait`}
-            fill
-            sizes={isPrimary ? '160px' : '128px'}
-            className="pointer-events-none absolute inset-0 h-full w-full scale-105 object-cover opacity-0 transition-all duration-500 ease-out group-hover:scale-100 group-hover:opacity-100 will-change-transform"
-            loading="lazy"
-            quality={75}
-          />
-          <div
-            className="pointer-events-none absolute inset-0 bg-primary-950/85 transition-opacity duration-500 ease-out group-hover:bg-primary-950/15"
-            aria-hidden
-          />
-          {member.initials && (
-            <span
-              className={`pointer-events-none relative z-10 flex h-full w-full items-center justify-center text-[0.6rem] font-semibold uppercase tracking-[0.35em] text-white/80 transition-opacity duration-400 ease-out group-hover:opacity-0`}
-            >
-              {member.initials}
-            </span>
-          )}
-        </div>
-        <div className={`relative z-10 flex h-full flex-col gap-6 ${isPrimary ? 'pr-6 md:pr-14' : 'pr-4 md:pr-10'}`}>
-          <div className="space-y-3">
-            <p
-              className={
-                isPrimary
-                  ? "text-[0.55rem] uppercase tracking-[0.5em] text-gold-400/80"
-                  : "text-[0.5rem] uppercase tracking-[0.45em] text-gold-300/70"
-              }
-            >
-              {member.role}
-            </p>
-            <h4
-              className={
-                isPrimary
-                  ? "text-[1.7rem] font-semibold leading-tight text-white"
-                  : "text-[1.35rem] font-semibold leading-snug text-white"
-              }
-            >
-              {member.name}
-            </h4>
-          </div>
-
-          <p className="inline-flex items-center gap-2 text-[0.6rem] uppercase tracking-[0.35em] text-gray-200">
-            <span className="block h-[2px] w-8 rounded-full bg-gold-500/80" />
-            {member.highlight}
-          </p>
-
-          {member.quote && (
-            <p className={`mt-auto ${isPrimary ? 'text-base' : 'text-sm'} leading-relaxed text-gray-200/90`}>
-              {member.quote}
-            </p>
-          )}
-        </div>
-      </motion.div>
-    );
-  };
 
   // Handle client-side mounting
   useEffect(() => {
