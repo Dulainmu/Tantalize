@@ -68,7 +68,9 @@ const CommitteePortrait = ({
       whileInView={{ opacity: 1 }}
       onViewportEnter={() => !isDesktop && setShowInfo(true)}
       onViewportLeave={() => !isDesktop && setShowInfo(false)}
-      onClick={() => setShowInfo(!showInfo)}
+      onClick={() => !isDesktop && setShowInfo(!showInfo)}
+      onMouseEnter={() => isDesktop && setShowInfo(true)}
+      onMouseLeave={() => isDesktop && setShowInfo(false)}
       viewport={{ once: false, amount: 0.5, margin: "-10%" }}
       whileHover={{ scale: 1.03, y: -8 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
@@ -243,9 +245,9 @@ export default function Home() {
         { name: 'Dulain Munasinghe', role: 'Committee Member', initials: 'DM', image: '/Committee/Dulain.jpg' },
         { name: 'Himansa Indusara', role: 'Committee Member', initials: 'HI', image: '/Committee/Himansa.jpg' },
         { name: 'Aadhil Shiraz', role: 'Committee Member', initials: 'AS', image: '/Committee/Aadhil.jpg' },
-        { name: 'Haroon Shamil', role: 'Committee Member', initials: 'HS' },
-        { name: 'Rizwan Aaquib', role: 'Committee Member', initials: 'RA' },
-        { name: 'Steve Austin', role: 'Committee Member', initials: 'SA' },
+
+
+
         { name: 'Mandil Nanayakkara', role: 'Committee Member', initials: 'MN', image: '/Committee/Mandil.jpg' },
       ],
     },
@@ -261,10 +263,11 @@ export default function Home() {
         { name: 'Gajaanie Nandakumar', role: 'Head of Media', initials: 'GN', image: '/Committee/Gajaanie.jpg' },
         { name: 'Azeezah Sheriff', role: 'Deputy Head of Media', initials: 'AS', image: '/Committee/Azeeezah.jpg' },
         { name: 'Sanaya Gamage', role: 'Committee Member', initials: 'SG', image: '/Committee/Sanaya.jpg' },
-        { name: 'Apsari Udawatte', role: 'Committee Member', initials: 'AU' },
+
         { name: 'Diandra Perera', role: 'Committee Member', initials: 'DP', image: '/Committee/Diandra.jpg' },
         { name: 'Hesalni Danthanarayana', role: 'Committee Member', initials: 'HD', image: '/Committee/Hesalni.jpg' },
         { name: 'Savishkar Thiruchelvam', role: 'Committee Member', initials: 'ST', image: '/Committee/Savishkar.jpg' },
+        { name: 'Shadiya', role: 'Committee Member', initials: 'S', image: '/Committee/Shadiya.jpg' },
       ],
     },
     {
@@ -280,7 +283,7 @@ export default function Home() {
         { name: 'Ishra Ammon', role: 'Deputy Head of Marketing', initials: 'IA', image: '/Committee/Ishra.jpg' },
         { name: 'Suhanya Peiris', role: 'Committee Member', initials: 'SP', image: '/Committee/Suhanya.jpg' },
         { name: 'Thanumi Bandara', role: 'Committee Member', initials: 'TB', image: '/Committee/Thanumi.jpg' },
-        { name: 'Snegha Chandraseghar', role: 'Committee Member', initials: 'SC' },
+
         { name: 'Yazid Niyas', role: 'Committee Member', initials: 'YN', image: '/Committee/Yazid.jpg' },
         { name: 'Thevnaka De Silva', role: 'Committee Member', initials: 'TDS', image: '/Committee/Thevnaka.jpg' },
         { name: 'Tharushika Gamage', role: 'Committee Member', initials: 'TG', image: '/Committee/Tharushika.jpg' },
@@ -307,7 +310,6 @@ export default function Home() {
         { name: 'Avithran Sridharan', role: 'Committee Member', initials: 'AS', image: '/Committee/Avithran.jpg' },
         { name: 'Ranidi Dahamya', role: 'Committee Member', initials: 'RD', image: '/Committee/Ranidi.jpg' },
         { name: 'Thimansa Tennakoon', role: 'Committee Member', initials: 'TT', image: '/Committee/Thimansa.jpg' },
-        { name: 'Shadiya', role: 'Committee Member', initials: 'S', image: '/Committee/Shadiya.jpg' },
       ],
     },
   ];

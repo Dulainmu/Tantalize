@@ -28,19 +28,19 @@ const scheduleChapters: Chapter[] = [
     subtitle: "Opening Showcase",
     description:
       "A serene evening spotlighting unplugged artistry and the voices that kick-start the Tantalize journey.",
-    date: "February 08, 2025",
-    location: "APIIT Main Atrium",
+    date: "September 20, 2024",
+    location: "Rise Up Colombo",
     image: "/schedule/acoustic-night.webp",
   },
   {
     id: "auditions",
     icon: Sparkles,
-    title: "Nationwide Auditions",
+    title: "Auditions",
     subtitle: "Talent Hunt",
     description:
-      "University-wide auditions where performers battle for the spotlight and a place in the finale roster.",
-    date: "March 01 – March 15, 2025",
-    location: "Regional Hubs & APIIT Studio",
+      "Singing, Band, and Instrumental auditions at APIIT Foundation School (Nov 8). Dancing auditions at Nelung Arts Center (Nov 9).",
+    date: "November 08 & 09, 2024",
+    location: "APIIT Foundation School & Nelung Arts Center",
     image: "/schedule/auditions.webp",
   },
   {
@@ -50,8 +50,8 @@ const scheduleChapters: Chapter[] = [
     subtitle: "Skill Elevation",
     description:
       "Stagecraft, choreography, music direction, and media coaching guided by industry mentors and alumni.",
-    date: "April 05 – April 20, 2025",
-    location: "APIIT Creative Labs",
+    date: "December 06, 2024",
+    location: "APIIT City Campus",
     image: "/schedule/workshops.webp",
   },
   {
@@ -61,8 +61,8 @@ const scheduleChapters: Chapter[] = [
     subtitle: "Spotlight Moment",
     description:
       "Sponsors, media, and partners meet the finalists as we unveil production reveals and collabs.",
-    date: "May 10, 2025",
-    location: "Cinnamon Lakeside — Ebony Ballroom",
+    date: "December 13, 2024",
+    location: "APIIT Business School, Braybrooke Pl Main Auditorium",
     image: "/schedule/press-conference.webp",
   },
   {
