@@ -171,6 +171,7 @@ export default function Home() {
       quote: "",
       accent: "from-sky-400 via-blue-500 to-indigo-500",
       highlight: "Coordination",
+      image: "/Committee/Methuli.jpg",
     },
     {
       name: "Azeem Fazeel",
@@ -179,6 +180,7 @@ export default function Home() {
       quote: "",
       accent: "from-teal-400 via-emerald-400 to-cyan-500",
       highlight: "Coordination",
+      image: "/Committee/Azeem.jpg",
     },
   ];
 
@@ -189,6 +191,7 @@ export default function Home() {
       icon: "📜",
       description: "Keeps every decision documented, every deadline visible, and every meeting purposeful.",
       focus: "Process Excellence",
+      image: "/Committee/Senilka.jpg",
     },
     {
       name: "Thirosh Varatharajan",
@@ -196,6 +199,7 @@ export default function Home() {
       icon: "🗂️",
       description: "Co-pilots committee communication and ensures information flows to the right teams.",
       focus: "Communication Flow",
+      image: "/Committee/Thirosh.jpg",
     },
     {
       name: "Muaadh Mazloom",
@@ -203,6 +207,7 @@ export default function Home() {
       icon: "💰",
       description: "Manages sponsorships, budgets, and the golden numbers that keep Tantalize premium.",
       focus: "Financial Strategy",
+      image: "/Committee/Muaadh.jpg",
     },
     {
       name: "Rifkhan Faris",
@@ -210,6 +215,7 @@ export default function Home() {
       icon: "📊",
       description: "Tracks spend, reconciles vendors, and keeps the finance desk audit-ready.",
       focus: "Budget Control",
+      image: "/Committee/Rifkhan.jpg",
     },
   ];
 
@@ -223,15 +229,15 @@ export default function Home() {
       headline: 'Masterminding the behind-the-scenes flow from setup to pack-down.',
       description: 'They coordinate venue layouts, vendor timelines, and the heartbeat of every moving part.',
       members: [
-        { name: 'Nishen Anthony', role: 'Head of Logistics', initials: 'NA' },
-        { name: 'Hifaz Hizni', role: 'Deputy Head of Logistics', initials: 'HH' },
-        { name: 'Himansa Indusara', role: 'Committee Member', initials: 'HI' },
-        { name: 'Aadhil Shiraz', role: 'Committee Member', initials: 'AS' },
-        { name: 'Dulain Munasinghe', role: 'Committee Member', initials: 'DM' },
+        { name: 'Nishen Anthony', role: 'Head of Logistics', initials: 'NA', image: '/Committee/Nishen.jpg' },
+        { name: 'Yazid Niyas', role: 'Deputy Head of Logistics', initials: 'YN', image: '/Committee/Yazid.jpg' },
+        { name: 'Dulain Munasinghe', role: 'Committee Member', initials: 'DM', image: '/Committee/Dulain.jpg' },
+        { name: 'Himansa Indusara', role: 'Committee Member', initials: 'HI', image: '/Committee/Himansa.jpg' },
+        { name: 'Aadhil Shiraz', role: 'Committee Member', initials: 'AS', image: '/Committee/Aadhil.jpg' },
         { name: 'Haroon Shamil', role: 'Committee Member', initials: 'HS' },
         { name: 'Rizwan Aaquib', role: 'Committee Member', initials: 'RA' },
         { name: 'Steve Austin', role: 'Committee Member', initials: 'SA' },
-        { name: 'Mandil Nanayakkara', role: 'Committee Member', initials: 'MN' },
+        { name: 'Mandil Nanayakkara', role: 'Committee Member', initials: 'MN', image: '/Committee/Mandil.jpg' },
       ],
     },
     {
@@ -243,13 +249,13 @@ export default function Home() {
       headline: 'Capturing and amplifying the Tantalize story across every channel.',
       description: 'Content planners, shooters, and editors who keep the buzz alive before, during, and after the show.',
       members: [
-        { name: 'Gajaanie Nandakumar', role: 'Head of Media', initials: 'GN' },
-        { name: 'Azeezah Sheriff', role: 'Deputy Head of Media', initials: 'AS' },
-        { name: 'Sanaya Gamage', role: 'Committee Member', initials: 'SG' },
+        { name: 'Gajaanie Nandakumar', role: 'Head of Media', initials: 'GN', image: '/Committee/Gajaanie.jpg' },
+        { name: 'Azeezah Sheriff', role: 'Deputy Head of Media', initials: 'AS', image: '/Committee/Azeeezah.jpg' },
+        { name: 'Sanaya Gamage', role: 'Committee Member', initials: 'SG', image: '/Committee/Sanaya.jpg' },
         { name: 'Apsari Udawatte', role: 'Committee Member', initials: 'AU' },
-        { name: 'Diandra Perera', role: 'Committee Member', initials: 'DP' },
-        { name: 'Hesalni Danthanarayana', role: 'Committee Member', initials: 'HD' },
-        { name: 'Savishkar Thiruchelvam', role: 'Committee Member', initials: 'ST' },
+        { name: 'Diandra Perera', role: 'Committee Member', initials: 'DP', image: '/Committee/Diandra.jpg' },
+        { name: 'Hesalni Danthanarayana', role: 'Committee Member', initials: 'HD', image: '/Committee/Hesalni.jpg' },
+        { name: 'Savishkar Thiruchelvam', role: 'Committee Member', initials: 'ST', image: '/Committee/Savishkar.jpg' },
       ],
     },
     {
@@ -261,18 +267,18 @@ export default function Home() {
       headline: 'Building partnerships, hype, and the premium aura of Tantalize.',
       description: 'They nurture sponsors, craft campaigns, and turn audiences into fans who keep coming back.',
       members: [
-        { name: 'Ayodya Perera', role: 'Head of Marketing', initials: 'AP' },
-        { name: 'Ishra Ammon', role: 'Deputy Head of Marketing', initials: 'IA' },
-        { name: 'Suhanya Peiris', role: 'Committee Member', initials: 'SP' },
-        { name: 'Thanumi Bandara', role: 'Committee Member', initials: 'TB' },
+        { name: 'Ayodya Perera', role: 'Head of Marketing', initials: 'AP', image: '/Committee/Ayodya.jpg' },
+        { name: 'Ishra Ammon', role: 'Deputy Head of Marketing', initials: 'IA', image: '/Committee/Ishra.jpg' },
+        { name: 'Suhanya Peiris', role: 'Committee Member', initials: 'SP', image: '/Committee/Suhanya.jpg' },
+        { name: 'Thanumi Bandara', role: 'Committee Member', initials: 'TB', image: '/Committee/Thanumi.jpg' },
         { name: 'Snegha Chandraseghar', role: 'Committee Member', initials: 'SC' },
-        { name: 'Yazid Niyas', role: 'Committee Member', initials: 'YN' },
-        { name: 'Thevnaka De Silva', role: 'Committee Member', initials: 'TDS' },
-        { name: 'Tharushika Gamage', role: 'Committee Member', initials: 'TG' },
-        { name: 'Diseni Dharmadasa', role: 'Committee Member', initials: 'DD' },
-        { name: 'Kithmi Mallikarachchi', role: 'Committee Member', initials: 'KM' },
+        { name: 'Yazid Niyas', role: 'Committee Member', initials: 'YN', image: '/Committee/Yazid.jpg' },
+        { name: 'Thevnaka De Silva', role: 'Committee Member', initials: 'TDS', image: '/Committee/Thevnaka.jpg' },
+        { name: 'Tharushika Gamage', role: 'Committee Member', initials: 'TG', image: '/Committee/Tharushika.jpg' },
+        { name: 'Diseni Dharmadasa', role: 'Committee Member', initials: 'DD', image: '/Committee/Diseni.jpg' },
+        { name: 'Kithmi Mallikarachchi', role: 'Committee Member', initials: 'KM', image: '/Committee/Kithmi.jpg' },
         { name: 'Denam Pathmanathan', role: 'Committee Member', initials: 'DP' },
-        { name: 'Sachini Samarawickrama', role: 'Committee Member', initials: 'SS' },
+        { name: 'Sachini Samarawickrama', role: 'Committee Member', initials: 'SS', image: '/Committee/Sachini.jpg' },
       ],
     },
     {
@@ -284,14 +290,15 @@ export default function Home() {
       headline: 'Crafting unforgettable performances and immersive audience moments.',
       description: 'From auditions to encore planning, this crew curates the show flow and keeps the stage electrifying.',
       members: [
-        { name: 'Raqiub Isfan', role: 'Head of Entertainment', initials: 'RI' },
-        { name: 'Imad Nazar', role: 'Deputy Head of Entertainment', initials: 'IN' },
-        { name: 'Ashok Ainkaran', role: 'Committee Member', initials: 'AA' },
-        { name: 'Malisha Jayasuriya', role: 'Committee Member', initials: 'MJ' },
-        { name: 'Uthkarsha Premaratne', role: 'Committee Member', initials: 'UP' },
-        { name: 'Avithran Sridharan', role: 'Committee Member', initials: 'AS' },
-        { name: 'Ranidi Dahamya', role: 'Committee Member', initials: 'RD' },
-        { name: 'Thimansa Tennakoon', role: 'Committee Member', initials: 'TT' },
+        { name: 'Raqiub Isfan', role: 'Head of Entertainment', initials: 'RI', image: '/Committee/Raqib.jpg' },
+        { name: 'Imad Nazar', role: 'Deputy Head of Entertainment', initials: 'IN', image: '/Committee/Imad.jpg' },
+        { name: 'Ashok Ainkaran', role: 'Committee Member', initials: 'AA', image: '/Committee/Ashok.jpg' },
+        { name: 'Malisha Jayasuriya', role: 'Committee Member', initials: 'MJ', image: '/Committee/Malisha.jpg' },
+        { name: 'Uthkarsha Premaratne', role: 'Committee Member', initials: 'UP', image: '/Committee/Uthkarsha.jpg' },
+        { name: 'Avithran Sridharan', role: 'Committee Member', initials: 'AS', image: '/Committee/Avithran.jpg' },
+        { name: 'Ranidi Dahamya', role: 'Committee Member', initials: 'RD', image: '/Committee/Ranidi.jpg' },
+        { name: 'Thimansa Tennakoon', role: 'Committee Member', initials: 'TT', image: '/Committee/Thimansa.jpg' },
+        { name: 'Shadiya', role: 'Committee Member', initials: 'S', image: '/Committee/Shadiya.jpg' },
       ],
     },
   ];
@@ -1180,6 +1187,7 @@ export default function Home() {
                       <CommitteePortrait
                         name={member.name}
                         role={member.role}
+                        image={member.image}
                         imageSizes="(max-width: 640px) 100vw, 400px"
                         isLarge={false}
                         cardSize="large"
@@ -1231,6 +1239,7 @@ export default function Home() {
                   <CommitteePortrait
                     name={member.name}
                     role={member.role}
+                    image={member.image}
                     imageSizes="400px"
                     isLarge={false}
                     cardSize="medium"
@@ -1344,6 +1353,7 @@ export default function Home() {
                           <CommitteePortrait
                             name={member.name}
                             role={member.role}
+                            image={member.image}
                             imageSizes="(max-width: 640px) 50vw, 400px"
                             cardSize="small"
                           />
