@@ -52,14 +52,23 @@ const CommitteePortrait = ({
     small: 'scale-100', // Team members - full size
   };
   const [showInfo, setShowInfo] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const checkDesktop = () => setIsDesktop(window.innerWidth >= 1024);
+    checkDesktop();
+    window.addEventListener('resize', checkDesktop);
+    return () => window.removeEventListener('resize', checkDesktop);
+  }, []);
 
   return (
     <motion.div
-      className={`relative aspect-square overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-gray-900 w-full sm:scale-100 ${mobileScales[cardSize]} ${wrapperClassName}`}
+      className={`relative aspect-square overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-gray-900 w-full sm:scale-100 ${mobileScales[cardSize]} ${wrapperClassName} cursor-pointer`}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
-      onViewportEnter={() => setShowInfo(true)}
-      onViewportLeave={() => setShowInfo(false)}
+      onViewportEnter={() => !isDesktop && setShowInfo(true)}
+      onViewportLeave={() => !isDesktop && setShowInfo(false)}
+      onClick={() => setShowInfo(!showInfo)}
       viewport={{ once: false, amount: 0.5, margin: "-10%" }}
       whileHover={{ scale: 1.03, y: -8 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
@@ -1341,7 +1350,7 @@ export default function Home() {
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 px-4">
+                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 sm:gap-6 px-4">
                       {activeTeamData.members.map((member, index) => (
                         <motion.div
                           key={member.name}
