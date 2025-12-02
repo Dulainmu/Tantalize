@@ -134,7 +134,7 @@ export default function Footer() {
                         <p>&copy; {currentYear} Tantalize. All rights reserved.</p>
                         <span className="hidden md:block text-gray-800">|</span>
                         <p className="flex items-center gap-1">
-                            Developed by <span className="text-gold-500/80 hover:text-gold-500 transition-colors cursor-default">Dulain Munasinghe</span>
+                            Developed by <a href="https://www.linkedin.com/in/dulain-munasinghe-533813320/" target="_blank" rel="noopener noreferrer" className="text-gold-500/80 hover:text-gold-500 transition-colors cursor-pointer">Dulain Munasinghe</a>
                         </p>
                     </div>
                     <div className="flex gap-6 text-sm text-gray-500">

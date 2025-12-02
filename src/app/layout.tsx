@@ -17,8 +17,8 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: "Tantalize 2025 - Sri Lanka's Premier Cultural & Music Event",
-  description: "Experience the pinnacle of Sri Lankan cultural and music events. Tantalize 2025 brings together the finest artists, sponsors, and attendees for an unforgettable celebration of culture and music.",
-  keywords: "Tantalize, Sri Lanka, cultural event, music festival, 2025, APIIT, Colombo",
+  description: "Experience the pinnacle of Sri Lankan cultural and music events. Tantalize 2025 brings together the finest artists, sponsors, and attendees for an unforgettable celebration of culture and music. The ultimate APIIT Talent Show.",
+  keywords: "Tantalize, Sri Lanka, cultural event, music festival, 2025, APIIT, Colombo, tanta, tantalize 15, tantalize tickets, apiit talent show, tantalize 2025",
   authors: [{ name: "Tantalize Team" }],
   icons: {
     icon: "/Tanata Logo.webp",

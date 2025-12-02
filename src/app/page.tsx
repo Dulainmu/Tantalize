@@ -66,11 +66,31 @@ const CommitteePortrait = ({
       className={`relative aspect-square overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-gray-900 w-full sm:scale-100 ${mobileScales[cardSize]} ${wrapperClassName} cursor-pointer`}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
-      onViewportEnter={() => !isDesktop && setShowInfo(true)}
-      onViewportLeave={() => !isDesktop && setShowInfo(false)}
-      onClick={() => !isDesktop && setShowInfo(!showInfo)}
-      onMouseEnter={() => isDesktop && setShowInfo(true)}
-      onMouseLeave={() => isDesktop && setShowInfo(false)}
+      onViewportEnter={() => {
+        if (typeof window !== 'undefined' && window.innerWidth < 1024) {
+          setShowInfo(true);
+        }
+      }}
+      onViewportLeave={() => {
+        if (typeof window !== 'undefined' && window.innerWidth < 1024) {
+          setShowInfo(false);
+        }
+      }}
+      onClick={() => {
+        if (typeof window !== 'undefined' && window.innerWidth < 1024) {
+          setShowInfo(!showInfo);
+        }
+      }}
+      onMouseEnter={() => {
+        if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
+          setShowInfo(true);
+        }
+      }}
+      onMouseLeave={() => {
+        if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
+          setShowInfo(false);
+        }
+      }}
       viewport={{ once: false, amount: 0.5, margin: "-10%" }}
       whileHover={{ scale: 1.03, y: -8 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
