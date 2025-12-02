@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { Instagram, Facebook, Youtube, Twitter, Mail, MapPin } from 'lucide-react';
+import { Instagram, Facebook, Music, MapPin } from 'lucide-react';
 
 const footerLinks = [
     { name: 'About', href: '#about' },
@@ -15,9 +15,8 @@ const footerLinks = [
 
 const socialLinks = [
     { name: 'Instagram', icon: Instagram, href: 'https://www.instagram.com/tantalizeofficial/' },
-    { name: 'Facebook', icon: Facebook, href: '#' },
-    { name: 'YouTube', icon: Youtube, href: '#' },
-    { name: 'Twitter', icon: Twitter, href: '#' }
+    { name: 'Facebook', icon: Facebook, href: 'https://www.facebook.com/TantalizeOfficial/' },
+    { name: 'TikTok', icon: Music, href: 'https://www.tiktok.com/@tantalizeofficial' }
 ];
 
 export default function Footer() {
@@ -113,17 +112,7 @@ export default function Footer() {
                                     <p className="text-gray-400 text-sm">APIIT City Campus,<br />Union Place, Colombo 02</p>
                                 </div>
                             </li>
-                            <li className="flex items-start gap-4">
-                                <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center shrink-0">
-                                    <Mail className="w-5 h-5 text-gold-500" />
-                                </div>
-                                <div>
-                                    <p className="text-white font-medium mb-1">Email</p>
-                                    <a href="mailto:info@tantalize.lk" className="text-gray-400 text-sm hover:text-gold-500 transition-colors">
-                                        info@tantalize.lk
-                                    </a>
-                                </div>
-                            </li>
+
                         </ul>
                     </div>
                 </div>

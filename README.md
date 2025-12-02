@@ -170,9 +170,18 @@ tantalize-2025/
 4. Test thoroughly
 5. Submit a pull request
 
-## 📄 License
+## ⚖️ Copyright & License
 
-This project is created for Tantalize 2025 event. All rights reserved.
+**© 2025 Tantalize. All Rights Reserved.**
+
+This repository and its contents, including but not limited to the source code, design elements, assets, and documentation, are the proprietary property of **Tantalize 2025** and its developers.
+
+**Strictly Prohibited Actions:**
+- Unauthorized copying, cloning, or forking of this repository.
+- Reproduction, modification, or distribution of any part of this codebase.
+- Use of the design, assets, or code for commercial or non-commercial purposes without explicit written permission.
+
+This project is intended for viewing purposes only. Any violation of these terms may result in legal action.
 
 ## 🎭 About Tantalize
 

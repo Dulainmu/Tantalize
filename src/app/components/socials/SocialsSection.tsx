@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { Instagram, Youtube, Facebook, Twitter } from 'lucide-react';
+import { Instagram, Facebook, Music } from 'lucide-react';
 
 const socialCards = [
     {
@@ -169,9 +169,8 @@ export default function SocialsSection() {
                     <div className="flex flex-wrap justify-center gap-8 sm:gap-12">
                         {[
                             { name: 'Instagram', icon: Instagram, url: 'https://www.instagram.com/tantalizeofficial/' },
-                            { name: 'Facebook', icon: Facebook, url: '#' },
-                            { name: 'YouTube', icon: Youtube, url: '#' },
-                            { name: 'Twitter', icon: Twitter, url: '#' }
+                            { name: 'Facebook', icon: Facebook, url: 'https://www.facebook.com/TantalizeOfficial/' },
+                            { name: 'TikTok', icon: Music, url: 'https://www.tiktok.com/@tantalizeofficial' }
                         ].map((social) => (
                             <a
                                 key={social.name}
