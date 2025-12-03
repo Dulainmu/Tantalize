@@ -227,13 +227,6 @@ export default function LegacyTimeline() {
                       data-year={y}
                       onClick={() => {
                         setSelectedYear(y);
-                        // Mobile scroll logic
-                        if (window.innerWidth < 768) {
-                          const element = document.getElementById(`legacy-mobile-${y}`);
-                          if (element) {
-                            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                          }
-                        }
                       }}
                       className="group relative flex flex-col items-center justify-center min-w-[70px] sm:min-w-[100px] focus:outline-none"
                     >
@@ -254,8 +247,8 @@ export default function LegacyTimeline() {
               </div>
             </div>
 
-            {/* Content Card - Desktop Only */}
-            <div className="relative w-full max-w-5xl mx-auto hidden md:block">
+            {/* Content Card - Visible on Mobile & Desktop */}
+            <div className="relative w-full max-w-5xl mx-auto block">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={selectedYear}
@@ -320,61 +313,6 @@ export default function LegacyTimeline() {
                   </div>
                 </motion.div>
               </AnimatePresence>
-            </div>
-
-            {/* Mobile Vertical List - Mobile Only */}
-            <div className="relative w-full max-w-5xl mx-auto space-y-12 md:hidden">
-              {legacyEvents.map((event, index) => (
-                <motion.div
-                  key={event.year}
-                  id={`legacy-mobile-${event.year}`}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="group relative overflow-visible rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl"
-                >
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="px-3 py-1 rounded-full bg-[#FFD700]/10 border border-[#FFD700]/20 text-[#FFD700] text-xs font-bold tracking-wider">
-                      {event.year} EDITION
-                    </span>
-                  </div>
-                  <h3 className={`${playfair.className} text-2xl font-semibold text-white mb-3 text-left`}>
-                    {event.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-white/80 mb-6 text-left">
-                    {event.description}
-                  </p>
-
-                  <div className="grid grid-cols-2 gap-3 mb-6">
-                    {event.images?.map((img, idx) => (
-                      <div
-                        key={idx}
-                        className={`relative overflow-hidden rounded-lg border border-white/10 bg-gray-900 aspect-square`}
-                      >
-                        <img
-                          src={img}
-                          alt={`${event.title} highlight ${idx + 1}`}
-                          className="absolute inset-0 h-full w-full object-cover"
-                          loading="lazy"
-                        />
-                      </div>
-                    ))}
-                  </div>
-
-                  {event.videoUrl && (
-                    <div className="text-left">
-                      <button
-                        onClick={() => handleRecapClick(event.videoUrl!)}
-                        className="group/btn inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FFD700] text-[#0A0E27] font-bold text-xs transition-all hover:bg-[#FFED4E] active:scale-95"
-                      >
-                        <Play className="w-3 h-3 fill-current" />
-                        Watch Recap
-                      </button>
-                    </div>
-                  )}
-                </motion.div>
-              ))}
             </div>
 
           </div>
