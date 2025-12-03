@@ -82,28 +82,31 @@ export default function LegacyTimeline() {
   const yearRef = useRef(legacyEvents[0].year);
 
   useGSAP(() => {
+    const mm = gsap.matchMedia();
     const totalEvents = legacyEvents.length;
 
-    ScrollTrigger.create({
-      trigger: sectionRef.current,
-      start: "top top",
-      end: `+=${totalEvents * 100}%`, // Pin for 100% viewport height per event
-      pin: true,
-      pinSpacing: true,
-      anticipatePin: 1,
-      scrub: 0.5,
-      onUpdate: (self) => {
-        // Calculate index based on scroll progress
-        // Use a slightly smaller range (0.99) to ensure we don't go out of bounds at exactly 1.0
-        const progress = self.progress * 0.999;
-        const index = Math.floor(progress * totalEvents);
-        const year = legacyEvents[index]?.year;
+    mm.add("(min-width: 768px)", () => {
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: "top top",
+        end: `+=${totalEvents * 100}%`, // Pin for 100% viewport height per event
+        pin: true,
+        pinSpacing: true,
+        anticipatePin: 1,
+        scrub: 0.5,
+        onUpdate: (self) => {
+          // Calculate index based on scroll progress
+          // Use a slightly smaller range (0.99) to ensure we don't go out of bounds at exactly 1.0
+          const progress = self.progress * 0.999;
+          const index = Math.floor(progress * totalEvents);
+          const year = legacyEvents[index]?.year;
 
-        if (year && year !== yearRef.current) {
-          yearRef.current = year;
-          setSelectedYear(year);
+          if (year && year !== yearRef.current) {
+            yearRef.current = year;
+            setSelectedYear(year);
+          }
         }
-      }
+      });
     });
   }, { scope: sectionRef });
 
@@ -122,14 +125,14 @@ export default function LegacyTimeline() {
     }
   }, [selectedYear]);
 
-  const handleRecapClick = () => {
-    if (current.videoUrl) {
-      window.open(current.videoUrl, "_blank");
+  const handleRecapClick = (url: string) => {
+    if (url) {
+      window.open(url, "_blank");
     }
   };
 
   return (
-    <section ref={sectionRef} id="purpose-legacy" className="relative overflow-hidden h-[100dvh] bg-primary-950">
+    <section ref={sectionRef} id="purpose-legacy" className="relative overflow-hidden min-h-screen md:h-[100dvh] bg-primary-950">
       <div ref={contentRef} className="relative h-full">
         {/* Background layers with subtle particles and shimmer lines */}
         <div className="pointer-events-none absolute inset-0">
@@ -160,7 +163,7 @@ export default function LegacyTimeline() {
               key={current.year} // Re-animate background on year change
               src="/2024_Crowd.webp" // Keeping static background for consistency
               alt="Crowd celebrating"
-              className="absolute inset-0 h-full w-full object-cover"
+              className="absolute inset-0 h-full w-full object-cover fixed md:absolute"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -169,17 +172,17 @@ export default function LegacyTimeline() {
             />
           </AnimatePresence>
           <motion.div
-            className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70"
+            className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70 fixed md:absolute"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
           />
 
           {/* Content Container - Centered vertically */}
-          <div className="relative z-10 mx-auto flex flex-col items-center justify-center px-4 sm:px-6 text-center h-full w-full max-w-7xl">
+          <div className="relative z-10 mx-auto flex flex-col items-center justify-center px-4 sm:px-6 text-center h-full w-full max-w-7xl py-20 md:py-0">
 
             {/* Header Section */}
-            <div className="mb-4 sm:mb-12">
+            <div className="mb-8 sm:mb-12">
               <motion.p
                 className="text-xs uppercase tracking-[0.5em] text-[#FFD700]/85"
                 initial={{ opacity: 0, y: 20 }}
@@ -207,8 +210,8 @@ export default function LegacyTimeline() {
               />
             </div>
 
-            {/* Interactive Timeline Slider */}
-            <div className="relative w-full max-w-4xl mb-6 sm:mb-12">
+            {/* Interactive Timeline Slider - Visible on Mobile & Desktop */}
+            <div className="relative w-full max-w-4xl mb-6 sm:mb-12 block">
               {/* Connecting Line */}
               <div className="absolute top-1/2 left-0 w-full h-px bg-white/10 -translate-y-1/2" />
 
@@ -223,12 +226,14 @@ export default function LegacyTimeline() {
                       key={y}
                       data-year={y}
                       onClick={() => {
-                        // Optional: Scroll to the specific point in the pinned section
-                        // This is complex with ScrollTrigger scrubbing, so we might just set state
-                        // But setting state directly fights with the scroll scrub logic.
-                        // Ideally, clicking should scroll the page to the correct progress.
-                        // For now, let's keep it as a visual indicator or simple state set (which will be overwritten by scroll)
                         setSelectedYear(y);
+                        // Mobile scroll logic
+                        if (window.innerWidth < 768) {
+                          const element = document.getElementById(`legacy-mobile-${y}`);
+                          if (element) {
+                            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                          }
+                        }
                       }}
                       className="group relative flex flex-col items-center justify-center min-w-[70px] sm:min-w-[100px] focus:outline-none"
                     >
@@ -249,8 +254,8 @@ export default function LegacyTimeline() {
               </div>
             </div>
 
-            {/* Content Card with AnimatePresence for smooth transitions */}
-            <div className="relative w-full max-w-5xl mx-auto">
+            {/* Content Card - Desktop Only */}
+            <div className="relative w-full max-w-5xl mx-auto hidden md:block">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={selectedYear}
@@ -281,7 +286,7 @@ export default function LegacyTimeline() {
 
                       {current.videoUrl && (
                         <button
-                          onClick={handleRecapClick}
+                          onClick={() => handleRecapClick(current.videoUrl!)}
                           className="group/btn inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#FFD700] text-[#0A0E27] font-bold text-sm transition-all hover:bg-[#FFED4E] hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(255,215,0,0.3)] hover:shadow-[0_0_30px_rgba(255,215,0,0.5)]"
                         >
                           <Play className="w-4 h-4 fill-current" />
@@ -316,6 +321,62 @@ export default function LegacyTimeline() {
                 </motion.div>
               </AnimatePresence>
             </div>
+
+            {/* Mobile Vertical List - Mobile Only */}
+            <div className="relative w-full max-w-5xl mx-auto space-y-12 md:hidden">
+              {legacyEvents.map((event, index) => (
+                <motion.div
+                  key={event.year}
+                  id={`legacy-mobile-${event.year}`}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="group relative overflow-visible rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl"
+                >
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="px-3 py-1 rounded-full bg-[#FFD700]/10 border border-[#FFD700]/20 text-[#FFD700] text-xs font-bold tracking-wider">
+                      {event.year} EDITION
+                    </span>
+                  </div>
+                  <h3 className={`${playfair.className} text-2xl font-semibold text-white mb-3 text-left`}>
+                    {event.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-white/80 mb-6 text-left">
+                    {event.description}
+                  </p>
+
+                  <div className="grid grid-cols-2 gap-3 mb-6">
+                    {event.images?.map((img, idx) => (
+                      <div
+                        key={idx}
+                        className={`relative overflow-hidden rounded-lg border border-white/10 bg-gray-900 aspect-square`}
+                      >
+                        <img
+                          src={img}
+                          alt={`${event.title} highlight ${idx + 1}`}
+                          className="absolute inset-0 h-full w-full object-cover"
+                          loading="lazy"
+                        />
+                      </div>
+                    ))}
+                  </div>
+
+                  {event.videoUrl && (
+                    <div className="text-left">
+                      <button
+                        onClick={() => handleRecapClick(event.videoUrl!)}
+                        className="group/btn inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FFD700] text-[#0A0E27] font-bold text-xs transition-all hover:bg-[#FFED4E] active:scale-95"
+                      >
+                        <Play className="w-3 h-3 fill-current" />
+                        Watch Recap
+                      </button>
+                    </div>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+
           </div>
         </div>
       </div>
