@@ -1,6 +1,6 @@
 # 🎭 Tantalize 2025 - Sri Lanka's Premier Cultural & Music Event
 
-A stunning, animation-heavy website built with Next.js, featuring premium dark blue aesthetics with gold accents, designed to create a "WOW" factor for visitors and drive them to scan the QR code for Pickme Events registration.
+A stunning, animation-heavy website built with Next.js, featuring premium dark blue aesthetics with gold accents, designed to create a "WOW" factor for visitors and drive them to get tikcets and know about the Tantalize.
 
 ## ✨ Features
 
