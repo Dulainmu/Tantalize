@@ -23,7 +23,7 @@ export default function Footer() {
     const currentYear = new Date().getFullYear();
 
     return (
-        <footer className="relative bg-black pt-20 pb-10 overflow-hidden">
+        <footer id="contact" className="relative bg-black pt-20 lg:pt-12 2xl:pt-20 pb-10 overflow-hidden">
             {/* Background Elements */}
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-0 left-1/4 w-96 h-96 bg-gold-500/5 rounded-full blur-[120px]" />
@@ -32,7 +32,7 @@ export default function Footer() {
             </div>
 
             <div className="max-w-7xl mx-auto px-6 relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-6 2xl:gap-8 mb-16">
 
                     {/* Brand Column */}
                     <div className="lg:col-span-5 space-y-8">
@@ -57,7 +57,7 @@ export default function Footer() {
                         </div>
 
                         <div className="space-y-4">
-                            <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+                            <h2 className="text-3xl sm:text-4xl lg:text-2xl 2xl:text-4xl font-bold text-white tracking-tight">
                                 TANTALIZE <span className="text-gold-500">2025</span>
                             </h2>
                             <p className="text-gray-400 max-w-md leading-relaxed">

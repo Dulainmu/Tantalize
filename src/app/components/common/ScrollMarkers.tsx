@@ -5,8 +5,10 @@ import { useEffect, useMemo, useState } from "react";
 type Marker = { id: string; label: string };
 
 const SECTIONS: Marker[] = [
-  { id: "mission", label: "Purpose" },
-  { id: "legacy", label: "Legacy" },
+  { id: "about", label: "About" },
+  { id: "purpose-legacy", label: "Legacy" },
+  { id: "lineup", label: "Lineup" },
+  { id: "tickets", label: "Tickets" },
   { id: "committee", label: "Committee" },
   { id: "schedule", label: "Schedule" },
   { id: "sponsors", label: "Sponsors" },
@@ -54,11 +56,10 @@ export default function ScrollMarkers() {
             onClick={() => onJump(m.id)}
             aria-label={m.label}
             aria-current={isActive ? "true" : undefined}
-            className={`relative h-3 w-3 rounded-full border transition-all duration-300 ${
-              isActive
+            className={`relative h-3 w-3 rounded-full border transition-all duration-300 ${isActive
                 ? "border-[#FFD700]/70 bg-[#FFD700] shadow-[0_0_14px_rgba(255,215,0,0.7)]"
                 : "border-white/20 bg-white/10 hover:border-[#FFD700]/50 hover:bg-[#FFD700]/20"
-            }`}
+              }`}
           >
             <span className="pointer-events-none absolute -left-1 -right-1 -top-1 -bottom-1 rounded-full" />
           </button>

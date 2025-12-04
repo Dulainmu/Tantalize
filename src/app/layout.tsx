@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+import { Inter, Poppins, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import ClientLayout from "./ClientLayout";
 import { Analytics } from "@vercel/analytics/next";
@@ -13,6 +13,11 @@ const poppins = Poppins({
   subsets: ["latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   variable: "--font-poppins",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
 });
 
 export const metadata: Metadata = {
@@ -66,15 +71,16 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Preload fonts */}
+        <link rel="preload" href="/fonts/TheSeasons.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+
         {/* Preload critical images for faster loading screen */}
         <link rel="preload" href="/Tanata Logo.webp" as="image" type="image/webp" fetchPriority="high" />
         <link rel="preload" href="/APIIT logo white.webp" as="image" type="image/webp" fetchPriority="high" />
         <link rel="preload" href="/hero-poster.webp" as="image" type="image/webp" fetchPriority="high" />
       </head>
       <body
-        className={`${inter.variable} ${poppins.variable} font-sans antialiased bg-primary-950 text-white overflow-x-hidden`}
+        className={`${inter.variable} ${poppins.variable} ${playfair.variable} font-sans antialiased bg-primary-950 text-white overflow-x-hidden`}
       >
         <script
           type="application/ld+json"

@@ -193,7 +193,7 @@ export default function LegacyTimeline() {
                 OUR LEGACY
               </motion.p>
               <motion.h2
-                className={`${playfair.className} mt-3 text-2xl sm:text-3xl md:text-5xl font-semibold text-white`}
+                className={`${playfair.className} mt-3 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white`}
                 initial={{ opacity: 0, y: 28 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: false, amount: 0.35 }}
@@ -256,7 +256,7 @@ export default function LegacyTimeline() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.4, ease: "easeOut" }}
-                  className="group relative overflow-visible rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-5 sm:p-8 md:p-10 backdrop-blur-xl"
+                  className="group relative overflow-visible rounded-2xl sm:rounded-3xl border border-white/10 bg-white/5 p-5 sm:p-6 md:p-8 lg:p-10 backdrop-blur-xl"
                 >
                   {/* sheen + corner ornaments for premium feel */}
                   <span className="gold-sheen" aria-hidden />
@@ -270,10 +270,10 @@ export default function LegacyTimeline() {
                           {current.year} EDITION
                         </span>
                       </div>
-                      <h3 className={`${playfair.className} text-3xl sm:text-4xl font-semibold text-white mb-4`}>
+                      <h3 className={`${playfair.className} text-2xl sm:text-3xl lg:text-4xl font-semibold text-white mb-4`}>
                         {current.title}
                       </h3>
-                      <p className="text-base sm:text-lg leading-relaxed text-white/80 mb-8">
+                      <p className="text-sm sm:text-base lg:text-lg leading-relaxed text-white/80 mb-8">
                         {current.description}
                       </p>
 
@@ -305,6 +305,7 @@ export default function LegacyTimeline() {
                             className="absolute inset-0 h-full w-full object-cover"
                             whileHover={{ scale: 1.05 }}
                             transition={{ duration: 0.5 }}
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
                         </motion.div>

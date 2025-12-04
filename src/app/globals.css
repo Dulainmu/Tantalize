@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
+
 
 /* The Seasons Font - Using Playfair Display as fallback until font file is added */
 @font-face {
@@ -50,21 +50,19 @@ body {
 }
 
 /* Custom scrollbar */
+/* Custom scrollbar - Hidden globally as per request */
 ::-webkit-scrollbar {
-  width: 8px;
+  display: none;
+  width: 0;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1f3a;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #FFD700, #FFA500);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #FFA500, #FF8C00);
+  background: transparent;
 }
 
 /* Hide scrollbar for horizontal year selector */

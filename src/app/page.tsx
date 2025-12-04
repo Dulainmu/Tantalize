@@ -610,11 +610,13 @@ export default function Home() {
                 alt="TANTALIZE 15"
                 width={800}
                 height={300}
-                className="w-full max-w-xs sm:max-w-2xl md:max-w-4xl h-auto object-contain mx-auto"
+                className="w-full max-w-xs sm:max-w-2xl md:max-w-4xl lg:max-w-3xl 2xl:max-w-5xl h-auto object-contain mx-auto"
                 style={{
                   filter: 'drop-shadow(0 10px 30px rgba(255, 215, 0, 0.3))',
                   transform: `translate(${mousePosition.x * 0.3}px, ${mousePosition.y * 0.3}px)`
                 }}
+                priority
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 60vw"
               />
             </motion.div>
 
@@ -627,7 +629,7 @@ export default function Home() {
                 href="https://tickets.tantalize.lk"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-3d text-sm sm:text-base md:text-lg lg:text-xl px-6 sm:px-8 md:px-10"
+                className="btn-3d text-sm sm:text-base md:text-lg lg:text-lg 2xl:text-xl px-6 sm:px-8 md:px-10"
                 whileHover={{ scale: 1.06 }}
                 whileTap={{ scale: 0.98 }}
                 onMouseMove={(e) => {
@@ -712,7 +714,7 @@ export default function Home() {
             </motion.p>
 
             <motion.h2
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 relative"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl 2xl:text-7xl font-bold text-white mb-4 sm:mb-6 relative"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -743,7 +745,7 @@ export default function Home() {
           </motion.div>
 
           {/* Premium 3D Artist Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 lg:gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 lg:gap-6 2xl:gap-10">
             {[
               { name: "Bathiya & Santhush", genre: "Legends", icon: "🎸", color: "from-amber-500 to-orange-600", image: "/BnS.webp", audio: "/BnS.mp3" },
               { name: "Wasthi", genre: "Vocals", icon: "🎤", color: "from-pink-500 to-rose-600", image: "/wasthi.webp", audio: "/wasthi.mp3" },
@@ -965,7 +967,7 @@ export default function Home() {
                             fill
                             className="object-cover"
                             quality={75}
-                            sizes="(max-width: 768px) 128px, 128px"
+                            sizes="(max-width: 768px) 128px, (max-width: 1200px) 128px, 128px"
                             loading="lazy"
                           />
                         ) : (

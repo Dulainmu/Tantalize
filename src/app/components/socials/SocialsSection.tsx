@@ -81,7 +81,7 @@ export default function SocialsSection() {
                 {/* Header */}
                 <div className="text-center mb-20 sm:mb-32">
                     <motion.h2
-                        className="text-4xl sm:text-6xl md:text-8xl font-bold uppercase tracking-tighter leading-none"
+                        className="text-4xl sm:text-6xl md:text-8xl lg:text-6xl 2xl:text-8xl font-bold uppercase tracking-tighter leading-none"
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
@@ -96,7 +96,7 @@ export default function SocialsSection() {
 
                 {/* Fan Layout Container */}
                 <div className="relative h-[400px] sm:h-[500px] md:h-[600px] flex items-center justify-center mb-20 perspective-[2000px]">
-                    <div className="relative w-full h-full flex items-center justify-center scale-[0.55] sm:scale-75 md:scale-100 origin-center">
+                    <div className="relative w-full h-full flex items-center justify-center scale-[0.55] sm:scale-75 md:scale-100 lg:scale-75 2xl:scale-100 origin-center">
                         {socialCards.map((card, index) => {
                             // Calculate dynamic offset based on hover
                             let xOffset = 0;
@@ -166,7 +166,7 @@ export default function SocialsSection() {
                     <p className="text-sm uppercase tracking-[0.3em] text-gray-400 mb-8">
                         Follow Tantalize on social media
                     </p>
-                    <div className="flex flex-wrap justify-center gap-8 sm:gap-12">
+                    <div className="flex flex-wrap justify-center gap-8 sm:gap-12 lg:gap-8 2xl:gap-12">
                         {[
                             { name: 'Instagram', icon: Instagram, url: 'https://www.instagram.com/tantalizeofficial/' },
                             { name: 'Facebook', icon: Facebook, url: 'https://www.facebook.com/TantalizeOfficial/' },
