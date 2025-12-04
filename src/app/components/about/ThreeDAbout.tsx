@@ -69,21 +69,21 @@ const ThreeDAbout = () => {
                         {/* Decorative Element */}
                         <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-px h-24 bg-gradient-to-b from-transparent via-gold-500/50 to-transparent" />
 
-                        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-gold-500 mb-6 sm:mb-8 drop-shadow-2xl font-display tracking-tight">
+                        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-8xl font-bold text-gold-500 mb-6 sm:mb-8 lg:mb-4 2xl:mb-8 drop-shadow-2xl font-display tracking-tight">
                             About Tantalize
                         </h2>
-                        <div className="w-24 h-1 bg-gold-500 mx-auto mb-6 sm:mb-8 rounded-full opacity-80" />
-                        <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed font-light">
+                        <div className="w-24 h-1 bg-gold-500 mx-auto mb-6 sm:mb-8 lg:mb-4 2xl:mb-8 rounded-full opacity-80" />
+                        <p className="text-base sm:text-lg md:text-xl lg:text-base 2xl:text-xl text-gray-300 leading-relaxed font-light">
                             Celebrating <span className="text-gold-400 font-medium">15 years</span> of creative brilliance. Since 2008, Tantalize has evolved from a talent search into a cultural phenomenon that unites passion and purpose.
                         </p>
                     </motion.div>
 
                     {/* Mission & Cause Grid */}
-                    <div className="grid md:grid-cols-2 gap-6 sm:gap-6 lg:gap-8 xl:gap-12">
+                    <div className="grid md:grid-cols-2 gap-6 sm:gap-6 lg:gap-6 2xl:gap-12">
 
                         {/* Mission Card */}
                         <motion.div
-                            className="group relative bg-white/5 backdrop-blur-xl p-6 sm:p-8 xl:p-10 rounded-[2rem] border border-white/10 hover:border-gold-500/30 transition-all duration-500 hover:bg-white/10 hover:shadow-[0_0_40px_-10px_rgba(255,215,0,0.1)]"
+                            className="group relative bg-white/5 backdrop-blur-xl p-6 sm:p-8 lg:p-6 2xl:p-10 rounded-[2rem] border border-white/10 hover:border-gold-500/30 transition-all duration-500 hover:bg-white/10 hover:shadow-[0_0_40px_-10px_rgba(255,215,0,0.1)]"
                             initial={{ opacity: 0, x: -30 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
@@ -92,15 +92,15 @@ const ThreeDAbout = () => {
                             <div className="absolute inset-0 bg-gradient-to-br from-gold-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[2rem]" />
 
                             <div className="relative z-10">
-                                <div className="w-12 h-12 sm:w-14 sm:h-14 xl:w-16 xl:h-16 rounded-2xl bg-gold-500/10 flex items-center justify-center mb-6 sm:mb-8 border border-gold-500/20 group-hover:scale-110 transition-transform duration-500">
-                                    <Target className="w-6 h-6 sm:w-7 sm:h-7 xl:w-8 xl:h-8 text-gold-500" />
+                                <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-10 lg:h-10 2xl:w-16 2xl:h-16 rounded-2xl bg-gold-500/10 flex items-center justify-center mb-6 sm:mb-8 lg:mb-4 2xl:mb-8 border border-gold-500/20 group-hover:scale-110 transition-transform duration-500">
+                                    <Target className="w-6 h-6 sm:w-7 sm:h-7 lg:w-5 lg:h-5 2xl:w-8 2xl:h-8 text-gold-500" />
                                 </div>
 
-                                <h3 className="text-xl sm:text-2xl md:text-3xl xl:text-4xl font-bold text-white mb-4 sm:mb-6 font-display">
+                                <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-2xl 2xl:text-4xl font-bold text-white mb-4 sm:mb-6 lg:mb-3 2xl:mb-6 font-display">
                                     Our Mission
                                 </h3>
 
-                                <div className="space-y-4 sm:space-y-6 text-gray-300 leading-relaxed text-sm sm:text-base xl:text-lg font-light">
+                                <div className="space-y-4 sm:space-y-6 lg:space-y-3 2xl:space-y-6 text-gray-300 leading-relaxed text-sm sm:text-base lg:text-sm 2xl:text-lg font-light">
                                     <p>
                                         More than entertainment, we are an <span className="text-gold-400 font-medium">Impact Movement</span>.
                                     </p>
@@ -113,7 +113,7 @@ const ThreeDAbout = () => {
 
                         {/* Cause Card */}
                         <motion.div
-                            className="group relative bg-white/5 backdrop-blur-xl p-6 sm:p-8 xl:p-10 rounded-[2rem] border border-white/10 hover:border-gold-500/30 transition-all duration-500 hover:bg-white/10 hover:shadow-[0_0_40px_-10px_rgba(255,215,0,0.1)]"
+                            className="group relative bg-white/5 backdrop-blur-xl p-6 sm:p-8 lg:p-6 2xl:p-10 rounded-[2rem] border border-white/10 hover:border-gold-500/30 transition-all duration-500 hover:bg-white/10 hover:shadow-[0_0_40px_-10px_rgba(255,215,0,0.1)]"
                             initial={{ opacity: 0, x: 30 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
@@ -122,15 +122,15 @@ const ThreeDAbout = () => {
                             <div className="absolute inset-0 bg-gradient-to-br from-gold-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[2rem]" />
 
                             <div className="relative z-10">
-                                <div className="w-12 h-12 sm:w-14 sm:h-14 xl:w-16 xl:h-16 rounded-2xl bg-gold-500/10 flex items-center justify-center mb-6 sm:mb-8 border border-gold-500/20 group-hover:scale-110 transition-transform duration-500">
-                                    <HeartHandshake className="w-6 h-6 sm:w-7 sm:h-7 xl:w-8 xl:h-8 text-gold-500" />
+                                <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-10 lg:h-10 2xl:w-16 2xl:h-16 rounded-2xl bg-gold-500/10 flex items-center justify-center mb-6 sm:mb-8 lg:mb-4 2xl:mb-8 border border-gold-500/20 group-hover:scale-110 transition-transform duration-500">
+                                    <HeartHandshake className="w-6 h-6 sm:w-7 sm:h-7 lg:w-5 lg:h-5 2xl:w-8 2xl:h-8 text-gold-500" />
                                 </div>
 
-                                <h3 className="text-xl sm:text-2xl md:text-3xl xl:text-4xl font-bold text-white mb-4 sm:mb-6 font-display">
+                                <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-2xl 2xl:text-4xl font-bold text-white mb-4 sm:mb-6 lg:mb-3 2xl:mb-6 font-display">
                                     The Cause
                                 </h3>
 
-                                <div className="space-y-4 sm:space-y-6 text-gray-300 leading-relaxed text-sm sm:text-base xl:text-lg font-light">
+                                <div className="space-y-4 sm:space-y-6 lg:space-y-3 2xl:space-y-6 text-gray-300 leading-relaxed text-sm sm:text-base lg:text-sm 2xl:text-lg font-light">
                                     <p>
                                         Developing rural schools, one ticket at a time.
                                     </p>
@@ -138,7 +138,7 @@ const ThreeDAbout = () => {
                                         With your support, we provide essential learning tools—books, stationery, and equipment—to schools in need, empowering students to dream bigger.
                                     </p>
                                     <div className="pt-4 border-t border-white/10">
-                                        <p className="text-base sm:text-lg xl:text-xl font-display italic text-gold-500">
+                                        <p className="text-base sm:text-lg lg:text-base 2xl:text-xl font-display italic text-gold-500">
                                             &ldquo;A celebration of talent with a purpose&rdquo;
                                         </p>
                                     </div>

@@ -32,12 +32,12 @@ export default function Footer() {
             </div>
 
             <div className="max-w-7xl mx-auto px-6 relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-6 2xl:gap-8 mb-16">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-6 2xl:gap-8 mb-16 lg:mb-10 2xl:mb-16">
 
                     {/* Brand Column */}
-                    <div className="lg:col-span-5 space-y-8">
-                        <div className="flex items-center gap-6">
-                            <div className="relative w-16 h-16 sm:w-20 sm:h-20">
+                    <div className="lg:col-span-5 space-y-8 lg:space-y-6 2xl:space-y-8">
+                        <div className="flex items-center gap-6 lg:gap-4 2xl:gap-6">
+                            <div className="relative w-16 h-16 sm:w-20 sm:h-20 lg:w-14 lg:h-14 2xl:w-20 2xl:h-20">
                                 <Image
                                     src="/Tanata Logo.webp"
                                     alt="Tantalize Logo"
@@ -46,7 +46,7 @@ export default function Footer() {
                                 />
                             </div>
                             <div className="h-12 w-px bg-white/10" />
-                            <div className="relative w-24 h-12 sm:w-32 sm:h-16">
+                            <div className="relative w-24 h-12 sm:w-32 sm:h-16 lg:w-24 lg:h-12 2xl:w-32 2xl:h-16">
                                 <Image
                                     src="/APIIT logo white.webp"
                                     alt="APIIT Logo"
@@ -56,26 +56,26 @@ export default function Footer() {
                             </div>
                         </div>
 
-                        <div className="space-y-4">
-                            <h2 className="text-3xl sm:text-4xl lg:text-2xl 2xl:text-4xl font-bold text-white tracking-tight">
+                        <div className="space-y-4 lg:space-y-2 2xl:space-y-4">
+                            <h2 className="text-3xl sm:text-4xl lg:text-3xl 2xl:text-4xl font-bold text-white tracking-tight">
                                 TANTALIZE <span className="text-gold-500">2025</span>
                             </h2>
-                            <p className="text-gray-400 max-w-md leading-relaxed">
+                            <p className="text-gray-400 max-w-md leading-relaxed text-sm lg:text-xs 2xl:text-base">
                                 Sri Lanka&apos;s Premier Cultural & Music Event. Experience the pinnacle of artistic expression and musical excellence.
                             </p>
                         </div>
 
-                        <div className="flex gap-4">
+                        <div className="flex gap-4 lg:gap-3 2xl:gap-4">
                             {socialLinks.map((social) => (
                                 <a
                                     key={social.name}
                                     href={social.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-gold-500 hover:border-gold-500/50 hover:bg-gold-500/10 transition-all duration-300"
+                                    className="w-10 h-10 lg:w-8 lg:h-8 2xl:w-10 2xl:h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-gold-500 hover:border-gold-500/50 hover:bg-gold-500/10 transition-all duration-300"
                                     aria-label={social.name}
                                 >
-                                    <social.icon className="w-5 h-5" />
+                                    <social.icon className="w-5 h-5 lg:w-4 lg:h-4 2xl:w-5 2xl:h-5" />
                                 </a>
                             ))}
                         </div>
@@ -83,13 +83,13 @@ export default function Footer() {
 
                     {/* Navigation Column */}
                     <div className="lg:col-span-3 lg:col-start-7">
-                        <h3 className="text-lg font-bold text-white mb-6 uppercase tracking-wider">Navigation</h3>
-                        <ul className="space-y-4">
+                        <h3 className="text-lg lg:text-base 2xl:text-lg font-bold text-white mb-6 lg:mb-4 2xl:mb-6 uppercase tracking-wider">Navigation</h3>
+                        <ul className="space-y-4 lg:space-y-2 2xl:space-y-4">
                             {footerLinks.map((link) => (
                                 <li key={link.name}>
                                     <Link
                                         href={link.href}
-                                        className="text-gray-400 hover:text-gold-500 transition-colors inline-flex items-center gap-2 group"
+                                        className="text-gray-400 hover:text-gold-500 transition-colors inline-flex items-center gap-2 group text-base lg:text-sm 2xl:text-base"
                                     >
                                         <span className="w-1.5 h-1.5 rounded-full bg-gold-500/50 scale-0 group-hover:scale-100 transition-transform duration-300" />
                                         {link.name}
@@ -101,15 +101,15 @@ export default function Footer() {
 
                     {/* Contact Column */}
                     <div className="lg:col-span-3">
-                        <h3 className="text-lg font-bold text-white mb-6 uppercase tracking-wider">Contact Us</h3>
-                        <ul className="space-y-6">
-                            <li className="flex items-start gap-4">
-                                <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center shrink-0">
-                                    <MapPin className="w-5 h-5 text-gold-500" />
+                        <h3 className="text-lg lg:text-base 2xl:text-lg font-bold text-white mb-6 lg:mb-4 2xl:mb-6 uppercase tracking-wider">Contact Us</h3>
+                        <ul className="space-y-6 lg:space-y-4 2xl:space-y-6">
+                            <li className="flex items-start gap-4 lg:gap-3 2xl:gap-4">
+                                <div className="w-10 h-10 lg:w-8 lg:h-8 2xl:w-10 2xl:h-10 rounded-full bg-white/5 flex items-center justify-center shrink-0">
+                                    <MapPin className="w-5 h-5 lg:w-4 lg:h-4 2xl:w-5 2xl:h-5 text-gold-500" />
                                 </div>
                                 <div>
-                                    <p className="text-white font-medium mb-1">Location</p>
-                                    <p className="text-gray-400 text-sm">APIIT City Campus,<br />Union Place, Colombo 02</p>
+                                    <p className="text-white font-medium mb-1 text-base lg:text-sm 2xl:text-base">Location</p>
+                                    <p className="text-gray-400 text-sm lg:text-xs 2xl:text-sm">APIIT City Campus,<br />Union Place, Colombo 02</p>
                                 </div>
                             </li>
 

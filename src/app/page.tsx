@@ -610,7 +610,7 @@ export default function Home() {
                 alt="TANTALIZE 15"
                 width={800}
                 height={300}
-                className="w-full max-w-xs sm:max-w-2xl md:max-w-4xl lg:max-w-3xl 2xl:max-w-5xl h-auto object-contain mx-auto"
+                className="w-full max-w-xs sm:max-w-2xl md:max-w-4xl lg:max-w-xl 2xl:max-w-5xl h-auto object-contain mx-auto"
                 style={{
                   filter: 'drop-shadow(0 10px 30px rgba(255, 215, 0, 0.3))',
                   transform: `translate(${mousePosition.x * 0.3}px, ${mousePosition.y * 0.3}px)`
@@ -629,7 +629,7 @@ export default function Home() {
                 href="https://tickets.tantalize.lk"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-3d text-sm sm:text-base md:text-lg lg:text-lg 2xl:text-xl px-6 sm:px-8 md:px-10"
+                className="btn-3d text-sm sm:text-base md:text-lg lg:text-base 2xl:text-xl px-6 sm:px-8 md:px-10 lg:px-6 2xl:px-10"
                 whileHover={{ scale: 1.06 }}
                 whileTap={{ scale: 0.98 }}
                 onMouseMove={(e) => {
@@ -687,7 +687,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           {/* Header with Spotlight Effect */}
           <motion.div
-            className="text-center mb-20 relative"
+            className="text-center mb-20 lg:mb-12 2xl:mb-20 relative"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -714,7 +714,7 @@ export default function Home() {
             </motion.p>
 
             <motion.h2
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl 2xl:text-7xl font-bold text-white mb-4 sm:mb-6 relative"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-4xl 2xl:text-7xl font-bold text-white mb-4 sm:mb-6 lg:mb-3 2xl:mb-6 relative"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -735,7 +735,7 @@ export default function Home() {
             </motion.h2>
 
             <motion.p
-              className="text-base sm:text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4"
+              className="text-base sm:text-lg md:text-xl lg:text-base 2xl:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed px-4"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.4 }}
@@ -745,7 +745,7 @@ export default function Home() {
           </motion.div>
 
           {/* Premium 3D Artist Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 lg:gap-6 2xl:gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 lg:gap-4 2xl:gap-10">
             {[
               { name: "Bathiya & Santhush", genre: "Legends", icon: "🎸", color: "from-amber-500 to-orange-600", image: "/BnS.webp", audio: "/BnS.mp3" },
               { name: "Wasthi", genre: "Vocals", icon: "🎤", color: "from-pink-500 to-rose-600", image: "/wasthi.webp", audio: "/wasthi.mp3" },
@@ -790,7 +790,7 @@ export default function Home() {
                 )}
 
                 <motion.div
-                  className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-gradient-to-br from-[#1a1f3a]/80 via-[#0f1229]/90 to-[#1a1232]/80 p-6 sm:p-8 text-center backdrop-blur-xl h-full flex flex-col justify-between"
+                  className="group relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/10 bg-gradient-to-br from-[#1a1f3a]/80 via-[#0f1229]/90 to-[#1a1232]/80 p-6 sm:p-8 lg:p-4 2xl:p-8 text-center backdrop-blur-xl h-full flex flex-col justify-between"
                   whileHover={{
                     scale: 1.05,
                     rotateY: 5,
@@ -821,7 +821,7 @@ export default function Home() {
                         fill
                         className="object-cover"
                         quality={75}
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        sizes="(max-width: 768px) 128px, (max-width: 1200px) 128px, 128px"
                         loading="lazy"
                       />
                       {/* Gradient overlay for text readability */}
@@ -923,7 +923,7 @@ export default function Home() {
                   <div className="relative" style={{ transformStyle: "preserve-3d" }}>
                     {/* 3D Icon/Image Container */}
                     <motion.div
-                      className="relative mx-auto mb-8 flex h-32 w-32 items-center justify-center overflow-hidden rounded-full"
+                      className="relative mx-auto mb-8 lg:mb-4 2xl:mb-8 flex h-32 w-32 lg:h-24 lg:w-24 2xl:h-32 2xl:w-32 items-center justify-center overflow-hidden rounded-full"
                       style={{ transformStyle: "preserve-3d" }}
                       whileHover={{
                         rotateY: 180,
@@ -978,7 +978,7 @@ export default function Home() {
 
                     {/* Artist Name with 3D Effect */}
                     <motion.h3
-                      className="mb-4 text-3xl font-bold text-white relative"
+                      className="mb-4 lg:mb-2 2xl:mb-4 text-3xl lg:text-2xl 2xl:text-3xl font-bold text-white relative"
                       style={{
                         transformStyle: "preserve-3d",
                         textShadow: "0 0 20px rgba(255,215,0,0.3)"
