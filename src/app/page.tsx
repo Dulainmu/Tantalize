@@ -610,7 +610,7 @@ export default function Home() {
                 alt="TANTALIZE 15"
                 width={800}
                 height={300}
-                className="w-full max-w-xs sm:max-w-2xl md:max-w-4xl lg:max-w-xl 2xl:max-w-5xl h-auto object-contain mx-auto"
+                className="w-full max-w-xs sm:max-w-2xl md:max-w-4xl lg:max-w-lg 2xl:max-w-3xl h-auto object-contain mx-auto"
                 style={{
                   filter: 'drop-shadow(0 10px 30px rgba(255, 215, 0, 0.3))',
                   transform: `translate(${mousePosition.x * 0.3}px, ${mousePosition.y * 0.3}px)`
