@@ -89,7 +89,7 @@ export default function LegacyTimeline() {
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: "top top",
-        end: `+=${totalEvents * 100}%`, // Pin for 100% viewport height per event
+        end: `+=${totalEvents * 40}%`, // Pin for 40% viewport height per event (faster scroll)
         pin: true,
         pinSpacing: true,
         anticipatePin: 1,

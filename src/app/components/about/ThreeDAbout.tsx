@@ -38,10 +38,10 @@ const ThreeDAbout = () => {
         <section
             ref={containerRef}
             id="about"
-            className="relative w-full overflow-hidden bg-primary-950 py-24 sm:py-32 lg:py-0 lg:h-[100dvh] flex items-center justify-center"
+            className="relative w-full overflow-x-hidden bg-primary-950 py-24 sm:py-24 lg:py-0 lg:min-h-[100dvh] flex items-center justify-center"
         >
             {/* Background Image with Cinematic Blend */}
-            <div className="absolute inset-0 z-0">
+            < div className="absolute inset-0 z-0" >
                 <Image
                     src="/tantalize2024.webp"
                     alt="Tantalize 2024"
@@ -51,10 +51,10 @@ const ThreeDAbout = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-primary-950 via-primary-950/90 to-primary-950" />
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-gold-500/5 via-transparent to-transparent opacity-50" />
-            </div>
+            </div >
 
             {/* Content Container */}
-            <div ref={contentRef} className="relative z-10 container mx-auto px-4 sm:px-6">
+            < div ref={contentRef} className="relative z-10 container mx-auto px-4 sm:px-6" >
                 <div className="max-w-7xl mx-auto space-y-12 sm:space-y-20 lg:space-y-16">
 
                     {/* Intro Section */}
@@ -148,8 +148,8 @@ const ThreeDAbout = () => {
                     </div>
 
                 </div>
-            </div>
-        </section>
+            </div >
+        </section >
     );
 };
 
