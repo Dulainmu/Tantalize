@@ -269,6 +269,10 @@ export default function Home() {
 
 
         { name: 'Mandil Nanayakkara', role: 'Committee Member', initials: 'MN', image: '/Committee/Mandil.jpg' },
+        { name: 'Nithis Pranav', role: 'Committee Member', initials: 'NP', image: '/Committee/Nithis Pranav.jpg' },
+        { name: 'Arushan Kumar', role: 'Committee Member', initials: 'AK', image: '/Committee/Arushan Kumar .jpg' },
+        { name: 'Gever Raddella', role: 'Committee Member', initials: 'GR', image: '/Committee/Gever Raddella.jpg' },
+        { name: 'Mahaadhi Muzammil', role: 'Committee Member', initials: 'MM', image: '/Committee/Mahaadhi Muzammil..jpg' },
       ],
     },
     {
@@ -309,7 +313,6 @@ export default function Home() {
         { name: 'Tharushika Gamage', role: 'Committee Member', initials: 'TG', image: '/Committee/Tharushika.jpg' },
         { name: 'Diseni Dharmadasa', role: 'Committee Member', initials: 'DD', image: '/Committee/Diseni.jpg' },
         { name: 'Kithmi Mallikarachchi', role: 'Committee Member', initials: 'KM', image: '/Committee/Kithmi.jpg' },
-        { name: 'Denam Pathmanathan', role: 'Committee Member', initials: 'DP' },
         { name: 'Sachini Samarawickrama', role: 'Committee Member', initials: 'SS', image: '/Committee/Sachini.jpg' },
       ],
     },
