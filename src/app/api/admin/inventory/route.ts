@@ -132,10 +132,15 @@ export async function PATCH(req: NextRequest) {
         if (paymentSettled !== undefined) updateData.paymentSettled = paymentSettled;
 
         // If marking as IN_STOCK, should we clear assignment? 
-        // Logic: If manual override to IN_STOCK, probably yes.
         if (status === 'IN_STOCK') {
             updateData.assignedToId = null;
             updateData.paymentSettled = false;
+            updateData.scannedAt = null; // Reset scan time
+        }
+
+        // If manually setting to ASSIGNED or SOLD, ensure it's not marked as scanned
+        if (status === 'ASSIGNED' || status === 'SOLD') {
+            updateData.scannedAt = null;
         }
 
         if (status === 'SOLD') {
