@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum TicketStatus {
+  NORMAL
+  VIP
+  SCANNED
+  INVALID
+}
+
+model AccessCode {
+  id              String    @id @default(uuid())
+  code            String    @unique // The 8-char Human Readable ID
+  magicLink       String    @unique // The full URL
+  serialNumber    String    // 0001, 0002 etc.
+  status          TicketStatus @default(NORMAL)
+  
+  scannedAt       DateTime? // Null = Not inside yet
+  votedAt         DateTime? // Null = Has not voted yet
+
+  // One-to-one relation with Vote (One ticket = One vote)
+  vote            Vote?
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model Vote {
+  id            Int      @id @default(autoincrement())
+  
+  // Who voted?
+  accessCodeId  String   @unique
+  accessCode    AccessCode @relation(fields: [accessCodeId], references: [id])
+  
+  // What did they vote for? (Storing Names/IDs of performers)
+  dancingVote   String
+  singingVote   String
+  bandVote      String
+
+  timestamp     DateTime @default(now())
+}

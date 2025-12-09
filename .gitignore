@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+/src/generated/prisma
+
+# Tantalize Ticket Data
+qr_images_normal/
+tantalize_tickets.csv
