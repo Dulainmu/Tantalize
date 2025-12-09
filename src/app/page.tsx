@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 import { useState, useEffect, useRef } from 'react';
-import { ArrowDown, Volume2, VolumeX, Play } from 'lucide-react';
+import { ArrowDown, Volume2, VolumeX, Play, Layers, Aperture, Megaphone, Music } from 'lucide-react';
 import dynamic from 'next/dynamic';
 
 // Lazy load heavy components
@@ -253,7 +253,7 @@ export default function Home() {
   const teamTabs = [
     {
       id: 'logistics' as const,
-      emoji: '📦',
+      icon: Layers,
       name: 'Logistics',
       gradient: 'from-blue-500 via-indigo-500 to-sky-500',
       ring: 'border-blue-400/40',
@@ -277,7 +277,7 @@ export default function Home() {
     },
     {
       id: 'media' as const,
-      emoji: '📸',
+      icon: Aperture,
       name: 'Media',
       gradient: 'from-purple-500 via-fuchsia-500 to-violet-500',
       ring: 'border-purple-400/40',
@@ -296,7 +296,7 @@ export default function Home() {
     },
     {
       id: 'marketing' as const,
-      emoji: '',
+      icon: Megaphone,
       name: 'Marketing',
       gradient: 'from-orange-500 via-amber-400 to-yellow-400',
       ring: 'border-amber-400/40',
@@ -318,7 +318,7 @@ export default function Home() {
     },
     {
       id: 'entertainment' as const,
-      emoji: '🎭',
+      icon: Music,
       name: 'Entertainment',
       gradient: 'from-pink-500 via-rose-400 to-red-400',
       ring: 'border-rose-400/40',
@@ -1326,7 +1326,7 @@ export default function Home() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <span className="text-xl md:text-2xl">{team.emoji}</span>
+                    <team.icon className="w-5 h-5 md:w-6 md:h-6" />
                     <span>{team.name}</span>
                     <span className="tab-indicator" />
                   </motion.button>
@@ -1359,7 +1359,7 @@ export default function Home() {
                       </div>
                       <div>
                         <div className="flex items-center gap-3 text-3xl md:text-4xl font-semibold text-white">
-                          <span className="text-4xl">{activeTeamData.emoji}</span>
+                          <activeTeamData.icon className="w-8 h-8 md:w-10 md:h-10 text-gold-500" />
                           <h4>{activeTeamData.name}</h4>
                         </div>
                         <p className="mt-4 text-base text-gray-300 md:text-lg">{activeTeamData.headline}</p>
@@ -1372,7 +1372,7 @@ export default function Home() {
                         </span>
                         <span className="inline-flex items-center gap-2">
                           <span className="block h-[2px] w-6 rounded-full bg-blue-400/60" />
-                          {activeTeamData.emoji} Focus
+                          <activeTeamData.icon className="w-3 h-3 text-blue-400" /> Focus
                         </span>
                       </div>
                     </div>
