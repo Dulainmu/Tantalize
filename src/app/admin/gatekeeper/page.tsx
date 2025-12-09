@@ -79,7 +79,7 @@ export default function GatekeeperPage() {
                 <div className="w-full max-w-sm aspect-square bg-gray-900 rounded-2xl overflow-hidden border-2 border-gray-700 relative">
                     <Scanner
                         onScan={(result) => result[0] && handleMasterAuth(result[0].rawValue)}
-                        components={{ audio: false }}
+                        components={{}}
                     />
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                         <div className="w-64 h-64 border-2 border-blue-500/50 rounded-xl" />
@@ -126,7 +126,7 @@ export default function GatekeeperPage() {
                     <div className="flex-1 relative overflow-hidden">
                         <Scanner
                             onScan={(result) => result[0] && handleScan(result[0].rawValue)}
-                            components={{ audio: false, finder: false }}
+                            components={{ finder: false }}
                             styles={{ container: { height: '100%' } }}
                         />
 
@@ -157,8 +157,8 @@ export default function GatekeeperPage() {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: 100 }}
                             className={`absolute inset-0 flex flex-col items-center justify-center p-8 z-50 ${(lastResult.status === 'GRANTED' || (scanMode === 'VERIFY' && lastResult.status === 'VALID'))
-                                    ? 'bg-green-600'
-                                    : (lastResult.status === 'USED' ? 'bg-red-600' : 'bg-gray-800')
+                                ? 'bg-green-600'
+                                : (lastResult.status === 'USED' ? 'bg-red-600' : 'bg-gray-800')
                                 }`}
                         >
                             <h1 className="text-6xl font-black mb-4 uppercase tracking-tighter">
