@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, TicketStatus, TicketType } from '@prisma/client';
 import fs from 'fs';
 import path from 'path';
 import { Pool } from 'pg';
@@ -36,14 +36,14 @@ async function main() {
         const code = columns[1].trim();
         const magicLink = columns[2].trim();
 
-        // Status in CSV is "NORMAL", verify against enum
-        // "NORMAL", "VIP" are valid enums.
+        const typeString = columns[3]?.trim().toUpperCase() || 'NORMAL';
 
         ticketsToInsert.push({
             serialNumber,
             code,
             magicLink,
-            status: 'NORMAL' as const // Defaulting all to NORMAL based on CSV
+            type: typeString === 'VIP' ? TicketType.VIP : TicketType.NORMAL,
+            status: TicketStatus.IN_STOCK
         });
     }
 

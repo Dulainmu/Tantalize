@@ -6,38 +6,73 @@ datasource db {
   provider = "postgresql"
 }
 
-enum TicketStatus {
+enum Role {
+  SUPER_ADMIN
+  AGENT
+  GATE_GUARD
+}
+
+enum TicketType {
   NORMAL
   VIP
+}
+
+enum TicketStatus {
+  IN_STOCK
+  ASSIGNED
+  SOLD
   SCANNED
+  BANNED
   INVALID
 }
 
-model AccessCode {
-  id              String    @id @default(uuid())
-  code            String    @unique // The 8-char Human Readable ID
-  magicLink       String    @unique // The full URL
-  serialNumber    String    // 0001, 0002 etc.
-  status          TicketStatus @default(NORMAL)
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String   // Hashed
+  role      Role     @default(AGENT)
   
-  scannedAt       DateTime? // Null = Not inside yet
-  votedAt         DateTime? // Null = Has not voted yet
+  // Relations
+  assignedTickets AccessCode[]
 
-  // One-to-one relation with Vote (One ticket = One vote)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AccessCode {
+  id              String       @id @default(uuid())
+  code            String       @unique // The 8-char Human Readable ID
+  magicLink       String       @unique // The full URL
+  serialNumber    String       // 0001, 0002 etc.
+  
+  type            TicketType   @default(NORMAL)
+  status          TicketStatus @default(IN_STOCK)
+  
+  // Assignment & CRM
+  assignedToId    String?
+  assignedTo      User?        @relation(fields: [assignedToId], references: [id])
+  
+  customerName    String?
+  customerPhone   String?
+  paymentSettled  Boolean      @default(false)
+  soldAt          DateTime?
+
+  scannedAt       DateTime?    // Null = Not inside yet
+  votedAt         DateTime?    // Null = Has not voted yet
+
   vote            Vote?
   
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
 }
 
 model Vote {
   id            Int      @id @default(autoincrement())
   
-  // Who voted?
   accessCodeId  String   @unique
   accessCode    AccessCode @relation(fields: [accessCodeId], references: [id])
   
-  // What did they vote for? (Storing Names/IDs of performers)
   dancingVote   String
   singingVote   String
   bandVote      String
