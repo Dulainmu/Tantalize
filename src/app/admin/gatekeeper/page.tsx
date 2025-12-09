@@ -99,99 +99,106 @@ export default function GatekeeperPage() {
 
     // Main UI
     return (
-        <div className="flex flex-col min-h-screen bg-black text-white">
-            {/* Header */}
-            <div className="flex items-center justify-between p-4 bg-gray-900 border-b border-gray-800">
-                <div>
-                    <h2 className="font-bold text-lg">{gateType} GATE</h2>
-                    <div className="flex gap-2 text-xs">
-                        <button
-                            onClick={() => setScanMode('ENTRY')}
-                            className={`px-2 py-1 rounded ${scanMode === 'ENTRY' ? 'bg-green-600 text-white' : 'bg-gray-800 text-gray-400'}`}
-                        >
-                            ENTRY MODE
-                        </button>
-                        <button
-                            onClick={() => setScanMode('VERIFY')}
-                            className={`px-2 py-1 rounded ${scanMode === 'VERIFY' ? 'bg-blue-600 text-white' : 'bg-gray-800 text-gray-400'}`}
-                        >
-                            VERIFY ONLY
-                        </button>
-                    </div>
-                </div>
-                <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" title="Online" />
+        <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white p-4 relative overflow-hidden">
+
+            {/* Header / Connection Status */}
+            <div className="absolute top-6 right-6 flex items-center gap-2 z-10">
+                <span className="text-xs font-bold text-gray-500 tracking-widest">{gateType} GATE</span>
+                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
             </div>
 
-            {/* Camera Area */}
-            <div className="flex-1 relative bg-black flex flex-col">
-                {!lastResult && (
-                    <div className="flex-1 relative overflow-hidden">
-                        <Scanner
-                            onScan={(result) => result[0] && handleScan(result[0].rawValue)}
-                            components={{ finder: false }}
-                            styles={{
-                                container: { height: '100%', width: '100%' },
-                                video: { objectFit: 'cover' }
-                            }}
-                        />
+            <div className="w-full max-w-sm flex flex-col gap-6 relative z-0">
 
-                        {/* Custom Overlay */}
-                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                            <div className={`w-64 h-64 border-4 rounded-3xl ${scanMode === 'ENTRY' ? 'border-green-500/50' : 'border-blue-500/50'} relative`}>
-                                <div className="absolute top-0 left-0 w-4 h-4 border-t-4 border-l-4 border-white -mt-1 -ml-1" />
-                                <div className="absolute top-0 right-0 w-4 h-4 border-t-4 border-r-4 border-white -mt-1 -mr-1" />
-                                <div className="absolute bottom-0 left-0 w-4 h-4 border-b-4 border-l-4 border-white -mb-1 -ml-1" />
-                                <div className="absolute bottom-0 right-0 w-4 h-4 border-b-4 border-r-4 border-white -mb-1 -mr-1" />
+                {/* Mode Switcher */}
+                <div className="flex bg-gray-900/80 p-1 rounded-xl border border-gray-800 backdrop-blur-sm">
+                    <button
+                        onClick={() => setScanMode('ENTRY')}
+                        className={`flex-1 py-3 rounded-lg text-sm font-bold transition-all ${scanMode === 'ENTRY'
+                                ? 'bg-gradient-to-tr from-green-600 to-emerald-500 text-white shadow-lg'
+                                : 'text-gray-400 hover:text-white'
+                            }`}
+                    >
+                        ENTRY MODE
+                    </button>
+                    <button
+                        onClick={() => setScanMode('VERIFY')}
+                        className={`flex-1 py-3 rounded-lg text-sm font-bold transition-all ${scanMode === 'VERIFY'
+                                ? 'bg-gradient-to-tr from-blue-600 to-indigo-500 text-white shadow-lg'
+                                : 'text-gray-400 hover:text-white'
+                            }`}
+                    >
+                        VERIFY ONLY
+                    </button>
+                </div>
 
-                                {/* Scanning Line */}
-                                <motion.div
-                                    className={`absolute left-0 right-0 h-1 ${scanMode === 'ENTRY' ? 'bg-green-500' : 'bg-blue-500'} shadow-[0_0_10px_currentColor]`}
-                                    animate={{ top: ['0%', '100%', '0%'] }}
-                                    transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                )}
+                {/* Scanner Card */}
+                <div className="aspect-square bg-gray-900 rounded-3xl overflow-hidden border-4 border-gray-800 relative shadow-2xl">
+                    {!lastResult && (
+                        <>
+                            <Scanner
+                                onScan={(result) => result[0] && handleScan(result[0].rawValue)}
+                                components={{ finder: false }}
+                                styles={{
+                                    container: { height: '100%', width: '100%' },
+                                    video: { objectFit: 'cover' }
+                                }}
+                            />
 
-                {/* Result Overlay */}
-                <AnimatePresence>
-                    {lastResult && (
-                        <motion.div
-                            initial={{ opacity: 0, y: 100 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: 100 }}
-                            className={`absolute inset-0 flex flex-col items-center justify-center p-8 z-50 ${(lastResult.status === 'GRANTED' || (scanMode === 'VERIFY' && lastResult.status === 'VALID'))
-                                ? 'bg-green-600'
-                                : (lastResult.status === 'USED' ? 'bg-red-600' : 'bg-gray-800')
-                                }`}
-                        >
-                            <h1 className="text-6xl font-black mb-4 uppercase tracking-tighter">
-                                {lastResult.status === 'GRANTED' ? 'WELCOME' : lastResult.status}
-                            </h1>
-                            <p className="text-2xl font-medium opacity-90 mb-8">{lastResult.message}</p>
-
-                            <div className="bg-black/20 p-4 rounded-xl w-full max-w-xs mb-8">
-                                <div className="flex justify-between mb-2">
-                                    <span className="opacity-60">ID</span>
-                                    <span className="font-mono">{lastResult.ticket?.code || '---'}</span>
-                                </div>
-                                <div className="flex justify-between">
-                                    <span className="opacity-60">Type</span>
-                                    <span className="font-mono">{lastResult.ticket?.status || 'UNKNOWN'}</span>
+                            {/* Scanning Overlay */}
+                            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                <div className={`w-3/4 h-3/4 border-2 rounded-2xl ${scanMode === 'ENTRY' ? 'border-green-500/30' : 'border-blue-500/30'} relative`}>
+                                    <div className="absolute inset-0 border-2 border-white/20 rounded-2xl scale-110" />
+                                    <motion.div
+                                        className={`absolute left-0 right-0 h-0.5 ${scanMode === 'ENTRY' ? 'bg-green-400' : 'bg-blue-400'} shadow-[0_0_15px_currentColor]`}
+                                        animate={{ top: ['10%', '90%', '10%'] }}
+                                        transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+                                    />
                                 </div>
                             </div>
-
-                            <button
-                                onClick={resetScan}
-                                className="bg-white text-black px-12 py-4 rounded-full font-bold text-lg shadow-xl hover:scale-105 transition-transform"
-                            >
-                                SCAN NEXT
-                            </button>
-
-                        </motion.div>
+                        </>
                     )}
-                </AnimatePresence>
+
+                    {/* Result Overlay (In-Card) */}
+                    <AnimatePresence>
+                        {lastResult && (
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.9 }}
+                                className={`absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-20 ${(lastResult.status === 'GRANTED' || (scanMode === 'VERIFY' && lastResult.status === 'VALID'))
+                                        ? 'bg-emerald-600'
+                                        : (lastResult.status === 'USED' ? 'bg-red-600' : 'bg-gray-800')
+                                    }`}
+                            >
+                                <motion.div
+                                    initial={{ scale: 0 }}
+                                    animate={{ scale: 1 }}
+                                    className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mb-4 backdrop-blur-md"
+                                >
+                                    {lastResult.status === 'GRANTED' || lastResult.status === 'VALID' ? '✓' : '✕'}
+                                </motion.div>
+
+                                <h2 className="text-3xl font-black uppercase tracking-tight mb-2">
+                                    {lastResult.status === 'GRANTED' ? 'ACCESS GRANTED' : lastResult.status}
+                                </h2>
+                                <p className="text-white/80 font-medium mb-6 text-sm px-4 leading-relaxed">
+                                    {lastResult.message}
+                                </p>
+
+                                <button
+                                    onClick={resetScan}
+                                    className="w-full bg-white text-black py-4 rounded-xl font-bold text-sm tracking-widest hover:scale-105 active:scale-95 transition-transform shadow-xl"
+                                >
+                                    SCAN NEXT
+                                </button>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+                </div>
+
+                <p className="text-center text-gray-500 text-xs">
+                    Align QR code within the frame
+                </p>
             </div>
         </div>
     );
