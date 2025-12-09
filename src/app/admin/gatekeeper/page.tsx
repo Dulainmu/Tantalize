@@ -4,6 +4,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Scanner } from '@yudiel/react-qr-scanner';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// Build Trigger: Audio prop verified removed.
+
 export default function GatekeeperPage() {
     const [authorized, setAuthorized] = useState(false);
     const [gateType, setGateType] = useState<'NORMAL' | 'VIP'>('NORMAL');
