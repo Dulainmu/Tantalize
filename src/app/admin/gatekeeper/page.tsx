@@ -129,7 +129,10 @@ export default function GatekeeperPage() {
                         <Scanner
                             onScan={(result) => result[0] && handleScan(result[0].rawValue)}
                             components={{ finder: false }}
-                            styles={{ container: { height: '100%' } }}
+                            styles={{
+                                container: { height: '100%', width: '100%' },
+                                video: { objectFit: 'cover' }
+                            }}
                         />
 
                         {/* Custom Overlay */}
