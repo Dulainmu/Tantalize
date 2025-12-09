@@ -101,6 +101,54 @@ export async function POST(req: NextRequest) {
             count: updated.count
         });
 
+        return NextResponse.json({
+            success: true,
+            message: `Successfully assigned ${updated.count} tickets to agent.`,
+            count: updated.count
+        });
+
+    } catch (error) {
+        console.error(error);
+        return NextResponse.json({ success: false, message: 'Server Error' }, { status: 500 });
+    }
+}
+
+// PATCH: Update Single Ticket
+export async function PATCH(req: NextRequest) {
+    const session = await getSession();
+    if (!session || session.role !== 'SUPER_ADMIN') {
+        return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
+    }
+
+    try {
+        const { id, status, paymentSettled } = await req.json();
+
+        if (!id) {
+            return NextResponse.json({ success: false, message: 'Missing Ticket ID' }, { status: 400 });
+        }
+
+        const updateData: any = {};
+        if (status) updateData.status = status;
+        if (paymentSettled !== undefined) updateData.paymentSettled = paymentSettled;
+
+        // If marking as IN_STOCK, should we clear assignment? 
+        // Logic: If manual override to IN_STOCK, probably yes.
+        if (status === 'IN_STOCK') {
+            updateData.assignedToId = null;
+            updateData.paymentSettled = false;
+        }
+
+        if (status === 'SOLD') {
+            updateData.soldAt = new Date();
+        }
+
+        const updated = await prisma.accessCode.update({
+            where: { id },
+            data: updateData
+        });
+
+        return NextResponse.json({ success: true, ticket: updated });
+
     } catch (error) {
         console.error(error);
         return NextResponse.json({ success: false, message: 'Server Error' }, { status: 500 });

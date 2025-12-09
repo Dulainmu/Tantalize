@@ -97,6 +97,42 @@ export default function InventoryPage() {
         }
     };
 
+    // Edit Mode
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [editingTicket, setEditingTicket] = useState<Ticket | null>(null);
+    const [editStatus, setEditStatus] = useState('');
+
+    const openEdit = (ticket: Ticket) => {
+        setEditingTicket(ticket);
+        setEditStatus(ticket.status);
+        setShowEditModal(true);
+    };
+
+    const handleStatusUpdate = async () => {
+        if (!editingTicket) return;
+
+        try {
+            const res = await fetch('/api/admin/inventory', {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    id: editingTicket.id,
+                    status: editStatus
+                })
+            });
+            const data = await res.json();
+
+            if (data.success) {
+                setShowEditModal(false);
+                fetchTickets(); // Refresh
+            } else {
+                alert('Error: ' + data.message);
+            }
+        } catch (err) {
+            alert('Network Error');
+        }
+    };
+
     return (
         <div className="min-h-screen bg-black text-white p-6">
             <header className="flex justify-between items-center mb-8">
@@ -148,6 +184,7 @@ export default function InventoryPage() {
                             <th className="px-6 py-4">Assigned To</th>
                             <th className="px-6 py-4">Customer</th>
                             <th className="px-6 py-4">ID Code</th>
+                            <th className="px-6 py-4">Actions</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-zinc-800">
@@ -158,10 +195,10 @@ export default function InventoryPage() {
                                 <td className="px-6 py-4 font-mono text-blue-400 font-bold">#{t.serialNumber}</td>
                                 <td className="px-6 py-4">
                                     <span className={`px-2 py-1 rounded text-xs font-bold ${t.status === 'IN_STOCK' ? 'bg-zinc-700 text-zinc-300' :
-                                            t.status === 'ASSIGNED' ? 'bg-purple-900 text-purple-200' :
-                                                t.status === 'SOLD' ? 'bg-green-900 text-green-200' :
-                                                    t.status === 'SCANNED' ? 'bg-blue-900 text-blue-200' :
-                                                        'bg-red-900 text-red-200'
+                                        t.status === 'ASSIGNED' ? 'bg-purple-900 text-purple-200' :
+                                            t.status === 'SOLD' ? 'bg-green-900 text-green-200' :
+                                                t.status === 'SCANNED' ? 'bg-blue-900 text-blue-200' :
+                                                    'bg-red-900 text-red-200'
                                         }`}>
                                         {t.status}
                                     </span>
@@ -169,6 +206,14 @@ export default function InventoryPage() {
                                 <td className="px-6 py-4 text-zinc-300">{t.assignedTo?.name || '-'}</td>
                                 <td className="px-6 py-4 text-zinc-400">{t.customerName || '-'}</td>
                                 <td className="px-6 py-4 font-mono text-xs opacity-50">{t.code}</td>
+                                <td className="px-6 py-4">
+                                    <button
+                                        onClick={() => openEdit(t)}
+                                        className="text-xs bg-zinc-800 hover:bg-zinc-700 px-3 py-1 rounded border border-zinc-700 text-zinc-300"
+                                    >
+                                        Edit
+                                    </button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
@@ -257,6 +302,62 @@ export default function InventoryPage() {
                                     </button>
                                 </div>
                             </form>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
+
+            {/* Edit Status Modal */}
+            <AnimatePresence>
+                {showEditModal && editingTicket && (
+                    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+                        <motion.div
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.9, opacity: 0 }}
+                            className="bg-zinc-900 border border-zinc-700 p-8 rounded-2xl w-full max-w-md shadow-2xl"
+                        >
+                            <h2 className="text-2xl font-bold mb-1">Edit Ticket</h2>
+                            <p className="text-zinc-500 mb-6 font-mono">#{editingTicket.serialNumber} ({editingTicket.code})</p>
+
+                            <div className="space-y-4">
+                                <div>
+                                    <label className="block text-xs font-bold text-zinc-500 uppercase mb-1">Status</label>
+                                    <select
+                                        className="w-full bg-black border border-zinc-700 rounded-lg p-3"
+                                        value={editStatus}
+                                        onChange={(e) => setEditStatus(e.target.value)}
+                                    >
+                                        <option value="IN_STOCK">IN_STOCK (Reset)</option>
+                                        <option value="ASSIGNED">ASSIGNED</option>
+                                        <option value="SOLD">SOLD</option>
+                                        <option value="SCANNED">SCANNED (Used)</option>
+                                        <option value="BANNED">BANNED (Lost/Stolen)</option>
+                                        <option value="INVALID">INVALID</option>
+                                    </select>
+                                </div>
+
+                                <div className="text-xs text-zinc-500 bg-zinc-950 p-3 rounded">
+                                    <p>⚠️ Changing status manually overrides normal flows.</p>
+                                    <p>• <b>IN_STOCK</b>: Clears assignment.</p>
+                                    <p>• <b>BANNED/INVALID</b>: Ticket will be rejected at gate.</p>
+                                </div>
+
+                                <div className="flex gap-3 mt-6">
+                                    <button
+                                        onClick={() => setShowEditModal(false)}
+                                        className="flex-1 bg-zinc-800 hover:bg-zinc-700 py-3 rounded-xl font-bold"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        onClick={handleStatusUpdate}
+                                        className="flex-1 bg-white text-black hover:bg-gray-200 py-3 rounded-xl font-bold shadow-lg"
+                                    >
+                                        Save Changes
+                                    </button>
+                                </div>
+                            </div>
                         </motion.div>
                     </div>
                 )}
