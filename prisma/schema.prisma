@@ -10,6 +10,7 @@ enum Role {
   SUPER_ADMIN
   AGENT
   GATE_GUARD
+  TREASURER
 }
 
 enum TicketType {
@@ -78,4 +79,16 @@ model Vote {
   bandVote      String
 
   timestamp     DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  action    String   // e.g. ASSIGN_BATCH, MARK_SOLD, SETTLE_FINANCE
+  entityId  String   // ID of the thing being affected (TicketID, UserID)
+  details   String?  // JSON string or description
+  
+  actorId   String   // User ID who did it
+  actorName String   // Snapshot of name
+  
+  timestamp DateTime @default(now())
 }
