@@ -134,15 +134,15 @@ export default function InventoryPage() {
     };
 
     return (
-        <div className="min-h-screen bg-black text-white p-6">
+        <div>
             <header className="flex justify-between items-center mb-8">
                 <div>
                     <h1 className="text-3xl font-bold">Master Inventory</h1>
-                    <p className="text-zinc-500">Manage {1500} Total Tickets</p>
+                    <p className="text-gray-400">Manage 1,500 Total Tickets</p>
                 </div>
                 <button
                     onClick={() => setShowAssignModal(true)}
-                    className="bg-blue-600 hover:bg-blue-500 text-white px-6 py-3 rounded-xl font-bold shadow-lg transition-transform hover:scale-105 flex items-center gap-2"
+                    className="bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-400 hover:to-amber-500 text-black px-6 py-3 rounded-xl font-bold shadow-lg transition-transform hover:scale-105 flex items-center gap-2"
                 >
                     📦 Batch Assign
                 </button>

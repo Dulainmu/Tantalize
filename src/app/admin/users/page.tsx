@@ -61,15 +61,15 @@ export default function CommitteePage() {
     };
 
     return (
-        <div className="min-h-screen bg-black text-white p-6">
+        <div>
             <header className="flex justify-between items-center mb-8">
                 <div>
                     <h1 className="text-3xl font-bold">Committee Management</h1>
-                    <p className="text-zinc-500">Manage Agents & Finance Settlement</p>
+                    <p className="text-gray-400">Manage Agents & Finance Settlement</p>
                 </div>
                 <button
                     onClick={() => setShowModal(true)}
-                    className="bg-purple-600 hover:bg-purple-500 text-white px-6 py-3 rounded-xl font-bold shadow-lg transition-transform hover:scale-105 flex items-center gap-2"
+                    className="bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-400 hover:to-indigo-500 text-white px-6 py-3 rounded-xl font-bold shadow-lg transition-transform hover:scale-105 flex items-center gap-2"
                 >
                     + Add Member
                 </button>

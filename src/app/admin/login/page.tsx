@@ -38,16 +38,16 @@ export default function AdminLoginPage() {
     };
 
     return (
-        <div className="min-h-screen bg-black text-white flex items-center justify-center p-4">
+        <div className="min-h-screen bg-gradient-to-br from-[#0a0e27] via-[#1a1232] to-[#0a0e27] text-white flex items-center justify-center p-4">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="w-full max-w-md bg-zinc-900 bordered border-zinc-800 p-8 rounded-2xl shadow-2xl"
+                className="w-full max-w-md bg-gradient-to-br from-[#1a1232]/90 to-[#0f1229]/90 border border-white/10 p-8 rounded-2xl shadow-2xl backdrop-blur-xl"
             >
-                <h1 className="text-3xl font-bold mb-2 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+                <h1 className="text-3xl font-bold mb-2 text-center text-transparent bg-clip-text bg-gradient-to-r from-gold-400 to-amber-500">
                     Command Center
                 </h1>
-                <p className="text-zinc-500 text-center mb-8">Access the Tantalize Brain</p>
+                <p className="text-gray-400 text-center mb-8">Access the Tantalize Brain</p>
 
                 <form onSubmit={handleLogin} className="space-y-6">
                     <div>
