@@ -3,6 +3,7 @@ import { PrismaClient } from '@prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { Pool } from 'pg';
 import { getSession } from '@/lib/auth';
+import { createAuditLog } from '@/lib/audit';
 
 const connectionString = process.env.DATABASE_URL;
 const pool = new Pool({ connectionString });
@@ -48,6 +49,15 @@ export async function POST(req: NextRequest) {
                 customerName: customerName || null,
                 customerPhone: customerPhone || null
             }
+        });
+
+        // Log it
+        await createAuditLog({
+            action: 'MARK_SOLD',
+            entityId: ticketId,
+            actorId: session.id as string,
+            actorName: session.name as string,
+            details: { customerName, customerPhone }
         });
 
         return NextResponse.json({ success: true, ticket: updated });

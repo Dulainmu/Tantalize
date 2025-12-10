@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
+import { createAuditLog } from '@/lib/audit';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { Pool } from 'pg';
 
@@ -92,6 +93,15 @@ export async function POST(req: NextRequest) {
                         status: 'SCANNED',
                         scannedAt: new Date(),
                     }
+                });
+
+                // Log Entry
+                await createAuditLog({
+                    action: 'GATE_ENTRY',
+                    entityId: ticket.id,
+                    actorId: 'GATEKEEPER', // Or pass user ID if gatekeeper authentication is robust
+                    actorName: 'Gatekeeper', // Placeholder until Gatekeeper Auth is fully session-based
+                    details: { status: isWarning ? 'WARNING' : 'GRANTED', message }
                 });
 
                 return NextResponse.json({
