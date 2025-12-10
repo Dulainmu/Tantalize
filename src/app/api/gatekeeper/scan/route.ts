@@ -44,23 +44,47 @@ export async function POST(req: NextRequest) {
         }
 
         // 2. State Check
-        // Status can be: 'NORMAL', 'VIP', 'SCANNED', 'INVALID'
-        // Also check 'scannedAt' timestamp for robustness
+        // Status can be: 'IN_STOCK', 'ASSIGNED', 'SOLD', 'SCANNED', 'BANNED', 'INVALID'
 
         let resultStatus = 'VALID';
         let message = 'Ticket Valid';
+        let allowEntry = false;
+        let isWarning = false;
 
-        if (ticket.status === 'INVALID') {
+        // Check lifecycle status
+        if (ticket.status === 'INVALID' || ticket.status === 'BANNED') {
             resultStatus = 'INVALID';
-            message = 'Ticket Blocked/Invalid';
-        } else if (ticket.scannedAt !== null || ticket.status === 'SCANNED') {
+            message = 'Ticket Blocked/Banned';
+            allowEntry = false;
+        }
+        else if (ticket.scannedAt !== null || ticket.status === 'SCANNED') {
             resultStatus = 'USED';
             message = `Already Scanned at ${ticket.scannedAt?.toLocaleTimeString()}`;
+            allowEntry = false;
+        }
+        else if (ticket.status === 'IN_STOCK') {
+            resultStatus = 'INVALID';
+            message = 'Ticket Not Issued (In Stock)';
+            allowEntry = false;
+        }
+        else if (ticket.status === 'ASSIGNED') {
+            // Ticket is with an agent but not marked sold.
+            // Allow entry but WARN.
+            resultStatus = 'WARNING';
+            message = 'Unpaid/Unsold Ticket - Check with Agent';
+            allowEntry = true;
+            isWarning = true;
+        }
+        else if (ticket.status === 'SOLD') {
+            // Perfect case
+            resultStatus = 'VALID';
+            message = 'Access Granted';
+            allowEntry = true;
         }
 
         // 3. Action (depending on Mode)
         if (mode === 'ENTRY') {
-            if (resultStatus === 'VALID') {
+            if (allowEntry) {
                 // Update DB to mark as Entered
                 const updated = await prisma.accessCode.update({
                     where: { id: ticket.id },
@@ -69,26 +93,27 @@ export async function POST(req: NextRequest) {
                         scannedAt: new Date(),
                     }
                 });
+
                 return NextResponse.json({
                     success: true,
-                    status: 'GRANTED',
+                    status: isWarning ? 'WARNING' : 'GRANTED',
                     ticket: updated,
-                    message: 'Access Granted'
+                    message: isWarning ? message : 'Access Granted'
                 });
             } else {
                 // Entry Denied
                 return NextResponse.json({
                     success: false,
-                    status: resultStatus, // USED or INVALID
+                    status: resultStatus,
                     ticket: ticket,
                     message: message
-                }, { status: 409 }); // 409 Conflict
+                }, { status: 409 });
             }
         } else {
-            // VERIFY Mode (Read Only)
+            // VERIFY Mode
             return NextResponse.json({
                 success: true,
-                status: resultStatus, // VALID, USED, or INVALID
+                status: resultStatus,
                 ticket: ticket,
                 message: message
             });

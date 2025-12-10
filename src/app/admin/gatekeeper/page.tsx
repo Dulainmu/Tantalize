@@ -114,8 +114,8 @@ export default function GatekeeperPage() {
                     <button
                         onClick={() => setScanMode('ENTRY')}
                         className={`flex-1 py-3 rounded-lg text-sm font-bold transition-all ${scanMode === 'ENTRY'
-                                ? 'bg-gradient-to-tr from-green-600 to-emerald-500 text-white shadow-lg'
-                                : 'text-gray-400 hover:text-white'
+                            ? 'bg-gradient-to-tr from-green-600 to-emerald-500 text-white shadow-lg'
+                            : 'text-gray-400 hover:text-white'
                             }`}
                     >
                         ENTRY MODE
@@ -123,8 +123,8 @@ export default function GatekeeperPage() {
                     <button
                         onClick={() => setScanMode('VERIFY')}
                         className={`flex-1 py-3 rounded-lg text-sm font-bold transition-all ${scanMode === 'VERIFY'
-                                ? 'bg-gradient-to-tr from-blue-600 to-indigo-500 text-white shadow-lg'
-                                : 'text-gray-400 hover:text-white'
+                            ? 'bg-gradient-to-tr from-blue-600 to-indigo-500 text-white shadow-lg'
+                            : 'text-gray-400 hover:text-white'
                             }`}
                     >
                         VERIFY ONLY
@@ -165,29 +165,38 @@ export default function GatekeeperPage() {
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.9 }}
-                                className={`absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-20 ${(lastResult.status === 'GRANTED' || (scanMode === 'VERIFY' && lastResult.status === 'VALID'))
-                                        ? 'bg-emerald-600'
-                                        : (lastResult.status === 'USED' ? 'bg-red-600' : 'bg-gray-800')
-                                    }`}
+                                className={`absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-20 transition-colors duration-300
+                                    ${(lastResult.status === 'GRANTED' || (scanMode === 'VERIFY' && lastResult.status === 'VALID')) ? 'bg-emerald-600' : ''}
+                                    ${lastResult.status === 'WARNING' ? 'bg-amber-500 text-black' : ''}
+                                    ${(lastResult.status === 'USED' || lastResult.status === 'INVALID') ? 'bg-red-600' : ''}
+                                `}
                             >
                                 <motion.div
                                     initial={{ scale: 0 }}
                                     animate={{ scale: 1 }}
-                                    className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mb-4 backdrop-blur-md"
+                                    className={`w-16 h-16 rounded-full flex items-center justify-center mb-4 backdrop-blur-md ${lastResult.status === 'WARNING' ? 'bg-black/20 text-black' : 'bg-white/20 text-white'}`}
                                 >
-                                    {lastResult.status === 'GRANTED' || lastResult.status === 'VALID' ? '✓' : '✕'}
+                                    {lastResult.status === 'GRANTED' || lastResult.status === 'VALID' ? '✓' : ''}
+                                    {lastResult.status === 'WARNING' ? '!' : ''}
+                                    {lastResult.status === 'USED' || lastResult.status === 'INVALID' ? '✕' : ''}
                                 </motion.div>
 
-                                <h2 className="text-3xl font-black uppercase tracking-tight mb-2">
-                                    {lastResult.status === 'GRANTED' ? 'ACCESS GRANTED' : lastResult.status}
+                                <h2 className={`text-3xl font-black uppercase tracking-tight mb-2 ${lastResult.status === 'WARNING' ? 'text-black' : 'text-white'}`}>
+                                    {lastResult.status === 'GRANTED' ? 'ACCESS GRANTED' : ''}
+                                    {lastResult.status === 'WARNING' ? '⚠️ UNPAID TICKET' : ''}
+                                    {lastResult.status === 'USED' ? 'ALREADY USED' : ''}
+                                    {lastResult.status === 'INVALID' ? 'INVALID / BANNED' : ''}
+                                    {lastResult.status === 'VALID' ? 'VALID TICKET' : ''}
                                 </h2>
-                                <p className="text-white/80 font-medium mb-6 text-sm px-4 leading-relaxed">
+                                <p className={`font-medium mb-6 text-sm px-4 leading-relaxed ${lastResult.status === 'WARNING' ? 'text-black/80' : 'text-white/80'}`}>
                                     {lastResult.message}
                                 </p>
 
                                 <button
                                     onClick={resetScan}
-                                    className="w-full bg-white text-black py-4 rounded-xl font-bold text-sm tracking-widest hover:scale-105 active:scale-95 transition-transform shadow-xl"
+                                    className={`w-full py-4 rounded-xl font-bold text-sm tracking-widest hover:scale-105 active:scale-95 transition-transform shadow-xl
+                                        ${lastResult.status === 'WARNING' ? 'bg-black text-white' : 'bg-white text-black'}
+                                    `}
                                 >
                                     SCAN NEXT
                                 </button>
