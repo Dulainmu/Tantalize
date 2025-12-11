@@ -1,3 +1,4 @@
+
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
@@ -9,57 +10,70 @@ const pool = new Pool({ connectionString });
 const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
-const TICKET_PRICE = 1500; // Rs. 1500 per ticket
+const TICKET_PRICE = 1500;
 
 export async function GET(req: NextRequest) {
     const session = await getSession();
-    if (!session || (session.role !== 'AGENT' && session.role !== 'SUPER_ADMIN')) {
-        return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
+    if (!session || session.role !== 'AGENT') {
+        // Allow Super Admin to view specific agent wallet?
+        // For now, minimal.
+        if (session && session.role === 'SUPER_ADMIN') {
+            // Admin viewing their own wallet? Or Debug? Let's just block non-agents or self-view.
+            // If Admin wants to view Agent, they use Admin Dashboard.
+            // This is for MOBILE APP login.
+        } else {
+            return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
+        }
     }
 
     try {
-        const userId = session.id as string;
+        const userId = session.sub as string;
 
-        // Fetch all tickets assigned to this agent
-        const tickets = await prisma.accessCode.findMany({
-            where: { assignedToId: userId },
-            orderBy: { serialNumber: 'asc' },
-            select: {
-                id: true,
-                serialNumber: true,
-                code: true,
-                status: true,
-                customerName: true,
-                paymentSettled: true
+        // 1. Stock Count (Assigned, Not Sold)
+        const stockCount = await prisma.accessCode.count({
+            where: {
+                assignedToId: userId,
+                status: 'ASSIGNED'
             }
         });
 
-        // Calculate Stats
-        const total = tickets.length;
-        const sold = tickets.filter(t => t.status === 'SOLD' || t.status === 'SCANNED').length;
-        const settled = tickets.filter(t => t.paymentSettled).length;
+        // 2. Cash Liability (Sold/Scanned, Not Settled)
+        const liabilityTickets = await prisma.accessCode.count({
+            where: {
+                assignedToId: userId,
+                status: { in: ['SOLD', 'SCANNED'] },
+                paymentSettled: false
+            }
+        });
+        const cashLiability = liabilityTickets * TICKET_PRICE;
 
-        // Cash in Hand logic:
-        // Cash in Hand = (Sold - Settled) * Price
-        // Assuming settled tickets means cash was handed over.
-        // If a ticket is SOLD but not settled, agent has the cash.
-        const soldUnsettled = tickets.filter(t => (t.status === 'SOLD' || t.status === 'SCANNED') && !t.paymentSettled).length;
-        const cashInHand = soldUnsettled * TICKET_PRICE;
+        // 3. Last Settlement Status
+        const lastSettlement = await prisma.settlement.findFirst({
+            where: { agentId: userId },
+            orderBy: { timestamp: 'desc' },
+            take: 1
+        });
+
+        // 4. Pending Transfers (Incoming)
+        const pendingTransfers = await prisma.ticketTransfer.count({
+            where: { toAgentId: userId, status: 'PENDING' }
+        });
 
         return NextResponse.json({
             success: true,
-            stats: {
-                total,
-                sold,
-                settled,
-                cashInHand,
-                ticketPrice: TICKET_PRICE
-            },
-            tickets
+            wallet: {
+                stock: stockCount,
+                liability: cashLiability,
+                lastSettlement: lastSettlement ? {
+                    date: lastSettlement.timestamp,
+                    amount: lastSettlement.amount,
+                    status: lastSettlement.status
+                } : null,
+                pendingTransfers
+            }
         });
 
-    } catch (error) {
-        console.error(error);
+    } catch (e) {
         return NextResponse.json({ success: false, message: 'Server Error' }, { status: 500 });
     }
 }
