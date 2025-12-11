@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
 
     try {
         const userId = session.sub as string;
-        const userId = session.sub as string;
+
         const userName = (session.name as string) || 'Agent';
 
         // Transaction: Update all tickets to SOLD
