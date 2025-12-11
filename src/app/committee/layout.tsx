@@ -15,9 +15,11 @@ export default function CommitteeLayout({ children }: { children: React.ReactNod
             {/* Top Bar (Optional, maybe just Branding) */}
             <header className="p-4 flex justify-between items-center bg-gray-900/50 backdrop-blur sticky top-0 z-50">
                 <span className="font-bold text-lg tracking-widest text-primary">TANTALIZE</span>
-                <div className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center">
-                    <User size={16} />
-                </div>
+                <Link href="/committee/profile">
+                    <div className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gray-700 transition-colors cursor-pointer">
+                        <User size={16} />
+                    </div>
+                </Link>
             </header>
 
             <main className="p-4">

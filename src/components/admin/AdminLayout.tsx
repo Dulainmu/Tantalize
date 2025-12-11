@@ -110,6 +110,16 @@ export default function AdminLayout({ children, userName = 'Admin', userRole = '
                             <p className="font-medium truncate">{userName}</p>
                             <p className="text-xs text-gray-500 uppercase">{userRole}</p>
                         </div>
+                        <button
+                            onClick={async () => {
+                                await fetch('/api/auth/logout', { method: 'POST' });
+                                window.location.href = '/admin/login';
+                            }}
+                            className="p-2 hover:bg-white/10 rounded-lg text-gray-400 hover:text-white transition-colors"
+                            title="Sign Out"
+                        >
+                            <span className="text-xl">🚪</span>
+                        </button>
                     </div>
                 </div>
             </aside>

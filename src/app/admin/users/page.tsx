@@ -86,7 +86,7 @@ export default function CommitteePage() {
                             </div>
                             <span className={`px-2 py-1 rounded text-xs font-bold uppercase ${user.role === 'SUPER_ADMIN' ? 'bg-indigo-900 text-indigo-300' : 'bg-gray-800 text-gray-400'
                                 }`}>
-                                {user.role}
+                                {user.role === 'AGENT' ? 'COMMITTEE MEMBER' : user.role}
                             </span>
                         </div>
 
@@ -159,7 +159,7 @@ export default function CommitteePage() {
                                         value={formData.role}
                                         onChange={(e) => setFormData({ ...formData, role: e.target.value })}
                                     >
-                                        <option value="AGENT">Agent (Member)</option>
+                                        <option value="AGENT">Committee Member</option>
                                         <option value="SUPER_ADMIN">Super Admin</option>
                                         <option value="GATEKEEPER">Gatekeeper</option>
                                     </select>
