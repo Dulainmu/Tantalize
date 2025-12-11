@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
                         action: 'TRANSFER_ACCEPT',
                         entityId: String(transfer.id),
                         actorId: userId,
-                        actorName: session.name || 'Agent',
+                        actorName: (session.name as string) || 'Agent',
                         details: JSON.stringify({ count: transfer.tickets.length, from: transfer.fromAgentId })
                     }
                 });
