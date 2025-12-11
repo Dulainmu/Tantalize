@@ -10,7 +10,7 @@ export async function middleware(req: NextRequest) {
 
     // 1. Define Protected Routes
     const isAdminRoute = pathname.startsWith('/admin') && !pathname.startsWith('/admin/login');
-    const isCommitteeRoute = pathname.startsWith('/committee');
+    const isCommitteeRoute = pathname.startsWith('/committee') && !pathname.startsWith('/committee/login');
     const isTreasurerRoute = pathname.startsWith('/treasurer');
 
     // 4. Deprecated Route Redirection
