@@ -3,6 +3,7 @@ import { PrismaClient, Role } from '@prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { Pool } from 'pg';
 import { getSession } from '@/lib/auth';
+import { hashSync } from 'bcryptjs';
 
 const connectionString = process.env.DATABASE_URL;
 const pool = new Pool({ connectionString });
@@ -48,11 +49,13 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ success: false, message: 'Email already exists' }, { status: 400 });
         }
 
+        const hashedPassword = hashSync(password, 10);
+
         const newUser = await prisma.user.create({
             data: {
                 name,
                 email,
-                password, // TODO: Hash this in real prod
+                password: hashedPassword,
                 role: role || 'AGENT'
             }
         });
