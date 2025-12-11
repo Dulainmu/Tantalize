@@ -56,7 +56,7 @@ export default async function TicketPage({ params }: { params: { id: string } })
                     </div>
                     <div className="text-center">
                         <p className="text-3xl font-mono font-bold tracking-widest text-white">{ticket.code}</p>
-                        {ticket.customerName && <p className="text-sm text-gray-400 mt-2">Hello, {ticket.customerName}</p>}
+                        {ticket.ownerName && <p className="text-sm text-gray-400 mt-2">Hello, {ticket.ownerName}</p>}
                     </div>
                 </div>
 
