@@ -53,6 +53,7 @@ export async function POST(req: NextRequest) {
                 data: {
                     action: 'FINANCE_SETTLE',
                     actorId: session.sub as string,
+                    actorName: (session.name as string) || 'Treasurer',
                     entityId: String(settlement.id), // Settlement ID
                     details: JSON.stringify({ agentId, amount, count: ticketIds.length })
                 }
