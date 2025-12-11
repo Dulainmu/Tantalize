@@ -17,7 +17,8 @@ type AuditAction =
     | 'TRANSFER'
     | 'GATE_ENTRY'
     | 'GATE_DENY'
-    | 'FINANCE_SETTLE';
+    | 'FINANCE_SETTLE'
+    | 'BIND_SWAP';
 
 interface LogParams {
     action: AuditAction;

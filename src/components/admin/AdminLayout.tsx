@@ -1,9 +1,9 @@
 'use client';
 
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 type AdminLayoutProps = {
     children: ReactNode;
@@ -16,17 +16,43 @@ const navItems = [
     { href: '/admin/inventory', label: 'Inventory', icon: '📦' },
     { href: '/admin/users', label: 'Committee', icon: '👥' },
     { href: '/admin/gatekeeper', label: 'Gatekeeper', icon: '🚪' },
+    { href: '/admin/binder', label: 'Binder', icon: '🔗' },
+    { href: '/admin/settings', label: 'Settings', icon: '⚙️' },
 ];
 
 export default function AdminLayout({ children, userName = 'Admin', userRole = 'SUPER_ADMIN' }: AdminLayoutProps) {
     const pathname = usePathname();
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    // Close mobile menu when route changes
+    useEffect(() => {
+        setIsMobileMenuOpen(false);
+    }, [pathname]);
 
     return (
-        <div className="min-h-screen bg-[#0a0e27] text-white flex">
+        <div className="min-h-screen bg-[#0a0e27] text-white flex relative">
+
+            {/* Mobile Overlay */}
+            <AnimatePresence>
+                {isMobileMenuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="fixed inset-0 bg-black/60 z-40 md:hidden backdrop-blur-sm"
+                    />
+                )}
+            </AnimatePresence>
+
             {/* Sidebar */}
-            <aside className="w-64 fixed left-0 top-0 bottom-0 bg-gradient-to-b from-[#1a1232]/90 to-[#0a0e27] border-r border-white/10 backdrop-blur-xl z-50 flex flex-col">
+            <aside className={`
+                w-64 fixed left-0 top-0 bottom-0 bg-gradient-to-b from-[#1a1232]/95 to-[#0a0e27] border-r border-white/10 backdrop-blur-xl z-50 flex flex-col
+                transition-transform duration-300 ease-in-out
+                ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+            `}>
                 {/* Brand */}
-                <div className="p-6 border-b border-white/10">
+                <div className="p-6 border-b border-white/10 flex items-center justify-between">
                     <Link href="/admin/dashboard" className="flex items-center gap-3 group">
                         <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-gold-500 to-amber-600 flex items-center justify-center text-black font-bold text-lg shadow-lg group-hover:scale-110 transition-transform">
                             T
@@ -36,10 +62,17 @@ export default function AdminLayout({ children, userName = 'Admin', userRole = '
                             <p className="text-xs text-gray-500 uppercase tracking-widest">Command Center</p>
                         </div>
                     </Link>
+                    {/* Close Button (Mobile Only) */}
+                    <button
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="md:hidden p-2 text-gray-400 hover:text-white"
+                    >
+                        ✕
+                    </button>
                 </div>
 
                 {/* Navigation */}
-                <nav className="flex-1 p-4 space-y-2">
+                <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
                     {navItems.map((item) => {
                         const isActive = pathname === item.href;
                         return (
@@ -47,8 +80,8 @@ export default function AdminLayout({ children, userName = 'Admin', userRole = '
                                 key={item.href}
                                 href={item.href}
                                 className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 group ${isActive
-                                        ? 'bg-gradient-to-r from-gold-500/20 to-amber-500/10 border border-gold-500/30 text-gold-400'
-                                        : 'hover:bg-white/5 text-gray-400 hover:text-white'
+                                    ? 'bg-gradient-to-r from-gold-500/20 to-amber-500/10 border border-gold-500/30 text-gold-400'
+                                    : 'hover:bg-white/5 text-gray-400 hover:text-white'
                                     }`}
                             >
                                 <span className={`text-lg ${isActive ? 'scale-110' : 'group-hover:scale-110'} transition-transform`}>
@@ -82,22 +115,32 @@ export default function AdminLayout({ children, userName = 'Admin', userRole = '
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 ml-64">
+            <main className="flex-1 md:ml-64 flex flex-col min-h-screen">
                 {/* Top Bar */}
-                <header className="sticky top-0 z-40 bg-[#0a0e27]/80 backdrop-blur-xl border-b border-white/10 px-8 py-4 flex items-center justify-between">
+                <header className="sticky top-0 z-30 bg-[#0a0e27]/80 backdrop-blur-xl border-b border-white/10 px-4 md:px-8 py-4 flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        <Link href="/admin/dashboard" className="text-gray-500 hover:text-gold-400 transition-colors">
-                            ← Back to Dashboard
-                        </Link>
+                        {/* Mobile Toggle */}
+                        <button
+                            onClick={() => setIsMobileMenuOpen(true)}
+                            className="md:hidden p-2 -ml-2 text-gray-400 hover:text-white"
+                        >
+                            <span className="text-2xl">☰</span>
+                        </button>
+
+                        <div className="hidden md:block">
+                            <Link href="/admin/dashboard" className="text-gray-500 hover:text-gold-400 transition-colors text-sm">
+                                ← Back to Dashboard
+                            </Link>
+                        </div>
                     </div>
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3">
                         <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                         <span className="text-xs text-gray-500 uppercase tracking-wider">System Online</span>
                     </div>
                 </header>
 
                 {/* Page Content */}
-                <div className="p-8">
+                <div className="flex-1 p-4 md:p-8 overflow-x-hidden">
                     {children}
                 </div>
             </main>

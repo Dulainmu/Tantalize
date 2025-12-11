@@ -1,213 +1,145 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
-import { Scanner } from '@yudiel/react-qr-scanner';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 
-// Build Trigger: Audio prop verified removed.
+export default function GateManagerPage() {
+    const [stats, setStats] = useState<any>(null);
+    const [liveFeed, setLiveFeed] = useState<any[]>([]);
+    const [forceId, setForceId] = useState('');
+    const [feedback, setFeedback] = useState<string | null>(null);
 
-export default function GatekeeperPage() {
-    const [authorized, setAuthorized] = useState(false);
-    const [gateType, setGateType] = useState<'NORMAL' | 'VIP'>('NORMAL');
+    // Initial Fetch
+    useEffect(() => {
+        // Fetch Live Feed
+        fetchFeed();
+        // Poll every 5s
+        const interval = setInterval(fetchFeed, 5000);
+        return () => clearInterval(interval);
+    }, []);
 
-    // Scan State
-    const [scanMode, setScanMode] = useState<'ENTRY' | 'VERIFY'>('ENTRY');
-    const [lastResult, setLastResult] = useState<any>(null);
-    const [isScanning, setIsScanning] = useState(true);
-    const [errorVibration, setErrorVibration] = useState(false);
-
-    // Sound Effects (Ref to hold audio objects if we add them)
-
-    const handleMasterAuth = (data: string) => {
-        // Determine if it's a master code
-        // Hardcoded for now, but should be checked against server or config
-        if (data === 'MASTER_GATE_NORMAL') {
-            setGateType('NORMAL');
-            setAuthorized(true);
-        } else if (data === 'MASTER_GATE_VIP') {
-            setGateType('VIP');
-            setAuthorized(true);
+    const fetchFeed = async () => {
+        try {
+            // We need a new API for this: /api/admin/gate/feed
+            const res = await fetch('/api/admin/gate/feed');
+            const data = await res.json();
+            if (data.success) {
+                setLiveFeed(data.feed);
+                setStats(data.stats);
+            }
+        } catch (e) {
+            console.error(e);
         }
     };
 
-    const handleScan = async (decodedText: string) => {
-        if (!isScanning) return;
-
-        // Prevent double scans
-        setIsScanning(false);
-
+    const handleForceCheckIn = async () => {
+        if (!forceId) return;
+        setFeedback('Processing...');
         try {
-            const response = await fetch('/api/gatekeeper/scan', {
+            // Reuse scan API or special force endpoint? Reuse Scan with special mode?
+            // "Force Check-in" is basically "Scan by ID".
+            // Let's use the Scan API with ENTRY mode. It checks ID by default.
+            const res = await fetch('/api/gatekeeper/scan', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    code: decodedText,
-                    mode: scanMode
-                })
+                body: JSON.stringify({ code: forceId, mode: 'ENTRY' })
             });
-
-            const data = await response.json();
-            setLastResult(data);
-
-            // Haptic Feedback (if on mobile)
-            if (window.navigator && window.navigator.vibrate) {
-                if (data.status === 'GRANTED' || (scanMode === 'VERIFY' && data.status === 'VALID')) {
-                    window.navigator.vibrate(200); // Success
-                } else {
-                    window.navigator.vibrate([100, 50, 100]); // Error (Double buzz)
-                }
+            const data = await res.json();
+            if (data.success) {
+                setFeedback(`✅ Success: ${data.message} (${data.status})`);
+                fetchFeed(); // Refresh feed
+                setForceId('');
+            } else {
+                setFeedback(`❌ Error: ${data.message}`);
             }
-
-        } catch (err) {
-            console.error("Scan Failed", err);
-            setLastResult({ success: false, status: 'ERROR', message: 'Network Error' });
+        } catch (e) {
+            setFeedback('❌ Network Error');
         }
-
-        // Auto-resume scanning after delay if success, manual resume if error?
-        // User prefers "One-Touch" speed. 
-        // We typically show the result, then user taps to close or it auto-closes.
     };
 
-    const resetScan = () => {
-        setLastResult(null);
-        setIsScanning(true);
-    };
+    return (
+        <div className="max-w-6xl mx-auto">
+            <div className="flex justify-between items-center mb-8">
+                <div>
+                    <h1 className="text-3xl font-bold mb-2">Gate Management</h1>
+                    <p className="text-gray-400">Security Control & Live Access Logs</p>
+                </div>
+                <Link href="/admin/gatekeeper/scanner" className="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 transition-colors">
+                    <span className="text-xl">📱</span> Launch Scanner
+                </Link>
+            </div>
 
-    // Login Screen
-    if (!authorized) {
-        return (
-            <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white p-4">
-                <h1 className="text-3xl font-bold mb-8">GATEKEEPER</h1>
-                <div className="w-full max-w-sm aspect-square bg-gray-900 rounded-2xl overflow-hidden border-2 border-gray-700 relative">
-                    <Scanner
-                        onScan={(result) => result[0] && handleMasterAuth(result[0].rawValue)}
-                        components={{}}
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                        <div className="w-64 h-64 border-2 border-blue-500/50 rounded-xl" />
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+                {/* Left Col: Stats & Tools */}
+                <div className="space-y-8">
+                    {/* Live Count Card */}
+                    <div className="bg-[#1a1232]/50 p-6 rounded-2xl border border-white/10">
+                        <h3 className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-4">Inside Venue</h3>
+                        <div className="flex items-baseline gap-2">
+                            <span className="text-5xl font-bold text-white">{stats?.inside || 0}</span>
+                            <span className="text-gray-500">/ {stats?.total || 1500}</span>
+                        </div>
+                        <div className="mt-4 h-2 bg-black rounded-full overflow-hidden">
+                            <div className="h-full bg-emerald-500 transition-all duration-500" style={{ width: `${(stats?.inside / (stats?.total || 1)) * 100}%` }} />
+                        </div>
+                    </div>
+
+                    {/* Force Check-in */}
+                    <div className="bg-[#1a1232]/50 p-6 rounded-2xl border border-white/10">
+                        <h3 className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-4">Force Check-in</h3>
+                        <div className="flex flex-col gap-4">
+                            <p className="text-xs text-gray-400">Manually grant entry by Ticket ID or Serial if scanner fails entirely.</p>
+                            <input
+                                type="text"
+                                value={forceId}
+                                onChange={(e) => setForceId(e.target.value)}
+                                className="bg-black/50 border border-white/20 rounded-lg px-4 py-3 text-white font-mono"
+                                placeholder="Enter ID (e.g. FE45A2)"
+                            />
+                            <button
+                                onClick={handleForceCheckIn}
+                                className="bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-lg transition-colors"
+                            >
+                                Grant Entry
+                            </button>
+                            {feedback && <p className="text-sm font-medium text-white bg-white/10 p-2 rounded">{feedback}</p>}
+                        </div>
                     </div>
                 </div>
-                <p className="mt-8 text-gray-400 text-center">Scan Master QR to Unlock</p>
 
-                {/* Dev Bypass Button */}
-                <button onClick={() => { setGateType('NORMAL'); setAuthorized(true); }} className="mt-8 px-4 py-2 border border-gray-800 rounded opacity-30 hover:opacity-100 text-xs">
-                    DEV BYPASS
-                </button>
-            </div>
-        );
-    }
+                {/* Right Col: Live Feed */}
+                <div className="lg:col-span-2 bg-[#1a1232]/50 p-6 rounded-2xl border border-white/10 h-[600px] flex flex-col">
+                    <div className="flex justify-between items-center mb-6">
+                        <h3 className="text-gray-400 text-xs font-bold uppercase tracking-widest">Live Entry Log</h3>
+                        <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                    </div>
 
-    // Main UI
-    return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white p-4 relative overflow-hidden">
-
-            {/* Header / Connection Status */}
-            <div className="absolute top-6 right-6 flex items-center gap-2 z-10">
-                <span className="text-xs font-bold text-gray-500 tracking-widest">{gateType} GATE</span>
-                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-            </div>
-
-            <div className="w-full max-w-sm flex flex-col gap-6 relative z-0">
-
-                {/* Mode Switcher */}
-                <div className="flex bg-gray-900/80 p-1 rounded-xl border border-gray-800 backdrop-blur-sm">
-                    <button
-                        onClick={() => setScanMode('ENTRY')}
-                        className={`flex-1 py-3 rounded-lg text-sm font-bold transition-all ${scanMode === 'ENTRY'
-                            ? 'bg-gradient-to-tr from-green-600 to-emerald-500 text-white shadow-lg'
-                            : 'text-gray-400 hover:text-white'
-                            }`}
-                    >
-                        ENTRY MODE
-                    </button>
-                    <button
-                        onClick={() => setScanMode('VERIFY')}
-                        className={`flex-1 py-3 rounded-lg text-sm font-bold transition-all ${scanMode === 'VERIFY'
-                            ? 'bg-gradient-to-tr from-blue-600 to-indigo-500 text-white shadow-lg'
-                            : 'text-gray-400 hover:text-white'
-                            }`}
-                    >
-                        VERIFY ONLY
-                    </button>
-                </div>
-
-                {/* Scanner Card */}
-                <div className="aspect-square bg-gray-900 rounded-3xl overflow-hidden border-4 border-gray-800 relative shadow-2xl">
-                    {!lastResult && (
-                        <>
-                            <Scanner
-                                onScan={(result) => result[0] && handleScan(result[0].rawValue)}
-                                components={{ finder: false }}
-                                styles={{
-                                    container: { height: '100%', width: '100%' },
-                                    video: { objectFit: 'cover' }
-                                }}
-                            />
-
-                            {/* Scanning Overlay */}
-                            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                                <div className={`w-3/4 h-3/4 border-2 rounded-2xl ${scanMode === 'ENTRY' ? 'border-green-500/30' : 'border-blue-500/30'} relative`}>
-                                    <div className="absolute inset-0 border-2 border-white/20 rounded-2xl scale-110" />
-                                    <motion.div
-                                        className={`absolute left-0 right-0 h-0.5 ${scanMode === 'ENTRY' ? 'bg-green-400' : 'bg-blue-400'} shadow-[0_0_15px_currentColor]`}
-                                        animate={{ top: ['10%', '90%', '10%'] }}
-                                        transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
-                                    />
+                    <div className="flex-1 overflow-y-auto space-y-3 pr-2 custom-scrollbar">
+                        {liveFeed.length === 0 ? (
+                            <p className="text-center text-gray-500 mt-20">No entries yet...</p>
+                        ) : (
+                            liveFeed.map((log) => (
+                                <div key={log.id} className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5 hover:bg-white/10 transition-colors">
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center font-bold text-lg">
+                                            ✓
+                                        </div>
+                                        <div>
+                                            <p className="font-bold text-white">{log.ticketCode}</p>
+                                            <p className="text-xs text-gray-400">Serial: {log.serial || 'N/A'}</p>
+                                        </div>
+                                    </div>
+                                    <div className="text-right">
+                                        <p className="text-sm font-mono text-gray-300">{new Date(log.timestamp).toLocaleTimeString()}</p>
+                                        <p className="text-xs text-gray-500">{new Date(log.timestamp).toLocaleDateString()}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </>
-                    )}
-
-                    {/* Result Overlay (In-Card) */}
-                    <AnimatePresence>
-                        {lastResult && (
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.9 }}
-                                className={`absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-20 transition-colors duration-300
-                                    ${(lastResult.status === 'GRANTED' || (scanMode === 'VERIFY' && lastResult.status === 'VALID')) ? 'bg-emerald-600' : ''}
-                                    ${lastResult.status === 'WARNING' ? 'bg-amber-500 text-black' : ''}
-                                    ${(lastResult.status === 'USED' || lastResult.status === 'INVALID') ? 'bg-red-600' : ''}
-                                `}
-                            >
-                                <motion.div
-                                    initial={{ scale: 0 }}
-                                    animate={{ scale: 1 }}
-                                    className={`w-16 h-16 rounded-full flex items-center justify-center mb-4 backdrop-blur-md ${lastResult.status === 'WARNING' ? 'bg-black/20 text-black' : 'bg-white/20 text-white'}`}
-                                >
-                                    {lastResult.status === 'GRANTED' || lastResult.status === 'VALID' ? '✓' : ''}
-                                    {lastResult.status === 'WARNING' ? '!' : ''}
-                                    {lastResult.status === 'USED' || lastResult.status === 'INVALID' ? '✕' : ''}
-                                </motion.div>
-
-                                <h2 className={`text-3xl font-black uppercase tracking-tight mb-2 ${lastResult.status === 'WARNING' ? 'text-black' : 'text-white'}`}>
-                                    {lastResult.status === 'GRANTED' ? 'ACCESS GRANTED' : ''}
-                                    {lastResult.status === 'WARNING' ? '⚠️ UNPAID TICKET' : ''}
-                                    {lastResult.status === 'USED' ? 'ALREADY USED' : ''}
-                                    {lastResult.status === 'INVALID' ? 'INVALID / BANNED' : ''}
-                                    {lastResult.status === 'VALID' ? 'VALID TICKET' : ''}
-                                </h2>
-                                <p className={`font-medium mb-6 text-sm px-4 leading-relaxed ${lastResult.status === 'WARNING' ? 'text-black/80' : 'text-white/80'}`}>
-                                    {lastResult.message}
-                                </p>
-
-                                <button
-                                    onClick={resetScan}
-                                    className={`w-full py-4 rounded-xl font-bold text-sm tracking-widest hover:scale-105 active:scale-95 transition-transform shadow-xl
-                                        ${lastResult.status === 'WARNING' ? 'bg-black text-white' : 'bg-white text-black'}
-                                    `}
-                                >
-                                    SCAN NEXT
-                                </button>
-                            </motion.div>
+                            ))
                         )}
-                    </AnimatePresence>
+                    </div>
                 </div>
 
-                <p className="text-center text-gray-500 text-xs">
-                    Align QR code within the frame
-                </p>
             </div>
         </div>
     );

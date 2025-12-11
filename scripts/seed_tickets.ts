@@ -50,17 +50,30 @@ async function main() {
     console.log(`Prepared ${ticketsToInsert.length} records. Inserting in batches...`);
 
     const BATCH_SIZE = 100;
-    for (let i = 0; i < ticketsToInsert.length; i += BATCH_SIZE) {
-        const batch = ticketsToInsert.slice(i, i + BATCH_SIZE);
+    console.log('Clearing existing tickets...');
+    await prisma.accessCode.deleteMany({}); // Dangerous but requested ("Forget the old QR")
 
-        // createMany is supported with adapter
-        await prisma.accessCode.createMany({
-            data: batch,
-            skipDuplicates: true,
-        });
-        console.log(`Inserted batch ${i} to ${i + batch.length}`);
+    console.log('Seeding new tickets...');
+    // We use create instead of createMany to handle potential individual errors better if needed,
+    // but creating 1500 one by one is slow. createMany is better.
+
+    // Optimization: Bulk Insert
+    // Note: prisma.accessCode.createMany is not available in some adapters or versions if schema isn't compatible, 
+    // but here it should be fine.
+
+    // We already have the array 'ticketsToInsert'.
+    if (ticketsToInsert.length > 0) {
+        // Chunk it to avoid parameter limit issues
+        const chunkSize = 100;
+        for (let i = 0; i < ticketsToInsert.length; i += chunkSize) {
+            const chunk = ticketsToInsert.slice(i, i + chunkSize);
+            await prisma.accessCode.createMany({
+                data: chunk,
+                skipDuplicates: true // Just in case
+            });
+            console.log(`inserted batch ${i} - ${i + chunk.length}`);
+        }
     }
-
     console.log('✅ Seeding completed successfully!');
 }
 

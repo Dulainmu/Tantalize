@@ -1,5 +1,6 @@
 import "dotenv/config";
 import { PrismaClient, Role } from '@prisma/client';
+import { hashSync } from 'bcryptjs';
 import { Pool } from 'pg';
 import { PrismaPg } from '@prisma/adapter-pg';
 
@@ -10,21 +11,17 @@ const prisma = new PrismaClient({ adapter });
 
 async function main() {
     const email = 'admin@tantalize.lk';
-    const password = 'admin'; // In production, hash this! For prototype, plain text or simple hash. 
-    // Ideally use bcrypt. But for now I'll store it as is and we can add hashing in the API logic.
+    const plainPassword = 'admin';
+    const password = hashSync(plainPassword, 10);
 
-    // Check if exists
-    const existing = await prisma.user.findUnique({ where: { email } });
-    if (existing) {
-        console.log('Admin user already exists.');
-        return;
-    }
 
-    await prisma.user.create({
-        data: {
+    await prisma.user.upsert({
+        where: { email },
+        update: { password },
+        create: {
             name: 'Super Admin',
             email,
-            password, // TODO: Implement hashing in Auth API
+            password,
             role: Role.SUPER_ADMIN
         }
     });

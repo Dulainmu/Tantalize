@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { Pool } from 'pg';
+import { compareSync } from 'bcryptjs';
 import { SignJWT } from 'jose';
 
 // DB Setup
@@ -26,8 +27,13 @@ export async function POST(req: NextRequest) {
             where: { email },
         });
 
-        // 2. Validate (Simple direct comparison for now as per seed, hash later)
-        if (!user || user.password !== password) {
+
+
+        // 2. Validate using bcrypt
+        // Fallback: If password in DB is plain text (legacy), compare directly. Then logic should ideally migrate it.
+        // For now, assume migrated or handle both.
+        // But since we are reseeding, we can enforce hash.
+        if (!user || !compareSync(password, user.password)) {
             return NextResponse.json({ success: false, message: 'Invalid email or password' }, { status: 401 });
         }
 

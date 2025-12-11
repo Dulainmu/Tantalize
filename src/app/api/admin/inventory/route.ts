@@ -29,11 +29,18 @@ export async function GET(req: NextRequest) {
         const where: any = {};
 
         if (status && status !== 'IN_STOCK') where.status = status;
-        // Special handling for IN_STOCK (Show tickets that are NOT sold/banned/scanned ?) 
-        // Actually, IN_STOCK is a specific status enum value.
+        // Special handling for IN_STOCK
         if (status === 'IN_STOCK') where.status = 'IN_STOCK';
 
-        if (assignedToId) where.assignedToId = assignedToId;
+        // Map 'agentId' (from UI) or 'assignedToId'
+        const agentId = searchParams.get('agentId') || assignedToId;
+        if (agentId) where.assignedToId = agentId;
+
+        // Payment Settled Filter
+        const paymentSettledParam = searchParams.get('paymentSettled');
+        if (paymentSettledParam !== null) {
+            where.paymentSettled = paymentSettledParam === 'true';
+        }
 
         if (search) {
             where.OR = [
