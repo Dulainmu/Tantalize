@@ -53,7 +53,7 @@ model User {
 
 model AccessCode {
   id            String       @id @default(uuid())
-  code          String       @unique // Human Readable 8-char code (e.g. A7X9-B2)
+  code          String?      @unique // Human Readable 8-char code (e.g. A7X9-B2) - Nullable until bound
   serialNumber  String?      // Physical Ticket Number (e.g. 0501)
   
   status        TicketStatus @default(IN_STOCK)
