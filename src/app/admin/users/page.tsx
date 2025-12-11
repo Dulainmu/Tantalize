@@ -123,6 +123,29 @@ export default function CommitteePage() {
         }
     };
 
+    const handleDelete = async () => {
+        if (!selectedUser) return;
+        if (!confirm('Are you sure you want to delete this user? This cannot be undone.')) return;
+
+        setEditStatus('Deleting...');
+
+        try {
+            const res = await fetch(`/api/admin/users/${selectedUser.id}`, {
+                method: 'DELETE'
+            });
+            const data = await res.json();
+
+            if (data.success) {
+                setSelectedUser(null);
+                fetchUsers();
+            } else {
+                setEditStatus('Error: ' + data.message);
+            }
+        } catch (e) {
+            setEditStatus('Network Error');
+        }
+    };
+
     return (
         <div>
             <header className="flex justify-between items-center mb-8">
@@ -303,11 +326,17 @@ export default function CommitteePage() {
                                                     <p className="text-[10px] text-zinc-500 mt-2">Leave empty to keep current password.</p>
                                                 </div>
 
-                                                <div className="md:col-span-2 mt-4">
-                                                    {editStatus && <p className={`text-center text-sm font-bold mb-3 ${editStatus.includes('Error') ? 'text-red-400' : 'text-green-400'}`}>{editStatus}</p>}
-                                                    <button type="submit" className="w-full bg-white text-black hover:bg-gray-200 py-3 rounded-xl font-bold shadow-lg transition-colors">
-                                                        Save Changes
+                                                <div className="md:col-span-2 mt-4 flex gap-4">
+                                                    <button type="button" onClick={handleDelete} className="flex-1 bg-red-900/20 hover:bg-red-900/40 border border-red-900/50 text-red-500 py-3 rounded-xl font-bold transition-colors">
+                                                        Delete User
                                                     </button>
+
+                                                    <div className="flex-1">
+                                                        {editStatus && <p className={`text-center text-sm font-bold mb-3 ${editStatus.includes('Error') ? 'text-red-400' : 'text-green-400'}`}>{editStatus}</p>}
+                                                        <button type="submit" className="w-full bg-white text-black hover:bg-gray-200 py-3 rounded-xl font-bold shadow-lg transition-colors">
+                                                            Save Changes
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </form>
                                         </div>

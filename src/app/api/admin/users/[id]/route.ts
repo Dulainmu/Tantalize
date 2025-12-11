@@ -107,3 +107,55 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
         return NextResponse.json({ success: false, message: 'Update Failed' }, { status: 500 });
     }
 }
+
+// DELETE: Remove User (Safely)
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+    const session = await getSession();
+    if (!session || session.role !== 'SUPER_ADMIN') {
+        return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
+    }
+
+    const { id } = await params;
+
+    try {
+        // 1. Unassign all tickets currently assigned to this User
+        await prisma.accessCode.updateMany({
+            where: { assignedToId: id },
+            data: {
+                assignedToId: null,
+                status: 'IN_STOCK'
+            }
+        });
+
+        // 2. Delete related Ticket Transfers
+        await prisma.ticketTransfer.deleteMany({
+            where: {
+                OR: [
+                    { fromAgentId: id },
+                    { toAgentId: id }
+                ]
+            }
+        });
+
+        // 3. Delete Settlements
+        await prisma.settlement.deleteMany({
+            where: { agentId: id }
+        });
+
+        // 4. Delete Expenses recorded by user
+        await prisma.expense.deleteMany({
+            where: { recordedById: id }
+        });
+
+        // 5. Delete the User
+        await prisma.user.delete({
+            where: { id }
+        });
+
+        return NextResponse.json({ success: true, message: 'User deleted successfully' });
+
+    } catch (error) {
+        console.error("Delete Error:", error);
+        return NextResponse.json({ success: false, message: 'Deletion Failed' }, { status: 500 });
+    }
+}
