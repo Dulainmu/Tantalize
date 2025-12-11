@@ -23,7 +23,8 @@ export async function POST(req: NextRequest) {
 
     try {
         const userId = session.sub as string;
-        const userName = session.name || 'Agent';
+        const userId = session.sub as string;
+        const userName = (session.name as string) || 'Agent';
 
         // Transaction: Update all tickets to SOLD
         await prisma.$transaction(async (tx) => {
