@@ -14,9 +14,9 @@ export async function middleware(req: NextRequest) {
     const isTreasurerRoute = pathname.startsWith('/treasurer');
 
     // 4. Deprecated Route Redirection
-    if (pathname.startsWith('/agent/dashboard')) {
-        return NextResponse.redirect(new URL('/committee/dashboard', req.url));
-    }
+    // if (pathname.startsWith('/agent/dashboard')) {
+    //     return NextResponse.redirect(new URL('/committee/dashboard', req.url));
+    // }
 
     if (isAdminRoute || isCommitteeRoute || isTreasurerRoute) {
         const token = req.cookies.get('admin_token')?.value;
@@ -25,7 +25,7 @@ export async function middleware(req: NextRequest) {
         if (!token) {
             // Specific Login Pages
             if (isCommitteeRoute) {
-                return NextResponse.redirect(new URL('/agent/login', req.url));
+                return NextResponse.redirect(new URL('/committee/login', req.url));
             }
             return NextResponse.redirect(new URL('/admin/login', req.url));
         }
@@ -62,7 +62,7 @@ export async function middleware(req: NextRequest) {
 
         } catch (e) {
             // Invalid Token
-            const loginUrl = new URL(isCommitteeRoute ? '/agent/login' : '/admin/login', req.url);
+            const loginUrl = new URL(isCommitteeRoute ? '/committee/login' : '/admin/login', req.url);
             return NextResponse.redirect(loginUrl);
         }
     }

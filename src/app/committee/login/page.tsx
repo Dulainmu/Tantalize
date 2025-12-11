@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 
-export default function AgentLoginPage() {
+export default function CommitteeLoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -27,9 +27,9 @@ export default function AgentLoginPage() {
 
             if (data.success) {
                 if (data.role === 'AGENT' || data.role === 'SUPER_ADMIN') {
-                    router.push('/agent/dashboard');
+                    router.push('/committee/dashboard');
                 } else {
-                    setError('Access Denied: Not an Agent Account');
+                    setError('Access Denied: Not a Committee Account');
                 }
             } else {
                 setError(data.message || 'Login failed');
@@ -48,7 +48,7 @@ export default function AgentLoginPage() {
                     <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl mx-auto mb-4 flex items-center justify-center text-2xl shadow-lg shadow-indigo-500/20">
                         📱
                     </div>
-                    <h1 className="text-2xl font-bold">Agent Portal</h1>
+                    <h1 className="text-2xl font-bold">Committee Portal</h1>
                     <p className="text-zinc-500">Log in to manage your tickets</p>
                 </div>
 
