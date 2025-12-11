@@ -16,7 +16,6 @@ import { useState, useEffect } from 'react';
 
 export default function AdminDashboard() {
 
-    return (
     const [stats, setStats] = useState<any>(null);
     const [loading, setLoading] = useState(true);
 
