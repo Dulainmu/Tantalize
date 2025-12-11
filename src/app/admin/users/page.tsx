@@ -123,26 +123,33 @@ export default function CommitteePage() {
         }
     };
 
-    const handleDelete = async () => {
-        if (!selectedUser) return;
+    const handleDelete = async (userIdStr?: string) => {
+        const idToDelete = userIdStr || selectedUser?.id;
+        if (!idToDelete) return;
+
         if (!confirm('Are you sure you want to delete this user? This cannot be undone.')) return;
 
         setEditStatus('Deleting...');
 
         try {
-            const res = await fetch(`/api/admin/users/${selectedUser.id}`, {
+            const res = await fetch(`/api/admin/users/${idToDelete}`, {
                 method: 'DELETE'
             });
             const data = await res.json();
 
             if (data.success) {
-                setSelectedUser(null);
+                if (selectedUser?.id === idToDelete) {
+                    setSelectedUser(null);
+                }
                 fetchUsers();
             } else {
                 setEditStatus('Error: ' + data.message);
+                // Also alert if deleting from list view where editStatus might not be visible
+                if (!selectedUser) alert('Error: ' + data.message);
             }
         } catch (e) {
             setEditStatus('Network Error');
+            if (!selectedUser) alert('Network Error');
         }
     };
 
@@ -179,12 +186,18 @@ export default function CommitteePage() {
                         <h3 className="font-bold text-lg text-white group-hover:text-primary transition-colors">{user.name}</h3>
                         <p className="text-zinc-500 text-sm mb-6">{user.email}</p>
 
-                        <div className="pt-4 border-t border-zinc-800">
+                        <div className="pt-4 border-t border-zinc-800 space-y-2">
                             <button
                                 onClick={() => handleOpenDetail(user)}
                                 className="w-full bg-zinc-950 hover:bg-zinc-900 border border-zinc-700 hover:border-zinc-500 text-white px-4 py-2 rounded-lg transition-all font-medium flex items-center justify-center gap-2"
                             >
                                 View Details & Manage
+                            </button>
+                            <button
+                                onClick={() => handleDelete(user.id)}
+                                className="w-full bg-red-900/10 hover:bg-red-900/20 border border-red-900/30 hover:border-red-500/50 text-red-500 px-4 py-2 rounded-lg transition-all font-medium flex items-center justify-center gap-2 text-sm"
+                            >
+                                Delete Account
                             </button>
                         </div>
                     </div>
@@ -327,7 +340,7 @@ export default function CommitteePage() {
                                                 </div>
 
                                                 <div className="md:col-span-2 mt-4 flex gap-4">
-                                                    <button type="button" onClick={handleDelete} className="flex-1 bg-red-900/20 hover:bg-red-900/40 border border-red-900/50 text-red-500 py-3 rounded-xl font-bold transition-colors">
+                                                    <button type="button" onClick={() => handleDelete()} className="flex-1 bg-red-900/20 hover:bg-red-900/40 border border-red-900/50 text-red-500 py-3 rounded-xl font-bold transition-colors">
                                                         Delete User
                                                     </button>
 
