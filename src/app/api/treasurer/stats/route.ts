@@ -1,61 +1,99 @@
+
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { Pool } from 'pg';
-import { getSession } from '@/lib/auth';
 
 const connectionString = process.env.DATABASE_URL;
 const pool = new Pool({ connectionString });
 const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
-const TICKET_PRICE = 1500; // Rs. 1500
+const TICKET_PRICE = 1500;
 
 export async function GET(req: NextRequest) {
-    const session = await getSession();
-    if (!session || (session.role !== 'TREASURER' && session.role !== 'SUPER_ADMIN')) {
-        return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
-    }
-
     try {
-        // Fetch all agents
+        // 1. Overview Stats
+        const totalTickets = await prisma.accessCode.count();
+        const expectedRevenue = totalTickets * TICKET_PRICE;
+
+        // Collected: Sum of all Settlements
+        const settlements = await prisma.settlement.aggregate({
+            _sum: { amount: true }
+        });
+        const collectedCash = settlements._sum.amount || 0;
+
+        // Pending: Tickets SOLD/USED but NOT Settled
+        // Note: Used tickets are also considered financial liabilities if not settled.
+        const pendingTicketsCount = await prisma.accessCode.count({
+            where: {
+                status: { in: ['SOLD', 'SCANNED'] },
+                paymentSettled: false
+            }
+        });
+        const pendingCash = pendingTicketsCount * TICKET_PRICE;
+
+        // Unsold: In Stock or Assigned (but not sold)
+        // Actually, ASSIGNED tickets are "Unsold" financially.
+        const unsoldCount = await prisma.accessCode.count({
+            where: { status: { in: ['IN_STOCK', 'ASSIGNED'] } }
+        });
+        const unsoldValue = unsoldCount * TICKET_PRICE;
+
+
+        // 2. Agent Liability List
+        // We need agents who have SOLD tickets that are not settled.
+        // Also show their total assigned.
+
+        // Find all users who are AGENTs
         const agents = await prisma.user.findMany({
             where: { role: 'AGENT' },
-            select: { id: true, name: true, role: true }
+            select: { id: true, name: true }
         });
 
-        // For each agent, calculate stats
-        // Optimized: We could do a groupBy query on AccessCode, but looping agents is fine for N < 100.
+        const liabilityList = await Promise.all(agents.map(async (agent) => {
+            const assigned = await prisma.accessCode.count({ where: { assignedToId: agent.id } });
 
-        const stats = await Promise.all(agents.map(async (agent) => {
-            const tickets = await prisma.accessCode.findMany({
-                where: { assignedToId: agent.id },
-                select: { id: true, status: true, paymentSettled: true }
+            const soldUnsettled = await prisma.accessCode.count({
+                where: {
+                    assignedToId: agent.id,
+                    status: { in: ['SOLD', 'SCANNED'] }, // Include scanned just in case logic slipped
+                    paymentSettled: false
+                }
             });
 
-            const pendingTickets = tickets.filter(t => (t.status === 'SOLD' || t.status === 'SCANNED') && !t.paymentSettled);
-            const pendingCount = pendingTickets.length;
-            const pendingAmount = pendingCount * TICKET_PRICE;
-
-            const settledCount = tickets.filter(t => t.paymentSettled).length;
-            const settledAmount = settledCount * TICKET_PRICE;
+            // Calculate Last Payment
+            const lastSettlement = await prisma.settlement.findFirst({
+                where: { agentId: agent.id },
+                orderBy: { timestamp: 'desc' }
+            });
 
             return {
                 id: agent.id,
                 name: agent.name,
-                role: agent.role,
-                pendingCount,
-                pendingAmount,
-                settledCount,
-                settledAmount,
-                ticketIds: pendingTickets.map(t => t.id) // Needed for bulk settlement
+                assigned,
+                soldUnsettled, // This is the debt source
+                cashOwed: soldUnsettled * TICKET_PRICE,
+                lastPayment: lastSettlement ? lastSettlement.timestamp : null
             };
         }));
 
-        return NextResponse.json({ success: true, agents: stats });
+        // Sort by Debt (High to Low)
+        liabilityList.sort((a, b) => b.cashOwed - a.cashOwed);
+
+        return NextResponse.json({
+            success: true,
+            stats: {
+                expectedRevenue,
+                collectedCash,
+                pendingCash,
+                unsoldValue
+            },
+            agents: liabilityList
+        });
 
     } catch (error) {
-        console.error(error);
+        console.error('Treasurer Stats Error:', error);
         return NextResponse.json({ success: false, message: 'Server Error' }, { status: 500 });
     }
 }
