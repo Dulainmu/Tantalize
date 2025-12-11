@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ success: false, message: 'Vote already cast for this ticket.' }, { status: 409 });
         }
 
-        if (ticket.status !== 'SOLD' && ticket.status !== 'SCANNED' && ticket.status !== 'USED') {
+        if (ticket.status !== 'SOLD' && ticket.status !== 'SCANNED') {
             return NextResponse.json({ success: false, message: 'Ticket must be SOLD to vote.' }, { status: 403 });
         }
 
