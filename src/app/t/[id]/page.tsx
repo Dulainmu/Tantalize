@@ -50,7 +50,7 @@ export default async function TicketPage({ params }: { params: { id: string } })
                 <div className="bg-[#1a1232]/50 border border-white/10 rounded-2xl p-6 mb-8 backdrop-blur-xl">
                     <div className="flex justify-between items-center mb-4">
                         <span className="text-gray-400 text-xs font-bold uppercase tracking-widest">Your Ticket</span>
-                        <span className={`px-2 py-1 rounded text-xs font-bold ${ticket.status === 'SOLD' || ticket.status === 'SCANNED' || ticket.status === 'USED' ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}`}>
+                        <span className={`px-2 py-1 rounded text-xs font-bold ${ticket.status === 'SOLD' || ticket.status === 'SCANNED' ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}`}>
                             {ticket.status}
                         </span>
                     </div>
