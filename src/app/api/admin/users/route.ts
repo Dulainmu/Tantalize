@@ -18,7 +18,7 @@ export async function GET(req: NextRequest) {
     try {
         const users = await prisma.user.findMany({
             where: {
-                role: { not: Role.GATE_GUARD } // Fetch Admins and Agents
+                role: { not: Role.GATEKEEPER } // Fetch Admins and Agents
             },
             select: { id: true, name: true, role: true, email: true }
         });

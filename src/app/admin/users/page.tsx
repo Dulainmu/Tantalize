@@ -161,7 +161,7 @@ export default function CommitteePage() {
                                     >
                                         <option value="AGENT">Agent (Member)</option>
                                         <option value="SUPER_ADMIN">Super Admin</option>
-                                        <option value="GATE_GUARD">Gate Guard</option>
+                                        <option value="GATEKEEPER">Gatekeeper</option>
                                     </select>
                                 </div>
 
