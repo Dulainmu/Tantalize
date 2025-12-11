@@ -56,7 +56,7 @@ const getCachedStats = unstable_cache(
                     return {
                         id: c.id,
                         name: c.name,
-                        number: c.number,
+                        // number: c.number, // Removed as not in schema
                         image: c.image,
                         votes: count,
                         percentage: totalVotes > 0 ? ((count / totalVotes) * 100).toFixed(1) : 0
