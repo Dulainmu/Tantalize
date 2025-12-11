@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { createAuditLog } from '@/lib/audit';
+import { isSystemLocked } from '@/lib/settings';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { Pool } from 'pg';
 
@@ -14,6 +15,11 @@ export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
         const { code, mode } = body; // mode: 'ENTRY' or 'VERIFY'
+
+        // Global Lock Check
+        if (await isSystemLocked()) {
+            return NextResponse.json({ success: false, status: 'ERROR', message: 'SYSTEM LOCKDOWN ACTIVE' }, { status: 503 });
+        }
 
         if (!code) {
             return NextResponse.json({ success: false, message: 'No code provided' }, { status: 400 });
