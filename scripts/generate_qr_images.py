@@ -3,7 +3,7 @@ import csv
 import os
 
 # Create a folder for the images
-os.makedirs("qr_images_normal", exist_ok=True)
+os.makedirs("qr_images_white", exist_ok=True)
 
 # Read the CSV you just made
 print("Generating QR Images from CSV...")
@@ -26,25 +26,27 @@ with open('tantalize_tickets.csv', 'r') as file:
         qr.add_data(url)
         qr.make(fit=True)
         
-        # Generate as standard image first
-        img = qr.make_image(fill_color="black", back_color="white").convert('RGBA')
+        # Generate as standard image first (White QR, Black BG to perform keying)
+        img = qr.make_image(fill_color="white", back_color="black").convert('RGBA')
         
-        # Make white background transparent
+        # Make BLACK background transparent
         datas = img.getdata()
         newData = []
         for item in datas:
-            # If pixel is white (or very close to it), make it transparent
-            if item[0] > 240 and item[1] > 240 and item[2] > 240:
-                newData.append((255, 255, 255, 0))
+            # If pixel is BLACK (or close), make it transparent
+            # Black is (0,0,0)
+            if item[0] < 50 and item[1] < 50 and item[2] < 50:
+                newData.append((0, 0, 0, 0))
             else:
+                # Keep White
                 newData.append(item)
         
         img.putdata(newData)
         
         # Save as "A7F3.png" (Using the ID as the filename)
-        img.save(f"qr_images_normal/{ticket_id}.png")
+        img.save(f"qr_images_white/{ticket_id}.png")
         count += 1
         if count % 100 == 0:
             print(f"Generated {count} images...")
 
-print(f"Done. Generated {count} images in 'qr_images_normal' folder.")
+print(f"Done. Generated {count} images in 'qr_images_white' folder.")
