@@ -12,7 +12,7 @@ const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
 // Handle ACCEPT / REJECT
-export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(req: NextRequest) {
     const session = await getSession();
     if (!session) return NextResponse.json({ success: false }, { status: 401 });
 
