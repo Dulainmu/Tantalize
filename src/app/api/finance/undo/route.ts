@@ -46,6 +46,7 @@ export async function POST(req: NextRequest) {
                 data: {
                     action: 'FINANCE_UNDO',
                     actorId: session.sub as string,
+                    actorName: (session.name as string) || 'Treasurer',
                     entityId: String(settlementId), // The ID of the settlement we just deleted
                     details: JSON.stringify({ settlementId, amount: settlement.amount })
                 }
