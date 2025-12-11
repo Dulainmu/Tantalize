@@ -48,12 +48,11 @@ const getCachedStats = unstable_cache(
 
         const totalVotes = await prisma.vote.count(); // Total Ballots cast
 
-        const formatStats = (groups: any[], category: 'KING' | 'QUEEN') => {
+        const formatStats = (categoryCounts: Record<number, number>, category: 'BAND' | 'SOLO_SINGING' | 'GROUP_SINGING' | 'SOLO_DANCING' | 'GROUP_DANCING') => {
             const list = candidates
                 .filter(c => c.category === category)
                 .map(c => {
-                    const group = groups.find((g: any) => g[category === 'KING' ? 'kingId' : 'queenId'] === c.id);
-                    const count = group ? group._count[category === 'KING' ? 'kingId' : 'queenId'] : 0;
+                    const count = categoryCounts[c.id] || 0;
                     return {
                         id: c.id,
                         name: c.name,
@@ -67,8 +66,11 @@ const getCachedStats = unstable_cache(
         };
 
         return {
-            kings: formatStats(kingVotes, 'KING'),
-            queens: formatStats(queenVotes, 'QUEEN'),
+            bands: formatStats(bands, 'BAND'),
+            soloSinging: formatStats(soloSinging, 'SOLO_SINGING'),
+            groupSinging: formatStats(groupSinging, 'GROUP_SINGING'),
+            soloDancing: formatStats(soloDancing, 'SOLO_DANCING'),
+            groupDancing: formatStats(groupDancing, 'GROUP_DANCING'),
             total: totalVotes,
             timestamp: Date.now()
         };
