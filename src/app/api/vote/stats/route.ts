@@ -17,18 +17,29 @@ const getCachedStats = unstable_cache(
         // We can do this efficiently by aggregating on 'kingId' and 'queenId' in the Vote table.
         // But Prisma GroupBy is easy.
 
-        const kingVotes = await prisma.vote.groupBy({
-            by: ['kingId'],
-            _count: { kingId: true }
-        });
+        // Helper to get stats for a category
+        const getCategoryStats = async (field: 'bandId' | 'soloSingingId' | 'groupSingingId' | 'soloDancingId' | 'groupDancingId') => {
+            const groups = await prisma.vote.groupBy({
+                by: [field],
+                _count: { [field]: true }
+            });
 
-        const queenVotes = await prisma.vote.groupBy({
-            by: ['queenId'],
-            _count: { queenId: true }
-        });
+            // Map candidate IDs to counts
+            const counts: Record<number, number> = {};
+            groups.forEach(g => {
+                if (g[field]) counts[g[field] as number] = g._count[field];
+            });
+            return counts;
+        };
 
-        // We also need candidate names to map IDs.
-        // Since candidates change rarely, we could cache them too, or just fetch.
+        const [bands, soloSinging, groupSinging, soloDancing, groupDancing] = await Promise.all([
+            getCategoryStats('bandId'),
+            getCategoryStats('soloSingingId'),
+            getCategoryStats('groupSingingId'),
+            getCategoryStats('soloDancingId'),
+            getCategoryStats('groupDancingId')
+        ]);
+
         const candidates = await prisma.candidate.findMany();
         const candidateMap = new Map(candidates.map(c => [c.id, c]));
 
