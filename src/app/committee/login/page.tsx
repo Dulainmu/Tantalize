@@ -26,7 +26,7 @@ export default function CommitteeLoginPage() {
             const data = await res.json();
 
             if (data.success) {
-                if (data.role === 'AGENT' || data.role === 'SUPER_ADMIN') {
+                if (data.user?.role === 'AGENT' || data.user?.role === 'SUPER_ADMIN') {
                     router.push('/committee/dashboard');
                 } else {
                     setError('Access Denied: Not a Committee Account');
