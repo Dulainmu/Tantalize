@@ -119,8 +119,8 @@ export default function CommitteeInventory() {
                                 key={t.id}
                                 onClick={() => toggleSelect(t.id)}
                                 className={`p-4 rounded-xl border flex justify-between items-center transition-all ${selected.includes(t.id)
-                                        ? 'bg-primary/20 border-primary'
-                                        : 'bg-gray-900 border-gray-800'
+                                    ? 'bg-primary/20 border-primary'
+                                    : 'bg-gray-900 border-gray-800'
                                     }`}
                             >
                                 <div>
@@ -149,7 +149,7 @@ export default function CommitteeInventory() {
             {/* Sell Modal */}
             {showSellModal && (
                 <div className="fixed inset-0 bg-black/90 z-50 flex items-end justify-center">
-                    <div className="bg-gray-900 w-full rounded-t-2xl p-6 space-y-4 border-t border-gray-800">
+                    <div className="bg-gray-900 w-full rounded-t-2xl p-6 pb-12 space-y-4 border-t border-gray-800">
                         <div className="flex justify-between items-center mb-2">
                             <h2 className="text-xl font-bold text-white">Confirm Sale</h2>
                             <button onClick={() => setShowSellModal(false)} className="text-gray-400">Close</button>

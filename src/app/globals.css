@@ -4,7 +4,7 @@
 
 
 /* The Seasons Font - Using Playfair Display as fallback until font file is added */
-@font-face {
+/* @font-face {
   font-family: 'The Seasons';
   src: url('/fonts/TheSeasons.woff2') format('woff2'),
     url('/fonts/TheSeasons.woff') format('woff'),
@@ -12,7 +12,7 @@
   font-weight: normal;
   font-style: normal;
   font-display: swap;
-}
+} */
 
 :root {
   --background: #0A0E27;

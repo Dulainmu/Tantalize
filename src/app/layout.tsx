@@ -71,8 +71,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        {/* Preload fonts */}
-        <link rel="preload" href="/fonts/TheSeasons.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        {/* Preload fonts */}\n        {/* <link rel="preload" href="/fonts/TheSeasons.woff2" as="font" type="font/woff2" crossOrigin="anonymous" /> */}
 
         {/* Preload critical images for faster loading screen */}
         <link rel="preload" href="/Tanata Logo.webp" as="image" type="image/webp" fetchPriority="high" />
