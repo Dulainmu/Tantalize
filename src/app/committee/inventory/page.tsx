@@ -149,7 +149,7 @@ export default function CommitteeInventory() {
             {/* Sell Modal */}
             {showSellModal && (
                 <div className="fixed inset-0 bg-black/90 z-50 flex items-end justify-center">
-                    <div className="bg-gray-900 w-full rounded-t-2xl p-6 pb-12 space-y-4 border-t border-gray-800">
+                    <div className="bg-gray-900 w-full rounded-t-2xl p-6 pb-[300px] space-y-4 border-t border-gray-800">
                         <div className="flex justify-between items-center mb-2">
                             <h2 className="text-xl font-bold text-white">Confirm Sale</h2>
                             <button onClick={() => setShowSellModal(false)} className="text-gray-400">Close</button>
