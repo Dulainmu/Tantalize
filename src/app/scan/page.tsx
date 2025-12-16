@@ -67,7 +67,7 @@ export default function MobileScanPage() {
                 <div className="w-full max-w-sm aspect-square bg-gray-900 rounded-2xl overflow-hidden border border-gray-700 relative mb-6 relative">
                     <Scanner
                         onScan={(result) => result[0] && handleMasterAuth(result[0].rawValue)}
-                        components={{ audio: false }}
+                        components={{}}
                     />
                     <div className="absolute inset-0 border-2 border-blue-500/30 rounded-2xl pointer-events-none" />
                 </div>
@@ -110,7 +110,7 @@ export default function MobileScanPage() {
                     <div className="w-full h-full relative">
                         <Scanner
                             onScan={(result) => result[0] && handleScan(result[0].rawValue)}
-                            components={{ finder: false, audio: false }}
+                            components={{ finder: false }}
                             styles={{ container: { width: '100%', height: '100%' } }}
                         />
                         {/* Overlay */}
