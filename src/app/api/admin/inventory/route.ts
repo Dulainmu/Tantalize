@@ -122,7 +122,7 @@ export async function PATCH(req: NextRequest) {
     }
 
     try {
-        const { id, status, paymentSettled } = await req.json();
+        const { id, status, paymentSettled, serialNumber, code, assignedToId } = await req.json();
 
         if (!id) {
             return NextResponse.json({ success: false, message: 'Missing Ticket ID' }, { status: 400 });
@@ -131,10 +131,15 @@ export async function PATCH(req: NextRequest) {
         const updateData: any = {};
         if (status) updateData.status = status;
         if (paymentSettled !== undefined) updateData.paymentSettled = paymentSettled;
+        if (serialNumber) updateData.serialNumber = serialNumber;
+        if (code) updateData.code = code;
+        if (assignedToId !== undefined) {
+             updateData.assignedToId = assignedToId === '' ? null : assignedToId;
+        }
 
         // If marking as IN_STOCK, should we clear assignment? 
         if (status === 'IN_STOCK') {
-            updateData.assignedToId = null;
+            if (!assignedToId) updateData.assignedToId = null; // Only clear if not explicitly setting new agent
             updateData.paymentSettled = false;
             updateData.scannedAt = null; // Reset scan time
         }
