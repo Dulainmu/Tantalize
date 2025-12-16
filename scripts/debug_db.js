@@ -5,11 +5,11 @@ const DB_URL = 'postgres://4f38cc339555579f57d9dec30bb63c3f530949a96f88484f8c45e
 
 const client = new Client({
   connectionString: DB_URL,
-  ssl: { rejectUnauthorized: false }, // Essential for some managed DBs
-  connectionTimeoutMillis: 10000
+  ssl: { rejectUnauthorized: false }, 
+  connectionTimeoutMillis: 30000 // Increased to 30s
 });
 
-console.log('Attempting connection...');
+console.log('Attempting connection to:', DB_URL.replace(/:[^:]*@/, ':****@'));
 
 async function main() {
   try {
