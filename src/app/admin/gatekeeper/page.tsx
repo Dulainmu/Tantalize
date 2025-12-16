@@ -167,8 +167,8 @@ export default function GatekeeperPage() {
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 className={`absolute inset-0 flex flex-col items-center justify-center p-6 text-center z-20 transition-colors duration-300
                                     ${(lastResult.status === 'GRANTED' || (scanMode === 'VERIFY' && lastResult.status === 'VALID')) ? 'bg-emerald-600' : ''}
-                                    ${lastResult.status === 'WARNING' ? 'bg-amber-500 text-black' : ''}
-                                    ${(lastResult.status === 'USED' || lastResult.status === 'INVALID') ? 'bg-red-600' : ''}
+                                    ${lastResult.status === 'WARNING' || lastResult.status === 'NOT_ISSUED' ? 'bg-amber-500 text-black' : ''}
+                                    ${(lastResult.status === 'USED' || lastResult.status === 'BANNED' || lastResult.status === 'NOT_FOUND' || lastResult.status === 'INVALID') ? 'bg-red-600' : ''}
                                 `}
                             >
                                 <motion.div
@@ -177,25 +177,28 @@ export default function GatekeeperPage() {
                                     className={`w-16 h-16 rounded-full flex items-center justify-center mb-4 backdrop-blur-md ${lastResult.status === 'WARNING' ? 'bg-black/20 text-black' : 'bg-white/20 text-white'}`}
                                 >
                                     {lastResult.status === 'GRANTED' || lastResult.status === 'VALID' ? '✓' : ''}
-                                    {lastResult.status === 'WARNING' ? '!' : ''}
-                                    {lastResult.status === 'USED' || lastResult.status === 'INVALID' ? '✕' : ''}
+                                    {lastResult.status === 'WARNING' || lastResult.status === 'NOT_ISSUED' ? '!' : ''}
+                                    {lastResult.status === 'USED' || lastResult.status === 'BANNED' || lastResult.status === 'NOT_FOUND' || lastResult.status === 'INVALID' ? '✕' : ''}
                                 </motion.div>
 
                                 <h2 className={`text-3xl font-black uppercase tracking-tight mb-2 ${lastResult.status === 'WARNING' ? 'text-black' : 'text-white'}`}>
                                     {lastResult.status === 'GRANTED' ? 'ACCESS GRANTED' : ''}
                                     {lastResult.status === 'WARNING' ? '⚠️ UNPAID TICKET' : ''}
+                                    {lastResult.status === 'NOT_ISSUED' ? '⚠️ NOT ISSUED' : ''}
                                     {lastResult.status === 'USED' ? 'ALREADY USED' : ''}
-                                    {lastResult.status === 'INVALID' ? 'INVALID / BANNED' : ''}
+                                    {lastResult.status === 'BANNED' ? '🚫 BANNED TICKET' : ''}
+                                    {lastResult.status === 'NOT_FOUND' ? '❓ TICKET NOT FOUND' : ''}
+                                    {lastResult.status === 'INVALID' ? 'INVALID' : ''}
                                     {lastResult.status === 'VALID' ? 'VALID TICKET' : ''}
                                 </h2>
-                                <p className={`font-medium mb-6 text-sm px-4 leading-relaxed ${lastResult.status === 'WARNING' ? 'text-black/80' : 'text-white/80'}`}>
+                                <p className={`font-medium mb-6 text-sm px-4 leading-relaxed ${lastResult.status === 'WARNING' || lastResult.status === 'NOT_ISSUED' ? 'text-black/80' : 'text-white/80'}`}>
                                     {lastResult.message}
                                 </p>
 
                                 <button
                                     onClick={resetScan}
                                     className={`w-full py-4 rounded-xl font-bold text-sm tracking-widest hover:scale-105 active:scale-95 transition-transform shadow-xl
-                                        ${lastResult.status === 'WARNING' ? 'bg-black text-white' : 'bg-white text-black'}
+                                        ${lastResult.status === 'WARNING' || lastResult.status === 'NOT_ISSUED' ? 'bg-black text-white' : 'bg-white text-black'}
                                     `}
                                 >
                                     SCAN NEXT

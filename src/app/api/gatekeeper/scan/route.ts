@@ -39,8 +39,8 @@ export async function POST(req: NextRequest) {
         if (!ticket) {
             return NextResponse.json({
                 success: false,
-                status: 'INVALID',
-                message: 'Invalid Ticket'
+                status: 'NOT_FOUND',
+                message: 'Ticket Not Found'
             }, { status: 404 });
         }
 
@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
 
         // Check lifecycle status
         if (ticket.status === 'INVALID' || ticket.status === 'BANNED') {
-            resultStatus = 'INVALID';
+            resultStatus = 'BANNED';
             message = 'Ticket Blocked/Banned';
             allowEntry = false;
         }
@@ -64,7 +64,7 @@ export async function POST(req: NextRequest) {
             allowEntry = false;
         }
         else if (ticket.status === 'IN_STOCK') {
-            resultStatus = 'INVALID';
+            resultStatus = 'NOT_ISSUED';
             message = 'Ticket Not Issued (In Stock)';
             allowEntry = false;
         }
