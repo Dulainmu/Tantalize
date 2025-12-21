@@ -195,7 +195,7 @@ export default function CommitteeLinkPage() {
                     <div className="flex-1 relative bg-black">
                          <Scanner
                             onScan={(result) => result[0] && handleScan(result[0].rawValue)}
-                            components={{ finder: false, audio: false }}
+                            components={{ finder: false }}
                             styles={{ container: { width: '100%', height: '100%' } }}
                         />
                         {/* Overlay */}
