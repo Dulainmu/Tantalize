@@ -21,7 +21,7 @@ function getClient() {
 
 export async function appendRow(row: (string | number)[]) {
   const sheetId = process.env.GOOGLE_SHEET_ID;
-  const range = process.env.GOOGLE_SHEET_RANGE || "Sheet1!A:I";
+  const range = process.env.GOOGLE_SHEET_RANGE || "Sheet1!A:N";
 
   if (!sheetId) {
     throw new Error("GOOGLE_SHEET_ID is not set");

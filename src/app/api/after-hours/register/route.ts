@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { appendRow } from "@/lib/googleSheets";
 
-const CATEGORIES = ["Solo Singer", "Dancer / Dance Crew", "Band", "Mixed Performance"];
+const PERFORMANCE_TYPES = [
+  "Singing - Solo",
+  "Singing - Duo/Group",
+  "Singing - Band Performance",
+  "Dance - Solo",
+  "Dance - Group",
+];
 
 const submissionsByIp = new Map<string, number[]>();
 const WINDOW_MS = 60_000;
@@ -39,24 +45,38 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true });
   }
 
-  const actName = String(body.actName ?? "").trim();
+  const fullName = String(body.fullName ?? "").trim();
+  const studentId = String(body.studentId ?? "").trim();
   const university = String(body.university ?? "").trim();
+  const yearOfStudy = String(body.yearOfStudy ?? "").trim();
   const phone = String(body.phone ?? "").trim();
   const email = String(body.email ?? "").trim();
-  const category = String(body.category ?? "").trim();
-  const memberInfo = String(body.memberInfo ?? "").trim();
-  const portfolioLink = String(body.portfolioLink ?? "").trim();
-  const consent = Boolean(body.consent);
+  const performanceType = String(body.performanceType ?? "").trim();
+  const groupName = String(body.groupName ?? "").trim();
+  const otherMembers = String(body.otherMembers ?? "").trim();
+  const performerCount = String(body.performerCount ?? "").trim();
+  const heardFrom = String(body.heardFrom ?? "").trim();
+  const notes = String(body.notes ?? "").trim();
+  const declaration = Boolean(body.declaration);
 
-  if (!actName || !university || !phone || !email || !category || !consent) {
+  if (
+    !fullName ||
+    !university ||
+    !yearOfStudy ||
+    !phone ||
+    !email ||
+    !performanceType ||
+    !performerCount ||
+    !declaration
+  ) {
     return NextResponse.json(
-      { error: "Please fill in all required fields and accept the consent checkbox." },
+      { error: "Please fill in all required fields and accept the declaration." },
       { status: 400 }
     );
   }
 
-  if (!CATEGORIES.includes(category)) {
-    return NextResponse.json({ error: "Invalid category." }, { status: 400 });
+  if (!PERFORMANCE_TYPES.includes(performanceType)) {
+    return NextResponse.json({ error: "Invalid performance type." }, { status: 400 });
   }
 
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -64,16 +84,29 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Please enter a valid email address." }, { status: 400 });
   }
 
+  const performerCountNum = Number(performerCount);
+  if (!Number.isFinite(performerCountNum) || performerCountNum < 1) {
+    return NextResponse.json(
+      { error: "Please enter a valid number of performers." },
+      { status: 400 }
+    );
+  }
+
   try {
     await appendRow([
       new Date().toISOString(),
-      actName,
+      fullName,
+      studentId,
       university,
+      yearOfStudy,
       phone,
       email,
-      category,
-      memberInfo,
-      portfolioLink,
+      performanceType,
+      groupName,
+      otherMembers,
+      performerCountNum,
+      heardFrom,
+      notes,
       "Yes",
     ]);
   } catch (err) {
