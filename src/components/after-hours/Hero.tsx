@@ -46,7 +46,7 @@ export default function Hero() {
           className="text-xs tracking-[0.25em] text-white/50"
           style={{ fontFamily: "var(--font-ah-mono), monospace" }}
         >
-          STUDENT ACTIVITY CLUB, APIIT PRESENTS
+          Student Activity Club of APIIT presents
         </motion.p>
 
         <motion.h1
