@@ -4,63 +4,138 @@
   background-size: 44px 44px;
 }
 
-.ah-glitch {
+/* Chrome shine that lives only inside the logo letterforms — the logo
+   itself is used as a mask, so the sweep never spills onto the page. */
+.ah-logo-shine {
   position: relative;
-  display: inline-block;
+  display: block;
 }
 
-.ah-glitch::before,
-.ah-glitch::after {
-  content: attr(data-text);
+.ah-logo-shine::after {
+  content: "";
   position: absolute;
   inset: 0;
-  background: inherit;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.ah-glitch::before {
-  background: linear-gradient(100deg, #ff2fd0, #ff2fd0);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  transform: translate(3px, -2px);
-  opacity: 0.55;
-  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-}
-
-.ah-glitch::after {
-  background: linear-gradient(100deg, #3b7bff, #3b7bff);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  transform: translate(-3px, 2px);
-  opacity: 0.55;
-  clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    transparent 32%,
+    rgba(255, 255, 255, 0.6) 50%,
+    transparent 68%
+  );
+  background-size: 260% 100%;
+  background-position: 130% 0;
+  -webkit-mask-image: url("/after-hours/after-hours-logo.webp");
+  mask-image: url("/after-hours/after-hours-logo.webp");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .ah-glitch::before {
-    animation: ah-glitch-shift 3.4s infinite steps(2, end);
-  }
-  .ah-glitch::after {
-    animation: ah-glitch-shift-rev 3.4s infinite steps(2, end);
+  .ah-logo-shine::after {
+    animation: ah-shine-slide 5.5s ease-in-out infinite;
   }
 }
 
-@keyframes ah-glitch-shift {
-  0%, 88% { transform: translate(3px, -2px); }
-  90% { transform: translate(-4px, 1px); }
-  92% { transform: translate(2px, -3px); }
-  100% { transform: translate(3px, -2px); }
+@keyframes ah-shine-slide {
+  0% { background-position: 130% 0; }
+  38% { background-position: -40% 0; }
+  100% { background-position: -40% 0; }
 }
 
-@keyframes ah-glitch-shift-rev {
-  0%, 88% { transform: translate(-3px, 2px); }
-  90% { transform: translate(4px, -1px); }
-  92% { transform: translate(-2px, 3px); }
-  100% { transform: translate(-3px, 2px); }
+/* Pixel-shred glitch edges, lifted from the teaser artwork margins */
+.ah-glitch-edge {
+  position: absolute;
+  width: 16px;
+  pointer-events: none;
+  opacity: 0.65;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      #ff2fd0 0 5px,
+      transparent 5px 13px,
+      #ff8a3d 13px 16px,
+      transparent 16px 27px,
+      #a34dff 27px 31px,
+      transparent 31px 44px,
+      #ff5fdd 44px 47px,
+      transparent 47px 58px
+    );
+}
+
+.ah-glitch-edge-l {
+  left: 0;
+  top: 16%;
+  height: 46%;
+}
+
+.ah-glitch-edge-r {
+  right: 0;
+  top: 42%;
+  height: 40%;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      #b23bff 0 4px,
+      transparent 4px 15px,
+      #ff5fdd 15px 19px,
+      transparent 19px 29px,
+      #ff8a3d 29px 32px,
+      transparent 32px 45px
+    );
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ah-glitch-edge {
+    animation: ah-edge-jitter 2.9s steps(2, end) infinite;
+  }
+  .ah-glitch-edge-r {
+    animation-delay: 1.3s;
+  }
+}
+
+@keyframes ah-edge-jitter {
+  0%, 82% { background-position: 0 0; transform: translateX(0); }
+  85% { background-position: 0 22px; transform: translateX(3px); }
+  89% { background-position: 0 -14px; transform: translateX(0); }
+  93% { background-position: 0 9px; transform: translateX(-3px); }
+  100% { background-position: 0 0; transform: translateX(0); }
+}
+
+/* Four-point sparkle accents from the teaser backgrounds */
+.ah-spark {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.7);
+  clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ah-spark {
+    animation: ah-twinkle 3.2s ease-in-out infinite;
+  }
+}
+
+@keyframes ah-twinkle {
+  0%, 100% { opacity: 0.15; transform: scale(0.7) rotate(0deg); }
+  50% { opacity: 0.85; transform: scale(1.15) rotate(18deg); }
+}
+
+/* Loader glitch flicker on the After Hours logo entrance */
+@media (prefers-reduced-motion: no-preference) {
+  .ah-loader-flicker {
+    animation: ah-flicker 0.5s steps(2, end) 0.95s 1;
+  }
+}
+
+@keyframes ah-flicker {
+  0% { opacity: 1; transform: translateX(0); }
+  20% { opacity: 0.4; transform: translateX(-4px); }
+  40% { opacity: 1; transform: translateX(3px); }
+  60% { opacity: 0.55; transform: translateX(-2px); }
+  80% { opacity: 1; transform: translateX(1px); }
+  100% { opacity: 1; transform: translateX(0); }
 }
 
 .ah-form-shell {

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 
@@ -40,10 +41,14 @@ const splashParticles: SplashParticle[] = Array.from({ length: PARTICLE_COUNT },
 });
 
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
-  const [isLoading, setIsLoading] = useState(true);
+  const pathname = usePathname();
+  // After Hours has its own branded loader — don't stack the Tantalize splash on it.
+  const skipSplash = pathname?.startsWith('/after-hours') ?? false;
+  const [isLoading, setIsLoading] = useState(!skipSplash);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    if (skipSplash) return;
     const minShowMs = 800; // Optimized splash time
 
     // Faster progress animation
@@ -66,7 +71,7 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
       clearTimeout(timer);
       clearInterval(progressInterval);
     };
-  }, []);
+  }, [skipSplash]);
 
   return (
     <>

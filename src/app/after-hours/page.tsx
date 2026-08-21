@@ -8,8 +8,8 @@ import ScrollProgress from "@/components/after-hours/ScrollProgress";
 const STAGES = [
   { label: "Registrations", detail: "Open now" },
   { label: "Auditions", detail: "Date TBA" },
-  { label: "After Hours", detail: "Semi-Finals — TBA" },
-  { label: "Tantalize", detail: "Grand Finale — TBA" },
+  { label: "After Hours", detail: "Semi-Finals - TBA" },
+  { label: "Tantalize", detail: "Grand Finale - TBA" },
 ];
 
 const CATEGORIES = [
@@ -20,12 +20,42 @@ const CATEGORIES = [
 ];
 
 const COMMITTEE = [
-  { role: "Project Chairperson", name: "Nishen Anthony" },
-  { role: "Project Co-Chairperson", name: "Denam Pathmanathan" },
-  { role: "Project Coordinator", name: "Yazid Niyas" },
-  { role: "Project Coordinator", name: "Ishra Ammon" },
-  { role: "Project Secretary", name: "Diseni Chanulya" },
-  { role: "Project Treasurer", name: "Kithmi Rachela" },
+  {
+    role: "Project Chairperson",
+    name: "Raveen Gunasekara",
+    phone: "+94 78 331 3828",
+    email: "",
+  },
+  {
+    role: "Project Co-Chairperson",
+    name: "Denam Pathmanathan",
+    phone: "+94 75 927 8304",
+    email: "denampathmanathan@gmail.com",
+  },
+  {
+    role: "Project Coordinator",
+    name: "Yazid Niyas",
+    phone: "+94 77 886 7569",
+    email: "yazidniyas@gmail.com",
+  },
+  {
+    role: "Project Coordinator",
+    name: "Ishra Ammon",
+    phone: "+94 74 374 1669",
+    email: "ishraammon69@gmail.com",
+  },
+  {
+    role: "Project Secretary",
+    name: "Diseni Dharmadasa",
+    phone: "+94 76 074 2825",
+    email: "disenichanulya@gmail.com",
+  },
+  {
+    role: "Project Treasurer",
+    name: "Kithmi Rachela",
+    phone: "+94 77 823 1299",
+    email: "kithmirachela9@gmail.com",
+  },
 ];
 
 export default function AfterHoursPage() {
@@ -57,8 +87,8 @@ export default function AfterHoursPage() {
           </h2>
           <p className="mt-5 max-w-2xl text-white/70">
             After Hours brings together talented performers from universities
-            across Sri Lanka — solo singers, dancers and dance crews, bands,
-            and mixed acts — competing for a place in the grand finale.
+            across Sri Lanka: solo singers, dancers and dance crews, bands,
+            and mixed acts, competing for a place in the grand finale.
             It&rsquo;s the official platform where the country&rsquo;s next
             wave of performers earns their spot on Tantalize&rsquo;s stage.
           </p>
@@ -169,12 +199,6 @@ export default function AfterHoursPage() {
             >
               Register to Perform
             </Link>
-            <Link
-              href="/after-hours/register-google"
-              className="rounded-sm border border-white/25 px-8 py-3.5 text-sm font-semibold uppercase tracking-wide text-white/80 transition-colors hover:border-white/60 hover:text-white"
-            >
-              Use the Google Form
-            </Link>
           </div>
         </Reveal>
       </section>
@@ -202,6 +226,13 @@ export default function AfterHoursPage() {
                   {person.role}
                 </div>
                 <div className="mt-1 font-medium">{person.name}</div>
+                <div
+                  className="mt-2 flex flex-col gap-0.5 text-xs text-white/45"
+                  style={{ fontFamily: "var(--font-ah-mono), monospace" }}
+                >
+                  <span>{person.phone}</span>
+                  <span>{person.email || "Contact via phone"}</span>
+                </div>
               </div>
             </Reveal>
           ))}

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Big_Shoulders, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+import AfterHoursShell from "@/components/after-hours/AfterHoursShell";
 
 const bigShoulders = Big_Shoulders({
   subsets: ["latin"],
@@ -20,11 +21,11 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "After Hours — Register to Perform",
+  title: "After Hours: Register to Perform",
   description:
-    "After Hours is Sri Lanka's inter-university talent competition — the official qualifying stage for Tantalize 2026. Solo singers, dancers, bands, and mixed acts, register now.",
+    "After Hours is Sri Lanka's inter-university talent competition, the official qualifying stage for Tantalize 2026. Solo singers, dancers, bands, and mixed acts, register now.",
   openGraph: {
-    title: "After Hours — Register to Perform",
+    title: "After Hours: Register to Perform",
     description:
       "One stage. Endless talent. The official qualifying platform for Tantalize 2026.",
     url: "https://tantalize.lk/after-hours",
@@ -40,7 +41,7 @@ export default function AfterHoursLayout({
     <div
       className={`${bigShoulders.variable} ${plexSans.variable} ${plexMono.variable} bg-black text-white`}
     >
-      {children}
+      <AfterHoursShell>{children}</AfterHoursShell>
     </div>
   );
 }

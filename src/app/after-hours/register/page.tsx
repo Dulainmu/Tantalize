@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import "../after-hours.css";
 import RegisterForm from "@/components/after-hours/RegisterForm";
 import RegisterSidebar from "@/components/after-hours/RegisterSidebar";
 
 export const metadata: Metadata = {
-  title: "Register — After Hours",
+  title: "Register - After Hours",
   description: "Register your act for After Hours, the official qualifying stage for Tantalize 2026.",
 };
 
@@ -15,6 +14,8 @@ export default function RegisterPage() {
       <div className="ah-grain" />
       <div className="ah-blob ah-blob-1 -left-24 -top-24 h-72 w-72 bg-fuchsia-600/20" aria-hidden />
       <div className="ah-blob ah-blob-2 -right-20 top-24 h-72 w-72 bg-blue-600/15" aria-hidden />
+      <div className="ah-glitch-edge ah-glitch-edge-l" aria-hidden />
+      <div className="ah-glitch-edge ah-glitch-edge-r" aria-hidden />
 
       <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 py-14 sm:px-10 lg:grid-cols-[340px_1fr] lg:gap-16 lg:py-20">
         <RegisterSidebar>
@@ -32,14 +33,6 @@ export default function RegisterPage() {
 
         <section className="min-w-0">
           <RegisterForm />
-
-          <p className="mt-6 max-w-2xl text-xs text-white/35">
-            Having trouble with this form?{" "}
-            <Link href="/after-hours/register-google" className="text-fuchsia-400 hover:text-fuchsia-300">
-              Use the Google Form instead
-            </Link>
-            .
-          </p>
         </section>
       </div>
     </main>

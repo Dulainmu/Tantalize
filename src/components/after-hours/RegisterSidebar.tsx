@@ -10,7 +10,7 @@ const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const FACTS: { icon: ReactNode; text: string }[] = [
   { icon: <Users size={16} />, text: "Open to students from every university in Sri Lanka" },
-  { icon: <Mic2 size={16} />, text: "Solo, duo/group, band, or dance — any category" },
+  { icon: <Mic2 size={16} />, text: "Solo, duo/group, band, or dance - any category" },
   { icon: <Trophy size={16} />, text: "Winners advance to the Tantalize 2026 grand finale" },
   { icon: <Speaker size={16} />, text: "Drum set & sound system provided on the day" },
 ];

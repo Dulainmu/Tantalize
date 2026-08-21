@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -28,6 +29,12 @@ export default function Hero() {
         aria-hidden
       />
 
+      <div className="ah-glitch-edge ah-glitch-edge-l" aria-hidden />
+      <div className="ah-glitch-edge ah-glitch-edge-r" aria-hidden />
+      <span className="ah-spark" style={{ top: "14%", right: "18%" }} aria-hidden />
+      <span className="ah-spark" style={{ top: "58%", right: "8%", animationDelay: "1.1s" }} aria-hidden />
+      <span className="ah-spark" style={{ bottom: "26%", left: "34%", animationDelay: "2s" }} aria-hidden />
+
       <motion.div
         variants={container}
         initial="hidden"
@@ -39,21 +46,26 @@ export default function Hero() {
           className="text-xs tracking-[0.25em] text-white/50"
           style={{ fontFamily: "var(--font-ah-mono), monospace" }}
         >
-          STUDENT ACTIVITY CLUB, APIIT — PRESENTS
+          STUDENT ACTIVITY CLUB, APIIT PRESENTS
         </motion.p>
 
         <motion.h1
           variants={item}
-          data-text="AFTER HOURS"
-          className="ah-glitch mt-4 text-[15vw] font-extrabold uppercase leading-[0.85] tracking-tight sm:text-[9vw] lg:text-[7vw]"
-          style={{ fontFamily: "var(--font-ah-display), sans-serif" }}
+          className="ah-logo-shine relative mx-auto mt-4 w-full max-w-[640px] sm:max-w-[760px] lg:max-w-[860px]"
         >
-          AFTER HOURS
+          <Image
+            src="/after-hours/after-hours-logo.webp"
+            alt="After Hours"
+            width={1904}
+            height={924}
+            priority
+            className="mx-auto h-auto w-full select-none drop-shadow-[0_0_40px_rgba(140,70,255,0.35)]"
+          />
         </motion.h1>
 
         <motion.p variants={item} className="mt-6 max-w-xl text-lg text-white/70 sm:text-xl">
           One stage. Endless talent. Sri Lanka&rsquo;s inter-university talent
-          competition — the official qualifying stage for{" "}
+          competition, the official qualifying stage for{" "}
           <span className="text-white">Tantalize 2026</span>.
         </motion.p>
 
