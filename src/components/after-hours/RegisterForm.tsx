@@ -186,7 +186,7 @@ export default function RegisterForm() {
         initial={{ opacity: 0, scale: 0.92 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, ease: EASE }}
-        className="ah-form-shell relative max-w-2xl overflow-hidden p-10 text-center"
+        className="ah-form-shell relative w-full max-w-2xl overflow-hidden p-10 text-center"
       >
         <div className="relative mx-auto flex h-16 w-16 items-center justify-center">
           {!reduceMotion &&
@@ -240,7 +240,7 @@ export default function RegisterForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="ah-form-shell relative max-w-2xl p-8 sm:p-10">
+    <form onSubmit={handleSubmit} className="ah-form-shell relative w-full max-w-3xl p-8 sm:p-10 lg:max-w-none">
       {/* Honeypot — hidden from real users */}
       <input
         type="text"
