@@ -3,6 +3,7 @@ import Link from "next/link";
 import "../after-hours.css";
 import CheckerStripe from "@/components/after-hours/CheckerStripe";
 import RegisterForm from "@/components/after-hours/RegisterForm";
+import RegisterHeader from "@/components/after-hours/RegisterHeader";
 
 export const metadata: Metadata = {
   title: "Register — After Hours",
@@ -11,8 +12,12 @@ export const metadata: Metadata = {
 
 export default function RegisterPage() {
   return (
-    <main className="ah-grid-bg min-h-screen" style={{ fontFamily: "var(--font-ah-body), system-ui, sans-serif" }}>
-      <section className="px-6 pt-14 pb-10 sm:px-10">
+    <main className="ah-grid-bg relative min-h-screen overflow-hidden" style={{ fontFamily: "var(--font-ah-body), system-ui, sans-serif" }}>
+      <div className="ah-grain" />
+      <div className="ah-blob ah-blob-1 -left-24 -top-24 h-72 w-72 bg-fuchsia-600/20" aria-hidden />
+      <div className="ah-blob ah-blob-2 -right-20 top-24 h-72 w-72 bg-blue-600/15" aria-hidden />
+
+      <RegisterHeader>
         <Link
           href="/after-hours"
           className="text-xs tracking-[0.2em] text-white/40 transition-colors hover:text-white/70"
@@ -30,11 +35,11 @@ export default function RegisterPage() {
           Fill in your details below to register your act for After Hours.
           Fields marked * are required.
         </p>
-      </section>
+      </RegisterHeader>
 
       <CheckerStripe />
 
-      <section className="px-6 py-12 sm:px-10">
+      <section className="relative px-6 py-12 sm:px-10">
         <RegisterForm />
 
         <p className="mt-6 max-w-2xl text-xs text-white/35">
