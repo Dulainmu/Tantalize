@@ -31,9 +31,15 @@ export async function appendRow(row: (string | number)[]) {
   // RAW (not USER_ENTERED) so Sheets never tries to parse a value as a
   // formula — a leading "+" on a phone number like "+94 77 ..." would
   // otherwise be read as the start of a formula and error out.
+  //
+  // OVERWRITE (not INSERT_ROWS) — INSERT_ROWS does a structural row
+  // insert, which shifts any formula elsewhere in the spreadsheet that
+  // references the affected rows (e.g. a Statistics tab's =COUNTA(B2:B)
+  // silently becomes =COUNTA(B3:B) on every new submission). OVERWRITE
+  // just writes into the next empty row without touching the grid.
   const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${encodeURIComponent(
     range
-  )}:append?valueInputOption=RAW&insertDataOption=INSERT_ROWS`;
+  )}:append?valueInputOption=RAW&insertDataOption=OVERWRITE`;
 
   const res = await client.request({
     url,
